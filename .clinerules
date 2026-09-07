@@ -1,0 +1,37 @@
+# Project Overview: Autonomous LEGO Train
+Developing an autonomous LEGO model train using Raspberry Pi, OpenCV camera vision, and Bluetooth controls.
+Target Developer: Pair-programming with 11-year-old Lev.
+
+## Local Environment & Constraints
+- Model: Local Qwen3-Coder 30B via Ollama
+- Context Window Limit: 8,192 tokens. Keep code clean, modular, and concise.
+- Teaching Mode: Include clear comments and explain code step-by-step so Lev can follow the logic easily.
+
+## System Hardware & Software Stack
+- Brain: Raspberry Pi (connected via SSH / Local Network)
+- Hardware: LEGO Train Motor, Camera Module, Bluetooth / Motor Controller
+- Software: Python 3, OpenCV (`cv2`), Bleak for Bluetooth
+- Operating OS: Linux (Pi), Windows 11 (Development Host PC)
+
+## Code Standards
+- Keep functions short and single-purpose.
+- Prefer explicit variable names (e.g., `frame_width` instead of `fw`).
+- Always highlight safety, hardware bounds, and error handling for motor control.
+
+## Virtual Environment Usage
+- This project uses a Python virtual environment located at `.venv`
+- All Python dependencies must be installed within this virtual environment
+- To activate the virtual environment:
+  - Windows: `.venv\Scripts\activate`
+  - Linux/Mac: `source .venv/bin/activate`
+- If the `.venv` directory doesn't exist, it should be created using `python -m venv .venv`
+- The `.venv` directory should not be committed to version control
+
+## SSH Connection Details
+- Hostname: levpi
+- Username: lev (not pi)
+
+## Bluetooth Connection
+- Use Bleak librariy for Bluetooth communication with LEGO motors
+- LEGO devices typically appear as "LEGO" or "Train" in device names
+- Connect to RFCOMM port 1 for basic communication
