@@ -7,7 +7,6 @@ This project implements an autonomous LEGO train using Raspberry Pi, camera visi
 ```
 .
 ├── bluetooth_controller.py     # Bluetooth controller for LEGO motors
-├── ip_finder.py                # Tool to find Raspberry Pi IP address
 └── .clinerules                 # Project documentation and guidelines
 ```
 
@@ -42,7 +41,7 @@ source .venv/bin/activate
 
 Then install required packages:
 ```bash
-pip install bleak pybluez
+pip install bleak
 ```
 
 ### 3. Connect to Raspberry Pi
