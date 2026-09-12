@@ -96,6 +96,13 @@ def test_camera(preview_seconds=5):
         # Display the live preview window
         cv2.imshow("Camera Test", frame)
         
+        # cv2.waitKey(1) is required to actually paint the window!
+        # It also processes keyboard events (e.g., pressing 'q' to quit).
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord("q"):
+            print("\n⌨️ User pressed 'q' to quit early.")
+            break
+        
         # Auto-quit when timer expires
         if elapsed >= preview_seconds:
             print(f"\n✅ Captured {frame_count} frames total.")

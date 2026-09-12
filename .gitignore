@@ -7,3 +7,6 @@ __pycache__/
 camera_test_screenshot.jpg
 *_screenshot.jpg
 *_test_*.jpg
+
+# Test results folder
+camera_test_results/

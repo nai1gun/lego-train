@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-Camera Smoke Test (Auto Mode) - Raspberry Pi Compatible
-This script tests the Pi Camera Module by capturing frames and verifying
-the camera is working correctly.
+Camera Smoke Test - Raspberry Pi (Picamera2)
+Tests the Pi Camera Module using the official Picamera2 API (libcamera-based).
 
-How it works:
-1. Opens the default camera (index 0) using libcamera backend if available
-2. Displays a live preview window for 5 seconds with countdown
-3. Automatically saves a screenshot
-4. Reports camera properties (resolution, FPS)
+Why Picamera2?
+- Pi Camera Module 3 uses libcamera, not V4L2. OpenCV's cv2.VideoCapture
+  cannot access it directly.
+- Picamera2 is the official Raspberry Pi camera API — it gives numpy arrays
+  that work perfectly with OpenCV.
+- Runs headless (no display needed) — perfect for a train on tracks!
 
-For Lev: This is our first step to make the train "see" the track!
+Usage on Pi:
+    python3 camera_test_pi.py
 """
 
 import cv2
@@ -21,67 +22,88 @@ from pathlib import Path
 
 def test_camera(preview_seconds=5):
     """Test the camera by capturing frames and saving a screenshot."""
-    
+
     print("=" * 60)
-    print("📷 Camera Smoke Test (Raspberry Pi)")
+    print("📷 Camera Smoke Test (Raspberry Pi - Picamera2)")
     print("=" * 60)
-    
-    # Try to open the camera with auto-detect backend
-    print("Opening camera with auto-detect backend...")
-    camera = cv2.VideoCapture(0)
-    
-    # Verify the camera opened successfully
-    if not camera.isOpened():
-        print("\n❌ ERROR: Could not open camera!")
-        print("   Possible solutions:")
-        print("   1. Check camera cable connection to CSI port")
-        print("   2. Run: sudo raspi-config → Interface Options → Camera")
-        print("   3. Reboot the Raspberry Pi")
+
+    # Step 1: Import and initialize Picamera2
+    try:
+        from picamera2 import Picamera2
+        picam2 = Picamera2()
+    except ImportError:
+        print("\n❌ ERROR: picamera2 is not installed!")
+        print("   Install it on the Pi with:")
+        print("   sudo apt install python3-picamera2")
         sys.exit(1)
-    
-    print("✅ Successfully opened camera!")
-    
-    # Read camera properties (resolution, FPS)
-    width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    fps = camera.get(cv2.CAP_PROP_FPS)
-    
-    print(f"\n📊 Camera Properties:")
-    print(f"   Resolution: {width}x{height}")
-    print(f"   FPS: {fps:.1f}")
-    print("-" * 60)
-    print(f"Auto mode: Previewing for {preview_seconds} seconds...")
-    print("-" * 60)
-    
-    # Start the live preview loop
+
+    # Step 2: Get available sensor modes
+    sensor_modes = picam2.sensor_modes
+    print(f"\n📊 Available Sensor Modes:")
+    for i, mode in enumerate(sensor_modes):
+        print(f"   Mode {i}: {mode['size'][0]}x{mode['size'][1]} "
+              f"@ {mode['fps']:.1f} fps")
+
+    # Choose a fast mode for real-time track following
+    target_width, target_height = 640, 480
+    target_fps = 30.0
+
+    print(f"\n🎯 Target mode: {target_width}x{target_height} @ {target_fps} fps")
+    print(f"   (Optimized for speed — the train needs fast frames!)")
+
+    # Step 3: Configure the camera for video capture
+    # We configure a video stream for fast frame capture during the test
+    config = picam2.create_video_configuration(
+        main={"size": (target_width, target_height)},
+    )
+    picam2.configure(config)
+
+    # Step 4: Start the camera
+    try:
+        picam2.start()
+    except RuntimeError as e:
+        print(f"\n❌ ERROR: Could not start camera!")
+        print(f"   {e}")
+        print("\n   Possible causes:")
+        print("   1. Camera cable not connected firmly to CSI port")
+        print("   2. Another program is using the camera — close it first")
+        print("   3. Camera not detected — check 'rpicam-still --list-cameras'")
+        sys.exit(1)
+
+    print("✅ Camera started successfully!")
+
+    # Step 5: Capture frames in a loop
     frame_count = 0
-    output_path = Path("camera_test_screenshot.jpg")
     start_time = time.time()
-    
+    output_path = Path("camera_test_screenshot.jpg")
+
+    print(f"\n📸 Capturing for {preview_seconds} seconds...")
+    print("-" * 60)
+
     while True:
-        # Capture a frame from the camera
-        ret, frame = camera.read()
-        
-        # Check if frame was captured successfully
-        if not ret:
-            print("⚠️ Failed to capture frame, retrying...")
-            time.sleep(0.1)
-            continue
-        
+        # Get the latest frame as a numpy array
+        frame = picam2.capture_array()
+
+        # Picamera2 returns BGRA (4 channels). OpenCV expects BGR (3 channels).
+        # Strip the alpha channel to get clean BGR for OpenCV processing.
+        if frame.shape[2] == 4:
+            frame = frame[:, :, :3].copy()  # .copy() ensures contiguous memory
+        else:
+            frame = frame.copy()
+
         frame_count += 1
-        
-        # Add frame counter text to the image
-        # This helps us verify the camera is live
+
+        # Add frame counter text overlay (using OpenCV)
         cv2.putText(
             frame,
             f"Frames: {frame_count}",
             (10, 30),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.8,
-            (0, 255, 0),  # Green text
-            2  # Line thickness
+            (0, 255, 0),
+            2,
         )
-        
+
         # Add countdown timer
         elapsed = time.time() - start_time
         remaining = max(0, preview_seconds - elapsed)
@@ -91,38 +113,64 @@ def test_camera(preview_seconds=5):
             (10, 60),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.8,
-            (255, 255, 0),  # Yellow text
-            2
+            (255, 255, 0),
+            2,
         )
-        
-        # Display the live preview window
-        cv2.imshow("Camera Test", frame)
-        
+
+        # Add FPS counter
+        if elapsed > 0:
+            current_fps = frame_count / elapsed
+            cv2.putText(
+                frame,
+                f"FPS: {current_fps:.1f}",
+                (10, 90),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.8,
+                (0, 150, 255),
+                2,
+            )
+
+        # Save every 10th frame as preview (avoids filling disk)
+        if frame_count % 10 == 0:
+            preview_name = f"camera_test_preview_{frame_count:04d}.jpg"
+            cv2.imwrite(preview_name, frame)
+
         # Auto-quit when timer expires
         if elapsed >= preview_seconds:
-            print(f"\n✅ Captured {frame_count} frames total.")
             break
-        
-        # Small delay to prevent high CPU usage
-        time.sleep(0.01)
-    
-    # Save a screenshot for verification
-    ret, save_frame = camera.read()
-    if ret:
-        cv2.imwrite(str(output_path), save_frame)
-        print(f"📸 Screenshot saved to: {output_path.absolute()}")
-    else:
-        print("⚠️ Could not save screenshot.")
-    
-    # Clean up resources
-    camera.release()
-    cv2.destroyAllWindows()
-    
-    print("=" * 60)
-    print("✅ Camera test complete!")
-    print("=" * 60)
+
+    # Step 6: Save a final screenshot at high resolution
+    print(f"\n✅ Captured {frame_count} frames total.")
+    print(f"   Preview frames saved as camera_test_preview_*.jpg")
+
+    # Capture a high-res still image using switch_mode_and_capture_array
+    # This temporarily switches the camera to still mode and returns a numpy array
+    still_config = picam2.create_still_configuration(main={"size": (2304, 1296)})
+    still_frame = picam2.switch_mode_and_capture_array(still_config)
+    picam2.stop()  # Return to stopped state
+
+    # Strip alpha channel if present (convert BGRA -> BGR for OpenCV)
+    if still_frame.shape[2] == 4:
+        still_frame = still_frame[:, :, :3]
+    cv2.imwrite(str(output_path), still_frame)
+    print(f"📸 Screenshot saved to: {output_path.absolute()}")
+
+    # Step 7: Calculate final stats
+    total_time = time.time() - start_time
+    actual_fps = frame_count / total_time if total_time > 0 else 0
+    print("-" * 60)
+    print(f"📊 Results:")
+    print(f"   Total frames: {frame_count}")
+    print(f"   Duration: {total_time:.1f}s")
+    print(f"   Average FPS: {actual_fps:.1f}")
+    print(f"   Frame size: {target_width}x{target_height}")
+    print("-" * 60)
+
+    # Step 8: Clean up
+    picam2.stop()
+    picam2.close()
+    print("✅ Camera stopped. Test complete!")
 
 
 if __name__ == "__main__":
-    # Run in auto mode (no manual input needed)
     test_camera(preview_seconds=5)
