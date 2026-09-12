@@ -7,7 +7,7 @@
 ssh lev@levpi
 
 # Run the camera test (uses Picamera2 — no venv needed!)
-python3 camera_test_pi.py
+python3 scripts/camera_smoke_test.py
 ```
 
 ## Virtual Environment on Pi
@@ -16,14 +16,14 @@ On Raspberry Pi OS Bookworm, **do NOT** create a plain venv — it won't see sys
 
 **Option A: Use system Python directly (recommended for the Pi)**
 ```bash
-python3 camera_test_pi.py
+python3 scripts/camera_smoke_test.py
 ```
 
 **Option B: Create a venv that includes system packages**
 ```bash
 python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
-python3 camera_test_pi.py
+python3 scripts/camera_smoke_test.py
 ```
 
 ⚠️ **Never** use `pip install` without a venv on Bookworm — it will fail with "externally-managed-environment". Use `sudo apt install python3-*` instead.

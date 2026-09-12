@@ -6,10 +6,14 @@ This project implements an autonomous LEGO train using Raspberry Pi, camera visi
 
 ```
 .
-├── bluetooth_controller.py     # Bluetooth controller for LEGO motors
-├── camera_test.py              # Camera smoke test script
-├── README.md                   # This file
-└── .clinerules                 # Project documentation and guidelines
+├── src/
+│   └── bluetooth_controller.py     # Bluetooth controller for LEGO motors
+├── scripts/
+│   ├── camera_smoke_test.py        # Camera smoke test (auto-detects Pi / USB)
+│   └── test_and_copy.ps1           # Helper: run test on Pi, copy results back
+├── tests/                          # Unit tests (reserved for future)
+├── README.md                       # This file
+└── .clinerules                     # Project documentation and guidelines
 ```
 
 ## Virtual Environment
@@ -60,13 +64,13 @@ Run the camera smoke test to verify everything works:
 
 ```bash
 # On Windows (development host)
-python camera_test.py
+python scripts/camera_smoke_test.py
 
 # On Raspberry Pi (via SSH)
 ssh lev@levpi
 cd ~/lego-train
 source .venv/bin/activate
-python camera_test.py
+python scripts/camera_smoke_test.py
 ```
 
 The test will:
@@ -83,7 +87,7 @@ ssh lev@levpi
 
 ## Bluetooth Control
 
-The `bluetooth_controller.py` script provides:
+The `src/bluetooth_controller.py` script provides:
 
 1. **Device Discovery**: Automatically scans for LEGO devices
 2. **Connection Management**: Establishes connection to LEGO motors
@@ -92,13 +96,14 @@ The `bluetooth_controller.py` script provides:
 ### Usage
 
 ```bash
-python bluetooth_controller.py
+python src/bluetooth_controller.py
 ```
 
 ## Project Components
 
-- `bluetooth_controller.py`: Main Bluetooth controller with device discovery and command sending
-- `camera_test.py`: Camera smoke test - verifies camera is working correctly
+- `src/bluetooth_controller.py`: Main Bluetooth controller with device discovery and command sending
+- `scripts/camera_smoke_test.py`: Camera smoke test - verifies camera is working correctly (auto-detects Pi / USB)
+- `tests/`: Unit tests (reserved for future)
 - `README.md`: Project documentation
 - `.clinerules`: Project documentation and guidelines
 

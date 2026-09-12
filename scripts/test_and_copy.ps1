@@ -6,7 +6,7 @@ $ErrorActionPreference = "Stop"
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 Write-Host "=== Running camera test on Pi ===" -ForegroundColor Cyan
-ssh lev@levpi 'cd /home/lev && rm -f camera_test_preview_*.jpg camera_test_screenshot.jpg && python3 camera_test_pi.py'
+ssh lev@levpi 'cd /home/lev && rm -f camera_test_preview_*.jpg camera_test_screenshot.jpg && python3 camera_smoke_test.py'
 
 Write-Host "`n=== Copying results to local machine ===" -ForegroundColor Cyan
 
