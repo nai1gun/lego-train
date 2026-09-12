@@ -2,3 +2,8 @@
 __pycache__/
 *.pyc
 .claude/
+
+# Test output files
+camera_test_screenshot.jpg
+*_screenshot.jpg
+*_test_*.jpg

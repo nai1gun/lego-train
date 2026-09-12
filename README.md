@@ -7,6 +7,8 @@ This project implements an autonomous LEGO train using Raspberry Pi, camera visi
 ```
 .
 ├── bluetooth_controller.py     # Bluetooth controller for LEGO motors
+├── camera_test.py              # Camera smoke test script
+├── README.md                   # This file
 └── .clinerules                 # Project documentation and guidelines
 ```
 
@@ -42,9 +44,38 @@ source .venv/bin/activate
 Then install required packages:
 ```bash
 pip install bleak
+pip install opencv-python       # For local development on Windows
+pip install opencv-python-headless  # For Raspberry Pi (no GUI needed)
 ```
 
-### 3. Connect to Raspberry Pi
+### 3. Camera Setup
+
+Before using the camera, make sure:
+1. The Pi Camera Module is properly connected to the CSI port
+2. Camera is enabled on Raspberry Pi (`raspi-config` → Interface Options → Camera)
+
+#### Test the Camera
+
+Run the camera smoke test to verify everything works:
+
+```bash
+# On Windows (development host)
+python camera_test.py
+
+# On Raspberry Pi (via SSH)
+ssh lev@levpi
+cd ~/lego-train
+source .venv/bin/activate
+python camera_test.py
+```
+
+The test will:
+- Open the camera and display a live preview
+- Show resolution and FPS information
+- Capture a screenshot automatically after 5 seconds
+- Save it as `camera_test_screenshot.jpg`
+
+### 4. Connect to Raspberry Pi
 
 ```bash
 ssh lev@levpi
@@ -67,6 +98,8 @@ python bluetooth_controller.py
 ## Project Components
 
 - `bluetooth_controller.py`: Main Bluetooth controller with device discovery and command sending
+- `camera_test.py`: Camera smoke test - verifies camera is working correctly
+- `README.md`: Project documentation
 - `.clinerules`: Project documentation and guidelines
 
 ## Troubleshooting
