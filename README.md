@@ -2,6 +2,31 @@
 
 This project implements an autonomous LEGO train using Raspberry Pi, camera vision, and Bluetooth controls.
 
+## Hardware Overview
+
+Here's an annotated view of our LEGO train showing the key components:
+
+![LEGO Train Components](./lego_train_annotated.png)
+
+### Component Breakdown
+
+The numbers match the badges on the photo above:
+
+| # | Component | Location | Description |
+|---|-----------|----------|-------------|
+| 1 | 🔋 **Power bank** | On the roof of the first carriage | Portable 5V supply for the Raspberry Pi, so the train runs untethered |
+| 2 | 📷 **Raspberry Pi Camera** | In the nose of the first carriage | Looks down the track ahead and feeds frames to the Pi for autonomous navigation |
+| 3 | 🖥️ **Raspberry Pi** | Inside the first carriage (visible through the windows) | The brain of the train — runs the Python code, processes camera frames, and sends motor commands |
+| 4 | ⚙️ **LEGO train motor** | Front half of the second carriage | Drives the train forward and backward, controlled over Bluetooth from the Raspberry Pi |
+
+The annotated image is generated from the original photo by
+[`scripts/annotate_train.py`](./scripts/annotate_train.py) — edit the coordinates
+in that script and re-run it to adjust the labels:
+
+```bash
+python scripts/annotate_train.py
+```
+
 ## Project Structure
 
 ```
@@ -10,6 +35,7 @@ This project implements an autonomous LEGO train using Raspberry Pi, camera visi
 │   └── bluetooth_controller.py     # Bluetooth controller for LEGO motors
 ├── scripts/
 │   ├── camera_smoke_test.py        # Camera smoke test (auto-detects Pi / USB)
+│   ├── annotate_train.py           # Regenerates lego_train_annotated.png
 │   └── test_and_copy.ps1           # Helper: run test on Pi, copy results back
 ├── tests/                          # Unit tests (reserved for future)
 ├── README.md                       # This file
@@ -50,6 +76,7 @@ Then install required packages:
 pip install bleak
 pip install opencv-python       # For local development on Windows
 pip install opencv-python-headless  # For Raspberry Pi (no GUI needed)
+pip install pillow              # Only needed to regenerate the annotated photo
 ```
 
 ### 3. Camera Setup
@@ -103,6 +130,7 @@ python src/bluetooth_controller.py
 
 - `src/bluetooth_controller.py`: Main Bluetooth controller with device discovery and command sending
 - `scripts/camera_smoke_test.py`: Camera smoke test - verifies camera is working correctly (auto-detects Pi / USB)
+- `scripts/annotate_train.py`: Redraws the component labels on `lego_train.jpg` (needs `pillow`)
 - `tests/`: Unit tests (reserved for future)
 - `README.md`: Project documentation
 - `.clinerules`: Project documentation and guidelines
