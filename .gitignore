@@ -10,3 +10,6 @@ camera_test_screenshot.jpg
 
 # Test results folder
 camera_test_results/
+
+# Logs folder
+logs/
