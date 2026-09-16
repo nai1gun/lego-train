@@ -76,3 +76,22 @@ def test_detect_phase(stem: str, expected_phase: str) -> None:
         f"yellow={result['yellow_lit']}({result['yellow_lit_pixels']}px)  "
         f"green={result['green_lit']}({result['green_lit_pixels']}px)"
     )
+
+
+# ---------------------------------------------------------------------------
+# Hue cross-check test
+# ---------------------------------------------------------------------------
+
+
+def test_hue_warnings_empty() -> None:
+    """All sample images should have empty hue_warnings (hues match expected ranges)."""
+    for stem, _ in _EXPECTED_PHASES.items():
+        image_path = _image_path(stem)
+        if not image_path.exists():
+            pytest.skip(f"Media file not found: {image_path}")
+
+        result = detect_phase_from_image(str(image_path))
+        hue_warnings = result.get("_hue_warnings", [])
+        assert hue_warnings == [], (
+            f"Expected empty hue_warnings for {stem}, got: {hue_warnings}"
+        )

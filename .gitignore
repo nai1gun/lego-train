@@ -13,3 +13,6 @@ camera_test_results/
 
 # Logs folder
 logs/
+
+# Debug output folder
+debug_out/

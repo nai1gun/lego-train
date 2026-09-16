@@ -290,7 +290,7 @@ def _detect_lamps_lit(
     frame: np.ndarray,
     bbox: Tuple[int, int, int, int],
     lamp_positions: List[Tuple[str, int, int, int]],
-) -> Tuple[Dict[str, bool], Dict[str, float], Dict[str, float]]:
+) -> Tuple[Dict[str, bool], Dict[str, float], Dict[str, float], List[str]]:
     """
     Determine which lamps are lit using pixel-fraction counting inside
     each lamp disc.
@@ -313,13 +313,15 @@ def _detect_lamps_lit(
         Tuple of:
             - lit_states: dict mapping lamp label -> bool (lit or not)
             - lamp_brightnesses: dict mapping lamp label -> mean Value
-            - lamp_hues: dict mapping lamp label -> mean Hue (for sanity check)
+            - lamp_hues: dict mapping lamp label -> median Hue (for sanity check)
+            - hue_warnings: list of warning strings for hue cross-check failures
     """
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     h, w = frame.shape[:2]
     lit_states = {}
     lamp_brightnesses = {}
     lamp_hues = {}
+    hue_warnings = []
 
     # High-S + high-V gate for lit-LED pixels (Requirement D)
     sat_gate = 140
@@ -344,7 +346,7 @@ def _detect_lamps_lit(
             continue
 
         mean_v = float(np.mean(pixel_v))
-        mean_h_val = float(np.mean(hsv[mask][:, 0]))
+        median_h_val = float(np.median(hsv[mask][:, 0]))
 
         # Count pixels that pass the S+V gate
         lit_pixels = int(np.sum((pixel_s > sat_gate) & (pixel_v > val_gate)))
@@ -353,49 +355,27 @@ def _detect_lamps_lit(
 
         lit_states[label] = lit_fraction > LIT_PIXEL_FRACTION
         lamp_brightnesses[label] = mean_v
-        lamp_hues[label] = mean_h_val
+        lamp_hues[label] = median_h_val
 
-    return lit_states, lamp_brightnesses, lamp_hues
-
-    for i, (label, brightness) in enumerate(sorted_lamps):
-        if i == 0:
-            # Brightest lamp - check if it's significantly brighter than others
-            if len(sorted_lamps) > 1:
-                second_brightest = sorted_lamps[1][1]
-                # Lit if at least 2x brighter than the next brightest
-                is_lit = (
-                    brightness >= LIT_BRIGHTNESS_ABS_MIN and
-                    (second_brightest == 0 or brightness / max(second_brightest, 1) >= LIT_BRIGHTNESS_RATIO)
-                )
-            else:
-                # Only one lamp - use absolute threshold
-                is_lit = brightness >= LIT_BRIGHTNESS_ABS_MIN
-        else:
-            # Not the brightest - likely off
-            is_lit = False
-
-        lit_states[label] = lamp_history.update(label, brightness)
-
-        # Sanity check: if lamp is lit, verify hue matches expected range
+        # Hue cross-check: if lamp is lit, verify hue matches expected range
         if lit_states[label]:
-            hue = lamp_hues[label]
-            expected_hue_ranges = {
-                "red": [(0, 15), (168, 180)],    # Red wraps around hue=0
-                "yellow": [(25, 35)],
-                "green": [(40, 75)],
-            }
-            in_range = False
-            for lo, hi in expected_hue_ranges.get(label, []):
-                if lo <= hue <= hi:
-                    in_range = True
-                    break
-            if not in_range:
-                print(
-                    f"  [WARN] Hue sanity check failed for {label} lamp: "
-                    f"H={hue:.0f} (expected {expected_hue_ranges.get(label, 'unknown')})"
+            if label == "red":
+                ranges = HUE_RED_RANGES
+            elif label == "yellow":
+                ranges = HUE_YELLOW_RANGES
+            elif label == "green":
+                ranges = HUE_GREEN_RANGES
+            else:
+                ranges = []
+
+            hue_valid = any(r[0] <= median_h_val <= r[1] for r in ranges)
+            if not hue_valid:
+                hue_warnings.append(
+                    f"Lamp '{label}' lit but hue={median_h_val:.1f} "
+                    f"outside expected ranges {ranges}"
                 )
 
-    return lit_states, lamp_brightnesses, lamp_hues
+    return lit_states, lamp_brightnesses, lamp_hues, hue_warnings
 
 
 # ============================================================================
@@ -414,7 +394,7 @@ def _compute_phase_from_lamps(lit_states: Dict[str, bool]) -> str:
         lit_states: dict mapping 'red'/'yellow'/'green' (by position) -> bool
 
     Returns:
-        Phase name string: 'off', 'green', 'yellow', 'red', 'red_yellow', or 'unknown'
+        Phase name string: 'off', 'green', 'yellow', 'red', or 'red_yellow'
     """
     red = lit_states.get("red", False)
     yellow = lit_states.get("yellow", False)
@@ -428,11 +408,8 @@ def _compute_phase_from_lamps(lit_states: Dict[str, bool]) -> str:
         return "yellow"
     elif green:
         return "green"
-    elif not any(lit_states.values()):
+    if not any(lit_states.values()):
         return "off"
-    else:
-        # Fallback for unexpected combinations
-        return "unknown"
 
 
 # ============================================================================
@@ -469,7 +446,7 @@ def detect_phase_from_bbox(
     """
     # Default "no detection" result
     default_result = {
-        "phase": "off",
+        "phase": "no_detection",
         "red": False,
         "yellow": False,
         "green": False,
@@ -494,12 +471,29 @@ def detect_phase_from_bbox(
     ]
 
     # Step 2: Determine which lamps are lit using pixel-fraction counting
-    lit_states, lamp_brightnesses, lamp_hues = _detect_lamps_lit(
+    lit_states, lamp_brightnesses, lamp_hues, hue_warnings = _detect_lamps_lit(
         frame, bbox, lamp_positions
     )
 
     # Step 3: Compute phase from lamp positions
     phase = _compute_phase_from_lamps(lit_states)
+
+    # Compute lit fractions for overlay / debug
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, w = frame.shape[:2]
+    lamp_lit_fractions = {}
+    for label, cx, cy, radius in lamp_positions:
+        cx_i, cy_i, r_i = int(cx), int(cy), int(radius)
+        inner_r = max(1, int(r_i * 0.8))
+        y_coords, x_coords = np.ogrid[:h, :w]
+        mask = (x_coords - cx_i) ** 2 + (y_coords - cy_i) ** 2 <= inner_r ** 2
+        pixel_s = hsv[mask][:, 1]
+        pixel_v = hsv[mask][:, 2]
+        if pixel_s.size == 0:
+            lamp_lit_fractions[label] = 0.0
+        else:
+            lit_pixels = int(np.sum((pixel_s > 140) & (pixel_v > 205)))
+            lamp_lit_fractions[label] = lit_pixels / pixel_s.size
 
     # Build result dict
     return {
@@ -513,6 +507,11 @@ def detect_phase_from_bbox(
         "red_lit_pixels": int(lamp_brightnesses.get("red", 0)),
         "yellow_lit_pixels": int(lamp_brightnesses.get("yellow", 0)),
         "green_lit_pixels": int(lamp_brightnesses.get("green", 0)),
+        # Internal keys for debug overlay and hue cross-check
+        "_lamp_positions": lamp_positions,
+        "_lamp_hues": lamp_hues,
+        "_lamp_lit_fractions": lamp_lit_fractions,
+        "_hue_warnings": hue_warnings,
     }
 
 
@@ -694,6 +693,9 @@ def draw_debug_overlay(
     frame: np.ndarray,
     bbox: Optional[Tuple[int, int, int, int]],
     phase_result: Dict,
+    lamp_positions: Optional[List[Tuple[str, int, int, int]]] = None,
+    lamp_hues: Optional[Dict[str, float]] = None,
+    lamp_lit_fractions: Optional[Dict[str, float]] = None,
 ) -> np.ndarray:
     """
     Draw debug visualization on the frame.
@@ -701,7 +703,10 @@ def draw_debug_overlay(
     Args:
         frame: BGR frame to draw on
         bbox: Traffic light bounding box
-        phase_result: Output from detect_phase_from_bbox
+        phase_result: Output from detect_phase_from_bbox or detect_phase_from_image
+        lamp_positions: Optional list of (label, cx, cy, radius) for lamp discs
+        lamp_hues: Optional dict mapping label -> median hue of gate-passing pixels
+        lamp_lit_fractions: Optional dict mapping label -> lit fraction
 
     Returns:
         Frame with debug overlays
@@ -740,10 +745,40 @@ def draw_debug_overlay(
                 1,
             )
 
+    # Draw lamp discs and print lamp stats
+    if lamp_positions and lamp_hues and lamp_lit_fractions:
+        disc_y = y + h + 15
+        for label, cx, cy, radius in lamp_positions:
+            cx, cy, radius = int(cx), int(cy), int(radius)
+            # Colour the disc based on lamp identity
+            lamp_colors = {"red": (0, 0, 255), "yellow": (0, 200, 255), "green": (0, 255, 0)}
+            disc_color = lamp_colors.get(label, (255, 255, 255))
+            cv2.circle(overlay, (cx, cy), radius, disc_color, 2)
+
+            # Print lit fraction and median hue next to each disc
+            lit_frac = lamp_lit_fractions.get(label, 0.0)
+            median_hue = lamp_hues.get(label, 0.0)
+            text = f"{label}: frac={lit_frac:.3f} hue={median_hue:.1f}"
+            cv2.putText(
+                overlay,
+                text,
+                (x, disc_y),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.4,
+                (255, 255, 255),
+                1,
+            )
+            disc_y += 18
+
     # Draw current phase
     if phase_result:
         phase = phase_result["phase"]
-        phase_color = (0, 255, 0) if phase not in ("off", "unknown") else (0, 0, 255)
+        if phase == "no_detection":
+            phase_color = (0, 165, 255)  # Orange for no_detection
+        elif phase not in ("off", "unknown"):
+            phase_color = (0, 255, 0)  # Green for lit phases
+        else:
+            phase_color = (0, 0, 255)  # Blue for off/unknown
         cv2.putText(
             overlay,
             f"Phase: {phase.upper()}",
@@ -754,7 +789,7 @@ def draw_debug_overlay(
             2,
         )
 
-        # Draw per-sector status
+        # Draw per-lamp status
         status_y = 60
         for color_name in ["red", "yellow", "green"]:
             lit = phase_result[color_name]
@@ -870,9 +905,9 @@ def run_detection(
             bbox = find_traffic_light_housing(frame)
 
             if bbox is None:
-                # No housing detected — log as "off" with no bbox
+                # No housing detected — log as "no_detection" with no bbox
                 current_phase_result = {
-                    "phase": "off",
+                    "phase": "no_detection",
                     "red": False,
                     "yellow": False,
                     "green": False,
@@ -1191,6 +1226,9 @@ def detect_phase_from_image(image_path: str) -> Dict:
     return {
         "phase": phase_result["phase"],
         "bbox": bbox,
+        "red": phase_result["red"],
+        "yellow": phase_result["yellow"],
+        "green": phase_result["green"],
         "red_lit": phase_result["red"],
         "yellow_lit": phase_result["yellow"],
         "green_lit": phase_result["green"],
@@ -1201,6 +1239,11 @@ def detect_phase_from_image(image_path: str) -> Dict:
         "yellow_lit_pixels": phase_result["yellow_lit_pixels"],
         "green_lit_pixels": phase_result["green_lit_pixels"],
         "image_shape": image_shape,
+        # Forward internal keys for debug overlay
+        "_lamp_positions": phase_result.get("_lamp_positions"),
+        "_lamp_hues": phase_result.get("_lamp_hues"),
+        "_lamp_lit_fractions": phase_result.get("_lamp_lit_fractions"),
+        "_hue_warnings": phase_result.get("_hue_warnings", []),
     }
 
 
@@ -1225,13 +1268,17 @@ def process_single_image(
         debug_path.mkdir(parents=True, exist_ok=True)
 
         frame = cv2.imread(image_path)
-        overlay = draw_debug_overlay(frame, result["bbox"], result)
+        overlay = draw_debug_overlay(
+            frame,
+            result["bbox"],
+            result,
+            lamp_positions=result.get("_lamp_positions"),
+            lamp_hues=result.get("_lamp_hues"),
+            lamp_lit_fractions=result.get("_lamp_lit_fractions"),
+        )
 
         stem = Path(image_path).stem
         cv2.imwrite(str(debug_path / f"{stem}_overlay.jpg"), overlay)
-
-        for mask_name, mask_arr in result["masks"].items():
-            cv2.imwrite(str(debug_path / f"{stem}_mask_{mask_name}.jpg"), mask_arr)
 
         print(f"  [DEBUG] Saved to {debug_path}/")
 
