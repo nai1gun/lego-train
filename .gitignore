@@ -16,3 +16,7 @@ logs/
 
 # Debug output folder
 debug_out/
+
+# Collected data runs
+runs/
+data/runs/
