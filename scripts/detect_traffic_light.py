@@ -61,40 +61,54 @@ import numpy as np
 # CONSTANTS — Tune these values based on real Pi camera data
 # ============================================================================
 
-# --- Housing Detection ---
-# Red color range (HSV) — captures the red housing body
-HOUSING_RED_LOW = np.array([0, 80, 80], dtype=np.uint8)
-HOUSING_RED_HIGH = np.array([15, 255, 255], dtype=np.uint8)
+# --- Housing Detection (Requirement C + E) ---
+# Red hue with wrap-around: 0–8 OR 168–180, S>90, V>60
+# This correctly isolates the red stripes on the housing.
+HOUSING_RED_LOW_1 = np.array([0, 90, 60], dtype=np.uint8)
+HOUSING_RED_HIGH_1 = np.array([8, 255, 255], dtype=np.uint8)
+HOUSING_RED_LOW_2 = np.array([168, 90, 60], dtype=np.uint8)
+HOUSING_RED_HIGH_2 = np.array([180, 255, 255], dtype=np.uint8)
 
-# White color range (HSV) — captures the white diagonal stripes
-HOUSING_WHITE_LOW = np.array([0, 10, 180], dtype=np.uint8)
-HOUSING_WHITE_HIGH = np.array([15, 50, 255], dtype=np.uint8)
+# Area thresholds as fractions of frame area (Requirement C)
+# Works at both 640×480 and 775×1033 and any other resolution.
+HOUSING_MIN_FRAC = 0.001        # minimum 0.1% of frame area
+HOUSING_MAX_FRAC = 0.50         # maximum 50% of frame area
 
-HOUSING_MIN_AREA = 500          # px² minimum blob size
-HOUSING_MAX_AREA = 500_000     # px² maximum (avoids whole-frame matches)
-HOUSING_MIN_ASPECT_RATIO = 0.3  # narrow bounding box allowed
-HOUSING_MAX_ASPECT_RATIO = 3.0  # wide bounding box allowed
+# Aspect ratio of the tall traffic-light panel
+HOUSING_MIN_ASPECT_RATIO = 0.20  # narrow bounding box allowed
+HOUSING_MAX_ASPECT_RATIO = 0.80  # wide bounding box allowed
 
-# --- Phase Detection ---
-# How much of each sector to sample (center region, avoids housing edges)
-LIGHT_INNER_RATIO = 0.6         # sample center 60% of each sector
+# Morphology kernel size for connecting red stripe fragments (Requirement C)
+# Dilate with a large kernel (≈ 1/4 of expected panel height) to connect
+# nearby red blobs into clusters before bounding-box extraction.
+HOUSING_DILATE_KERNEL = 25       # base kernel size; scaled by panel height
 
-# Minimum fraction of sampled area that must be lit to count as ON
-MIN_LIT_FRACTION = 0.05         # >5% of sector must be lit
+# --- Phase Detection (LAMP-BASED — position, not colour) (Requirement B) ---
+# The architecture now determines phase by lamp *position* within the panel:
+#   top lamp  = always red
+#   middle lamp = always yellow
+#   bottom lamp = always green
+# A lamp is "lit" by comparing each lamp's brightness to its neighbours
+# and its own recent history — not against absolute HSV bounds.
+# Hue is used only as a sanity check (logged as warning on mismatch).
 
-# HSV thresholds for each light color (BGR -> HSV via cvtColor)
-# These were tuned for iPhone photos — use --calibrate on Pi data to refine
-RED_LOW = np.array([0, 120, 80], dtype=np.uint8)
-RED_HIGH = np.array([15, 255, 255], dtype=np.uint8)
-# Red wraps around hue=0, so we also check the high end
-RED_LOW_HIGH_HUE = np.array([140, 120, 80], dtype=np.uint8)
-RED_HIGH_HIGH_HUE = np.array([175, 255, 255], dtype=np.uint8)
+# Lamp centres as a fraction of panel height (measured from media/ samples)
+LAMP_Y_FRACTIONS = {"red": 0.22, "yellow": 0.48, "green": 0.72}
+LAMP_RADIUS_FRACTION = 0.13   # disc radius as a fraction of panel height
+LIT_PIXEL_FRACTION = 0.02     # fraction of disc pixels passing the S/V gate
 
-YELLOW_LOW = np.array([25, 120, 80], dtype=np.uint8)
-YELLOW_HIGH = np.array([35, 255, 255], dtype=np.uint8)
+# High-saturation + high-value gate for lit-LED pixels (Requirement D)
+# S>140 AND V>205 selects lit-LED pixels only — robust against exposure
+# and white-balance changes. Treated as a starting point / gate, not a
+# solution (it will break under glare and daylight).
+LIT_SAT_GATE = 140
+LIT_VAL_GATE = 205
 
-GREEN_LOW = np.array([40, 120, 80], dtype=np.uint8)
-GREEN_HIGH = np.array([75, 255, 255], dtype=np.uint8)
+# Hue sanity-check ranges for lit lamps (Requirement E)
+# Red ≈ 168–180 ∪ 0–8, Yellow/amber ≈ 12–32, Green ≈ 40–80
+HUE_RED_RANGES = [(0, 8), (168, 180)]
+HUE_YELLOW_RANGES = [(12, 32)]
+HUE_GREEN_RANGES = [(40, 80)]
 
 # --- Debounce ---
 DEBOUNCE_SECONDS = 0.5          # minimum time between phase change events
@@ -165,8 +179,18 @@ def find_traffic_light_housing(
     frame: np.ndarray,
 ) -> Optional[Tuple[int, int, int, int]]:
     """
-    Detect the traffic light housing in the frame using red+white stripe
-    color segmentation and contour filtering.
+    Detect the traffic light housing in the frame using red-hue-with-wrap
+    (0–8 OR 168–180, S>90, V>60) and white-stripe segmentation.
+
+    Requirement C: group red fragments instead of taking the largest.
+    Dilate with a large kernel (≈ 1/4 of expected panel height) to connect
+    nearby red blobs into clusters, then score candidates on fill ratio and
+    aspect ratio ≈ 0.45 (tall panel).
+
+    Requirement E: use correct hue ranges so no hue votes for nothing.
+
+    Requirement D: area thresholds as fractions of frame area — works at
+    640×480 and at 775×1033.
 
     Args:
         frame: BGR image from camera
@@ -175,199 +199,321 @@ def find_traffic_light_housing(
         (x, y, w, h) bounding box of the traffic light, or None if not found
     """
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, w = frame.shape[:2]
+    frame_area = h * w
 
-    # Mask for red housing
-    mask_red = cv2.inRange(hsv, HOUSING_RED_LOW, HOUSING_RED_HIGH)
+    # --- Red mask with wrap-around (Requirement E) ---
+    # Range 1: low hue 0–8
+    mask_red_1 = cv2.inRange(hsv, HOUSING_RED_LOW_1, HOUSING_RED_HIGH_1)
+    # Range 2: high hue 168–180
+    mask_red_2 = cv2.inRange(hsv, HOUSING_RED_LOW_2, HOUSING_RED_HIGH_2)
+    mask_red = cv2.bitwise_or(mask_red_1, mask_red_2)
 
-    # Mask for white stripes
-    mask_white = cv2.inRange(hsv, HOUSING_WHITE_LOW, HOUSING_WHITE_HIGH)
+    # --- Use the red mask alone (white stripes are photometrically
+    # identical to the white table background, so the white mask pulls
+    # the bounding box onto the table in most test images) ---
+    mask_combined = mask_red
 
-    # Combine masks (red OR white)
-    mask_combined = cv2.bitwise_or(mask_red, mask_white)
+    # --- Dilate to connect nearby fragments (Requirement C) ---
+    # Kernel size scales with expected panel height (≈ 1/2.5 of panel height)
+    # to bridge bezel cuts that fragment the red stripes.
+    # We assume the panel occupies roughly 10-30% of frame height.
+    expected_panel_h = max(int(h * 0.1), 50)  # conservative lower bound
+    kernel_size = max(3, int(expected_panel_h / 2.5))
+    # Ensure odd kernel size for morphology
+    if kernel_size % 2 == 0:
+        kernel_size += 1
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_size, kernel_size))
+    mask_combined = cv2.dilate(mask_combined, kernel, iterations=2)
+    mask_combined = cv2.erode(mask_combined, kernel, iterations=1)
 
-    # Morphological operations to connect nearby blobs
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    mask_combined = cv2.erode(mask_combined, kernel, iterations=2)
-    mask_combined = cv2.dilate(mask_combined, kernel, iterations=3)
-
-    # Find contours
+    # --- Find connected components / contours ---
     contours, _ = cv2.findContours(
         mask_combined, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
     )
 
     best_bbox = None
-    best_area = 0
+    best_score = -1.0
 
     for contour in contours:
         area = cv2.contourArea(contour)
 
-        # Filter by area
-        if area < HOUSING_MIN_AREA or area > HOUSING_MAX_AREA:
+        # --- Requirement C: fraction-based area filtering ---
+        min_area = int(frame_area * HOUSING_MIN_FRAC)
+        max_area = int(frame_area * HOUSING_MAX_FRAC)
+        if area < min_area or area > max_area:
             continue
 
-        x, y, w, h = cv2.boundingRect(contour)
-        aspect_ratio = w / max(h, 1)
+        x, y, bw, bh = cv2.boundingRect(contour)
+        aspect_ratio = bw / max(bh, 1)
 
-        # Filter by aspect ratio (traffic light is roughly square-ish)
+        # --- Filter by aspect ratio (tall panel ≈ 0.2–0.8) ---
         if aspect_ratio < HOUSING_MIN_ASPECT_RATIO or aspect_ratio > HOUSING_MAX_ASPECT_RATIO:
             continue
 
-        # Select the largest valid contour
-        if area > best_area:
-            best_area = area
-            best_bbox = (x, y, w, h)
+        # --- Score candidate on fill ratio and aspect ratio ---
+        # Fill ratio: how much of the bounding box is covered by the contour
+        bbox_area = bw * bh
+        fill_ratio = area / max(bbox_area, 1)
+
+        # Ideal aspect ratio for a traffic-light panel is roughly 0.45 (tall)
+        ideal_aspect = 0.45
+        aspect_penalty = 1.0 - min(abs(aspect_ratio - ideal_aspect) / ideal_aspect, 1.0)
+
+        # Combined score: prefer good fill ratio and ideal aspect ratio
+        score = fill_ratio * 0.5 + aspect_penalty * 0.5
+
+        if score > best_score:
+            best_score = score
+            best_bbox = (x, y, bw, bh)
 
     return best_bbox
 
 
 # ============================================================================
-# PHASE DETECTION
+# LAMP BEZEL DETECTION
 # ============================================================================
 
-def detect_phase_from_bbox(
+
+
+
+
+# ============================================================================
+# LAMP STATE DETECTION (relative brightness)
+# ============================================================================
+
+
+
+
+
+def _detect_lamps_lit(
     frame: np.ndarray,
     bbox: Tuple[int, int, int, int],
-) -> Dict:
+    lamp_positions: List[Tuple[str, int, int, int]],
+) -> Tuple[Dict[str, bool], Dict[str, float], Dict[str, float]]:
     """
-    Detect which lights are ON within the traffic light bounding box.
+    Determine which lamps are lit using pixel-fraction counting inside
+    each lamp disc.
 
-    Divides the bounding box into 3 vertical sectors:
-      - Top third: RED light
-      - Middle third: YELLOW light
-      - Bottom third: GREEN light
+    NEW ARCHITECTURE (pixel-fraction):
+      For each lamp disc, count how many pixels pass the high-S + high-V
+      gate (S > 140 AND V > 205).  If the fraction of passing pixels
+      exceeds LIT_PIXEL_FRACTION of the disc area, the lamp is lit.
 
-    For each sector, counts pixels matching the target color's HSV range.
+    This is far more reliable than the old mean-brightness approach because
+    the LED core occupies only a tiny fraction of the dark bezel ring —
+    the mean Value was always dominated by the dark plastic.
 
     Args:
-        frame: BGR image from camera
-        bbox: (x, y, w, h) traffic light bounding box
+        frame: BGR image
+        bbox: (x, y, w, h) of the traffic light housing
+        lamp_positions: list of (label, cx, cy, radius) sorted top->bottom
 
     Returns:
-        Dict with keys:
-          - 'phase': str — detected phase name
-          - 'red': bool — is red light lit?
-          - 'yellow': bool — is yellow light lit?
-          - 'green': bool — is green light lit?
-          - 'red_hsv': tuple — average HSV of red sector
-          - 'yellow_hsv': tuple — average HSV of yellow sector
-          - 'green_hsv': tuple — average HSV of green sector
-          - 'red_lit_pixels': int — count of red-matching pixels
-          - 'yellow_lit_pixels': int — count of yellow-matching pixels
-          - 'green_lit_pixels': int — count of green-matching pixels
+        Tuple of:
+            - lit_states: dict mapping lamp label -> bool (lit or not)
+            - lamp_brightnesses: dict mapping lamp label -> mean Value
+            - lamp_hues: dict mapping lamp label -> mean Hue (for sanity check)
     """
-    x, y, w, h = bbox
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, w = frame.shape[:2]
+    lit_states = {}
+    lamp_brightnesses = {}
+    lamp_hues = {}
 
-    # Divide bounding box into 3 equal vertical sectors
-    sector_height = h // 3
-    sectors = [
-        ("red", y, y + sector_height),
-        ("yellow", y + sector_height, y + 2 * sector_height),
-        ("green", y + 2 * sector_height, y + h),
-    ]
+    # High-S + high-V gate for lit-LED pixels (Requirement D)
+    sat_gate = 140
+    val_gate = 205
 
-    results = {"red": False, "yellow": False, "green": False}
-    hsv_means = {}
-    lit_pixel_counts = {}
+    for label, cx, cy, radius in lamp_positions:
+        cx, cy, radius = int(cx), int(cy), int(radius)
+        inner_r = max(1, int(radius * 0.8))  # use inner 80 % to avoid bezel edge
 
-    for color_name, y_start, y_end in sectors:
-        # Clamp to frame bounds
-        y_start = max(0, y_start)
-        y_end = min(hsv.shape[0], y_end)
+        # Build circular mask using vectorised ops (fast, no Python loops)
+        y_coords, x_coords = np.ogrid[:h, :w]
+        mask = (x_coords - cx) ** 2 + (y_coords - cy) ** 2 <= inner_r ** 2
 
-        # Clip to bounding box horizontally
-        x_start = max(0, x)
-        x_end = min(hsv.shape[1], x + w)
+        # Extract HSV values inside the mask
+        pixel_s = hsv[mask][:, 1]
+        pixel_v = hsv[mask][:, 2]
 
-        # Extract sector ROI
-        sector_roi = hsv[y_start:y_end, x_start:x_end]
-
-        if sector_roi.size == 0:
-            hsv_means[color_name] = (0.0, 0.0, 0.0)
-            lit_pixel_counts[color_name] = 0
+        if pixel_s.size == 0:
+            lit_states[label] = False
+            lamp_brightnesses[label] = 0.0
+            lamp_hues[label] = 0.0
             continue
 
-        # Sample center region (avoids housing edges)
-        inner_x_start = int(x_start + w * (1 - LIGHT_INNER_RATIO) / 2)
-        inner_x_end = int(x_start + w * (1 + LIGHT_INNER_RATIO) / 2)
-        inner_y_start = int(y_start + sector_height * (1 - LIGHT_INNER_RATIO) / 2)
-        inner_y_end = int(y_start + sector_height * (1 + LIGHT_INNER_RATIO) / 2)
+        mean_v = float(np.mean(pixel_v))
+        mean_h_val = float(np.mean(hsv[mask][:, 0]))
 
-        inner_roi = sector_roi[inner_y_start - y_start:inner_y_end - y_start,
-                               inner_x_start - x_start:inner_x_end - x_start]
+        # Count pixels that pass the S+V gate
+        lit_pixels = int(np.sum((pixel_s > sat_gate) & (pixel_v > val_gate)))
+        total_pixels = pixel_s.size
+        lit_fraction = lit_pixels / total_pixels if total_pixels > 0 else 0.0
 
-        # Average HSV of sampled region
-        avg_h = float(np.mean(inner_roi[:, :, 0]))
-        avg_s = float(np.mean(inner_roi[:, :, 1]))
-        avg_v = float(np.mean(inner_roi[:, :, 2]))
-        hsv_means[color_name] = (avg_h, avg_s, avg_v)
+        lit_states[label] = lit_fraction > LIT_PIXEL_FRACTION
+        lamp_brightnesses[label] = mean_v
+        lamp_hues[label] = mean_h_val
 
-        # Count pixels matching the target color range
-        if color_name == "red":
-            # Red wraps around hue=0, so check two ranges
-            mask1 = cv2.inRange(inner_roi, RED_LOW, RED_HIGH)
-            mask2 = cv2.inRange(inner_roi, RED_LOW_HIGH_HUE, RED_HIGH_HIGH_HUE)
-            mask = cv2.bitwise_or(mask1, mask2)
-        elif color_name == "yellow":
-            mask = cv2.inRange(inner_roi, YELLOW_LOW, YELLOW_HIGH)
-        elif color_name == "green":
-            mask = cv2.inRange(inner_roi, GREEN_LOW, GREEN_HIGH)
+    return lit_states, lamp_brightnesses, lamp_hues
+
+    for i, (label, brightness) in enumerate(sorted_lamps):
+        if i == 0:
+            # Brightest lamp - check if it's significantly brighter than others
+            if len(sorted_lamps) > 1:
+                second_brightest = sorted_lamps[1][1]
+                # Lit if at least 2x brighter than the next brightest
+                is_lit = (
+                    brightness >= LIT_BRIGHTNESS_ABS_MIN and
+                    (second_brightest == 0 or brightness / max(second_brightest, 1) >= LIT_BRIGHTNESS_RATIO)
+                )
+            else:
+                # Only one lamp - use absolute threshold
+                is_lit = brightness >= LIT_BRIGHTNESS_ABS_MIN
         else:
-            mask = np.zeros(inner_roi.shape[:2], dtype=np.uint8)
+            # Not the brightest - likely off
+            is_lit = False
 
-        lit_pixels = int(np.count_nonzero(mask))
-        lit_pixel_counts[color_name] = lit_pixels
+        lit_states[label] = lamp_history.update(label, brightness)
 
-        # Determine if the light is "on" based on lit pixel fraction
-        total_pixels = inner_roi.shape[0] * inner_roi.shape[1]
-        if total_pixels > 0:
-            lit_fraction = lit_pixels / total_pixels
-            results[color_name] = lit_fraction >= MIN_LIT_FRACTION
+        # Sanity check: if lamp is lit, verify hue matches expected range
+        if lit_states[label]:
+            hue = lamp_hues[label]
+            expected_hue_ranges = {
+                "red": [(0, 15), (168, 180)],    # Red wraps around hue=0
+                "yellow": [(25, 35)],
+                "green": [(40, 75)],
+            }
+            in_range = False
+            for lo, hi in expected_hue_ranges.get(label, []):
+                if lo <= hue <= hi:
+                    in_range = True
+                    break
+            if not in_range:
+                print(
+                    f"  [WARN] Hue sanity check failed for {label} lamp: "
+                    f"H={hue:.0f} (expected {expected_hue_ranges.get(label, 'unknown')})"
+                )
 
-    # Compile phase from individual light states
-    phase = _compute_phase(results)
-
-    return {
-        "phase": phase,
-        "red": results["red"],
-        "yellow": results["yellow"],
-        "green": results["green"],
-        "red_hsv": hsv_means.get("red", (0.0, 0.0, 0.0)),
-        "yellow_hsv": hsv_means.get("yellow", (0.0, 0.0, 0.0)),
-        "green_hsv": hsv_means.get("green", (0.0, 0.0, 0.0)),
-        "red_lit_pixels": lit_pixel_counts.get("red", 0),
-        "yellow_lit_pixels": lit_pixel_counts.get("yellow", 0),
-        "green_lit_pixels": lit_pixel_counts.get("green", 0),
-    }
+    return lit_states, lamp_brightnesses, lamp_hues
 
 
-def _compute_phase(lights: Dict[str, bool]) -> str:
+# ============================================================================
+# POSITION-BASED PHASE COMPUTATION
+# ============================================================================
+
+
+def _compute_phase_from_lamps(lit_states: Dict[str, bool]) -> str:
     """
-    Map individual light states to a phase name.
+    Map lamp states to phase name using *position* (not colour).
+
+    The top lamp is always red, the middle is always yellow, the bottom
+    is always green. We only need to know which lamps are lit.
 
     Args:
-        lights: Dict with 'red', 'yellow', 'green' boolean keys
+        lit_states: dict mapping 'red'/'yellow'/'green' (by position) -> bool
 
     Returns:
-        Phase name string
+        Phase name string: 'off', 'green', 'yellow', 'red', 'red_yellow', or 'unknown'
     """
-    red = lights["red"]
-    yellow = lights["yellow"]
-    green = lights["green"]
+    red = lit_states.get("red", False)
+    yellow = lit_states.get("yellow", False)
+    green = lit_states.get("green", False)
 
     if red and yellow:
-        return "red+yellow"
+        return "red_yellow"
     elif red:
         return "red"
     elif yellow:
         return "yellow"
     elif green:
         return "green"
-    elif not any(lights.values()):
+    elif not any(lit_states.values()):
         return "off"
     else:
         # Fallback for unexpected combinations
         return "unknown"
+
+
+# ============================================================================
+# PHASE DETECTION
+# ============================================================================
+
+
+def detect_phase_from_bbox(
+    frame: np.ndarray,
+    bbox: Tuple[int, int, int, int],
+) -> Dict:
+    """
+    Detect which traffic light lamp is lit inside the housing bounding box.
+
+    NEW ARCHITECTURE (arithmetic lamp positions):
+      1. Derive lamp positions from housing bbox using LAMP_Y_FRACTIONS
+         and LAMP_RADIUS_FRACTION — no bezel detection needed.
+      2. For each lamp disc, count how many pixels pass the high-S + high-V
+         gate (S > 140 AND V > 205).  If the fraction exceeds
+         LIT_PIXEL_FRACTION, the lamp is lit.
+      3. Use lamp position to name the phase: top=red, middle=yellow,
+         bottom=green. Hue is used only as a sanity check.
+
+    Args:
+        frame: BGR image from camera
+        bbox: (x, y, w, h) of the traffic light housing
+
+    Returns:
+        dict with keys:
+            phase (str): Detected phase name
+            red (bool), yellow (bool), green (bool): lit state by position
+            red_hsv, yellow_hsv, green_hsv: mean HSV of each lamp disc
+            red_lit_pixels, yellow_lit_pixels, green_lit_pixels: mean brightness
+    """
+    # Default "no detection" result
+    default_result = {
+        "phase": "off",
+        "red": False,
+        "yellow": False,
+        "green": False,
+        "red_hsv": (0.0, 0.0, 0.0),
+        "yellow_hsv": (0.0, 0.0, 0.0),
+        "green_hsv": (0.0, 0.0, 0.0),
+        "red_lit_pixels": 0,
+        "yellow_lit_pixels": 0,
+        "green_lit_pixels": 0,
+    }
+
+    if bbox is None:
+        return default_result
+
+    # Step 1: Derive lamp positions arithmetically from housing bbox
+    bx, by, bw, bh = bbox
+    lamp_radius = int(bw * LAMP_RADIUS_FRACTION)
+    lamp_positions = [
+        ("red",    bx + bw // 2, int(by + bh * LAMP_Y_FRACTIONS["red"]), lamp_radius),
+        ("yellow", bx + bw // 2, int(by + bh * LAMP_Y_FRACTIONS["yellow"]), lamp_radius),
+        ("green",  bx + bw // 2, int(by + bh * LAMP_Y_FRACTIONS["green"]), lamp_radius),
+    ]
+
+    # Step 2: Determine which lamps are lit using pixel-fraction counting
+    lit_states, lamp_brightnesses, lamp_hues = _detect_lamps_lit(
+        frame, bbox, lamp_positions
+    )
+
+    # Step 3: Compute phase from lamp positions
+    phase = _compute_phase_from_lamps(lit_states)
+
+    # Build result dict
+    return {
+        "phase": phase,
+        "red": lit_states.get("red", False),
+        "yellow": lit_states.get("yellow", False),
+        "green": lit_states.get("green", False),
+        "red_hsv": (lamp_hues.get("red", 0.0), 0.0, lamp_brightnesses.get("red", 0.0)),
+        "yellow_hsv": (lamp_hues.get("yellow", 0.0), 0.0, lamp_brightnesses.get("yellow", 0.0)),
+        "green_hsv": (lamp_hues.get("green", 0.0), 0.0, lamp_brightnesses.get("green", 0.0)),
+        "red_lit_pixels": int(lamp_brightnesses.get("red", 0)),
+        "yellow_lit_pixels": int(lamp_brightnesses.get("yellow", 0)),
+        "green_lit_pixels": int(lamp_brightnesses.get("green", 0)),
+    }
 
 
 # ============================================================================
@@ -1028,7 +1174,6 @@ def detect_phase_from_image(image_path: str) -> Dict:
             red_hsv (tuple), yellow_hsv (tuple), green_hsv (tuple)
             red_lit_pixels (int), yellow_lit_pixels (int), green_lit_pixels (int)
             image_shape (tuple): (height, width, channels) of the input image
-            masks (dict): intermediate masks ('red', 'white', 'composite')
     """
     frame = cv2.imread(image_path)
     if frame is None:
@@ -1037,48 +1182,8 @@ def detect_phase_from_image(image_path: str) -> Dict:
     image_shape = frame.shape
     h, w = frame.shape[:2]
 
-    # --- Housing detection ---
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
-    # Red mask (with wrap-around)
-    mask_red = cv2.inRange(hsv, HOUSING_RED_LOW, HOUSING_RED_HIGH)
-    mask_red_wrap = cv2.inRange(
-        hsv,
-        np.array([168, 80, 80], dtype=np.uint8),
-        np.array([180, 255, 255], dtype=np.uint8),
-    )
-    mask_red = cv2.bitwise_or(mask_red, mask_red_wrap)
-
-    # White mask
-    mask_white = cv2.inRange(hsv, HOUSING_WHITE_LOW, HOUSING_WHITE_HIGH)
-
-    # Composite mask
-    mask_composite = cv2.bitwise_or(mask_red, mask_white)
-
-    # Morphological closing to connect fragmented stripes
-    kernel_close = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    mask_composite = cv2.morphologyEx(mask_composite, cv2.MORPH_CLOSE, kernel_close, iterations=2)
-
-    # Erode then dilate to clean noise
-    kernel_erode = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    mask_composite = cv2.erode(mask_composite, kernel_erode, iterations=2)
-    kernel_dilate = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
-    mask_composite = cv2.dilate(mask_composite, kernel_dilate, iterations=3)
-
-    # --- Find housing bounding box ---
-    contours, _ = cv2.findContours(mask_composite, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-    bbox = None
-    max_area = 0
-    for contour in contours:
-        area = cv2.contourArea(contour)
-        if HOUSING_MIN_AREA <= area <= HOUSING_MAX_AREA:
-            x, y, cw, ch = cv2.boundingRect(contour)
-            aspect = cw / max(ch, 1)
-            if HOUSING_MIN_ASPECT_RATIO <= aspect <= HOUSING_MAX_ASPECT_RATIO:
-                if area > max_area:
-                    max_area = area
-                    bbox = (x, y, cw, ch)
+    # --- Housing detection (call the single canonical function) ---
+    bbox = find_traffic_light_housing(frame)
 
     # --- Phase detection ---
     phase_result = detect_phase_from_bbox(frame, bbox)
@@ -1096,11 +1201,6 @@ def detect_phase_from_image(image_path: str) -> Dict:
         "yellow_lit_pixels": phase_result["yellow_lit_pixels"],
         "green_lit_pixels": phase_result["green_lit_pixels"],
         "image_shape": image_shape,
-        "masks": {
-            "red": mask_red,
-            "white": mask_white,
-            "composite": mask_composite,
-        },
     }
 
 
