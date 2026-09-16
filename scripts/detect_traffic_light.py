@@ -23,6 +23,15 @@ Usage:
   # Process a video file for offline testing:
   python scripts/detect_traffic_light.py --video path/to/video.mp4
 
+  # Process a single image (for debugging):
+  python scripts/detect_traffic_light.py --image media/traffic_light_green.jpg
+
+  # Process multiple images and print a regression summary:
+  python scripts/detect_traffic_light.py --images media/traffic_light_green.jpg media/traffic_light_red.jpg
+
+  # Save debug overlays and masks to a directory:
+  python scripts/detect_traffic_light.py --images media/traffic_light_*.jpg --save-debug debug_output/
+
   # Calibrate colors from Pi camera data:
   python scripts/detect_traffic_light.py --calibrate
 
@@ -909,12 +918,52 @@ Examples:
         help=f"Camera resolution as WxH (default: {DEFAULT_WIDTH}x{DEFAULT_HEIGHT}).",
     )
 
+    # --- Image / regression mode ---
+    parser.add_argument(
+        "-I", "--image",
+        type=str,
+        default=None,
+        help="Process a single image file instead of a camera stream.",
+    )
+
+    parser.add_argument(
+        "--images",
+        type=str,
+        nargs="+",
+        default=None,
+        help="Process multiple image files and print a regression summary.",
+    )
+
+    parser.add_argument(
+        "--save-debug",
+        type=str,
+        default=None,
+        help="Directory to save debug overlays and masks when using --image or --images.",
+    )
+
     return parser.parse_args()
 
 
 def main():
     """Main entry point."""
     args = parse_args()
+
+    # --- Image mode: process one or more static images ---
+    if args.image:
+        print(f"Processing single image: {args.image}")
+        run_regression_test(
+            image_paths=[args.image],
+            save_debug_dir=args.save_debug,
+        )
+        return
+
+    if args.images:
+        print(f"Processing {len(args.images)} images...")
+        run_regression_test(
+            image_paths=args.images,
+            save_debug_dir=args.save_debug,
+        )
+        return
 
     # Parse resolution
     try:
@@ -955,6 +1004,213 @@ def main():
         resolution=resolution,
         use_dshow=use_dshow,
     )
+
+
+# ============================================================================
+
+
+def detect_phase_from_image(image_path: str) -> Dict:
+    """
+    Run the full traffic-light detection pipeline on a single image file.
+
+    This is a thin wrapper around the existing detection logic, but it
+    operates on a loaded image rather than a camera frame.  It returns
+    a dict suitable for assertion-based testing.
+
+    Args:
+        image_path: Absolute or relative path to a BGR image file.
+
+    Returns:
+        dict with keys:
+            phase (str): Detected phase (e.g. 'red', 'green', 'off', 'no_detection')
+            bbox (tuple or None): (x, y, w, h) of the traffic-light housing
+            red_lit (bool), yellow_lit (bool), green_lit (bool)
+            red_hsv (tuple), yellow_hsv (tuple), green_hsv (tuple)
+            red_lit_pixels (int), yellow_lit_pixels (int), green_lit_pixels (int)
+            image_shape (tuple): (height, width, channels) of the input image
+            masks (dict): intermediate masks ('red', 'white', 'composite')
+    """
+    frame = cv2.imread(image_path)
+    if frame is None:
+        raise FileNotFoundError(f"Cannot read image: {image_path}")
+
+    image_shape = frame.shape
+    h, w = frame.shape[:2]
+
+    # --- Housing detection ---
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    # Red mask (with wrap-around)
+    mask_red = cv2.inRange(hsv, HOUSING_RED_LOW, HOUSING_RED_HIGH)
+    mask_red_wrap = cv2.inRange(
+        hsv,
+        np.array([168, 80, 80], dtype=np.uint8),
+        np.array([180, 255, 255], dtype=np.uint8),
+    )
+    mask_red = cv2.bitwise_or(mask_red, mask_red_wrap)
+
+    # White mask
+    mask_white = cv2.inRange(hsv, HOUSING_WHITE_LOW, HOUSING_WHITE_HIGH)
+
+    # Composite mask
+    mask_composite = cv2.bitwise_or(mask_red, mask_white)
+
+    # Morphological closing to connect fragmented stripes
+    kernel_close = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    mask_composite = cv2.morphologyEx(mask_composite, cv2.MORPH_CLOSE, kernel_close, iterations=2)
+
+    # Erode then dilate to clean noise
+    kernel_erode = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    mask_composite = cv2.erode(mask_composite, kernel_erode, iterations=2)
+    kernel_dilate = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+    mask_composite = cv2.dilate(mask_composite, kernel_dilate, iterations=3)
+
+    # --- Find housing bounding box ---
+    contours, _ = cv2.findContours(mask_composite, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    bbox = None
+    max_area = 0
+    for contour in contours:
+        area = cv2.contourArea(contour)
+        if HOUSING_MIN_AREA <= area <= HOUSING_MAX_AREA:
+            x, y, cw, ch = cv2.boundingRect(contour)
+            aspect = cw / max(ch, 1)
+            if HOUSING_MIN_ASPECT_RATIO <= aspect <= HOUSING_MAX_ASPECT_RATIO:
+                if area > max_area:
+                    max_area = area
+                    bbox = (x, y, cw, ch)
+
+    # --- Phase detection ---
+    phase_result = detect_phase_from_bbox(frame, bbox)
+
+    return {
+        "phase": phase_result["phase"],
+        "bbox": bbox,
+        "red_lit": phase_result["red"],
+        "yellow_lit": phase_result["yellow"],
+        "green_lit": phase_result["green"],
+        "red_hsv": phase_result["red_hsv"],
+        "yellow_hsv": phase_result["yellow_hsv"],
+        "green_hsv": phase_result["green_hsv"],
+        "red_lit_pixels": phase_result["red_lit_pixels"],
+        "yellow_lit_pixels": phase_result["yellow_lit_pixels"],
+        "green_lit_pixels": phase_result["green_lit_pixels"],
+        "image_shape": image_shape,
+        "masks": {
+            "red": mask_red,
+            "white": mask_white,
+            "composite": mask_composite,
+        },
+    }
+
+
+def process_single_image(
+    image_path: str,
+    save_debug_dir: Optional[str] = None,
+) -> Dict:
+    """
+    Run detection on a single image and optionally save debug output.
+
+    Args:
+        image_path: Path to the image file.
+        save_debug_dir: If provided, write overlay + masks to this directory.
+
+    Returns:
+        Detection result dict (from detect_phase_from_image).
+    """
+    result = detect_phase_from_image(image_path)
+
+    if save_debug_dir:
+        debug_path = Path(save_debug_dir)
+        debug_path.mkdir(parents=True, exist_ok=True)
+
+        frame = cv2.imread(image_path)
+        overlay = draw_debug_overlay(frame, result["bbox"], result)
+
+        stem = Path(image_path).stem
+        cv2.imwrite(str(debug_path / f"{stem}_overlay.jpg"), overlay)
+
+        for mask_name, mask_arr in result["masks"].items():
+            cv2.imwrite(str(debug_path / f"{stem}_mask_{mask_name}.jpg"), mask_arr)
+
+        print(f"  [DEBUG] Saved to {debug_path}/")
+
+    return result
+
+
+def run_regression_test(
+    image_paths: List[str],
+    expected_phases: Optional[Dict[str, str]] = None,
+    save_debug_dir: Optional[str] = None,
+) -> Dict:
+    """
+    Run detection on multiple images and print a regression summary.
+
+    Args:
+        image_paths: List of image file paths.
+        expected_phases: Optional dict mapping image stem -> expected phase.
+        save_debug_dir: If provided, debug output is saved per-image.
+
+    Returns:
+        dict with keys: results (list), total (int), correct (int)
+    """
+    results = []
+    correct = 0
+    total = len(image_paths)
+
+    print(f"\n{'='*60}")
+    print(f"  Regression Test: {total} image(s)")
+    print(f"{'='*60}")
+
+    for img_path in image_paths:
+        stem = Path(img_path).stem
+        print(f"\n  Image: {img_path}")
+
+        try:
+            result = process_single_image(img_path, save_debug_dir)
+        except FileNotFoundError as e:
+            print(f"    [SKIP] {e}")
+            continue
+
+        phase = result["phase"]
+        bbox = result["bbox"]
+        bbox_str = f"{bbox[0]},{bbox[1]},{bbox[2]},{bbox[3]}" if bbox else "none"
+
+        sectors = []
+        for color_name in ["red", "yellow", "green"]:
+            lit = result[f"{color_name}_lit"]
+            pixels = result[f"{color_name}_lit_pixels"]
+            status = "ON" if lit else "OFF"
+            sectors.append(f"{color_name.upper()}:{status}({pixels}px)")
+
+        print(f"    Phase: {phase.upper()}")
+        print(f"    BBox:  {bbox_str}")
+        print(f"    Sectors: {', '.join(sectors)}")
+
+        if expected_phases and stem in expected_phases:
+            exp = expected_phases[stem]
+            status_icon = "PASS" if phase == exp else "FAIL"
+            print(f"    Expected: {exp.upper()}  ->  [{status_icon}]")
+            if phase == exp:
+                correct += 1
+            else:
+                print(f"    *** MISMATCH ***")
+        else:
+            print(f"    (no expected phase set)")
+
+        results.append(result)
+
+    print(f"\n{'='*60}")
+    if expected_phases:
+        print(f"  Results: {correct}/{total} correct")
+    else:
+        print(f"  Results: {total} images processed (no expected phases)")
+    print(f"{'='*60}\n")
+
+    return {"results": results, "total": total, "correct": correct}
+
+if __name__ == "__main__":
+    main()
 
 
 if __name__ == "__main__":
