@@ -2,7 +2,8 @@
 """
 Data Collection Script - Train-Mounted Camera Capture (IMX708 / Picamera2)
 
-Records per-frame JPEGs into a single .mjpeg file, with sidecar metadata
+Records per-frame JPEGs into an H.264 video file (via picamera2 native
+recording), with sidecar metadata
 (frames.csv, session_meta.json) for later annotation with LabelImg, CVAT,
 Label Studio, or similar tools.
 
@@ -16,7 +17,9 @@ After collection, retrieve from your dev machine:
 
 Key design decisions:
 - Locks AE/AWB/AF after auto-convergence to prevent defocus during capture.
-- Writes per-frame JPEG (q=95) into an MJPEG container - frames stay independent.
+- Uses picamera2 native H.264 recording (hardware-accelerated on Pi) — no silent codec failures.
+- Writes per-frame JPEG (q=95) into a 'frames/' directory — frames stay independent.
+- Muxes raw H.264 into MP4 via ffmpeg for VLC compatibility.
 - Logs frame-level camera metadata for debugging.
 - Never mode-switches: only ever captures from the runtime video config.
 """
@@ -154,6 +157,7 @@ def _collect_with_picamera2(duration_s, resolution, fps, max_exposure_us,
     """Record data using Picamera2 (IMX708 / Pi Camera Module 3)."""
     import cv2
     from picamera2 import Picamera2
+    from picamera2.encoders import H264Encoder
 
     picam2 = Picamera2()
     cfg = picam2.create_video_configuration(
@@ -190,30 +194,32 @@ def _collect_with_picamera2(duration_s, resolution, fps, max_exposure_us,
         f.write(run_note)
     print(f"[meta] run_note.txt -> {note_path}")
 
-    # On this Raspberry Pi, OpenCV's VideoWriter with MJPG codec is broken:
-    # it opens successfully but silently drops every frame (0-byte output).
-    # Workaround: write per-frame JPEG files directly instead of an MJPEG container.
-    # The frames.csv sidecar references them by name so they can be reassembled later.
+    # Use picamera2's native H.264 video recording (hardware-accelerated on Pi).
+    # This avoids OpenCV's broken MJPEG codec entirely and produces a standard
+    # H.264 elementary stream that we mux into MP4 after capture.
+    #
+    # How it works:
+    #   1. Configure picamera2 with 'encode' = 'main' (already done above).
+    #   2. Create an H264Encoder and start recording to a file.
+    #   3. Continue capturing frames for per-frame JPEGs + metadata (unchanged).
+    #   4. Stop recording when done.
+    #   5. Mux the raw H.264 into a proper MP4 container
+    #      using ffmpeg (runs on the Pi).
+    h264_path = output_dir / "train.h264"
+    mp4_path = output_dir / "train.mp4"
+
+    # Create H.264 encoder (bitrate in bps) — ~3 Mbps is good for 640x480@30
+    bitrate = 3_000_000
+    h264_encoder = H264Encoder(bitrate)
+
+    # Start recording — writes raw H.264 frames directly to file
+    picam2.start_recording(h264_encoder, str(h264_path))
+    print(f"[h264] Writing H.264 stream to {h264_path}")
+
+    # Also keep per-frame JPEG directory for sidecar metadata
     frames_dir = output_dir / "frames"
     frames_dir.mkdir(exist_ok=True)
-    mjpeg_path = output_dir / "train.mjpeg"  # kept for backward compat
-    use_mjpeg = False  # will be set to True if we find a working codec below
-
-    # Try MJPEG first; if it fails silently (0-byte output after flush), fall back.
-    fourcc_codes = ["MJPG", "MP4V", "XVID", "AVC1"]
-    writer = None
-    codec_name = None
-    for code in fourcc_codes:
-        fourcc = cv2.VideoWriter_fourcc(*code)
-        candidate = cv2.VideoWriter(str(mjpeg_path), fourcc, fps, resolution)
-        if candidate.isOpened():
-            writer = candidate
-            codec_name = code
-            break
-    if writer is not None:
-        print(f"[mjpeg] Writing to {mjpeg_path} (codec: {codec_name})")
-    else:
-        print(f"[mjpeg] MJPEG writer unavailable - writing per-frame JPEGs to {frames_dir}")
+    mjpeg_path = mp4_path  # alias for backward compat — returns .mp4 now
 
     # Open CSV sidecar
     csv_path = output_dir / "frames.csv"
@@ -276,10 +282,10 @@ def _collect_with_picamera2(duration_s, resolution, fps, max_exposure_us,
             frame_path = frames_dir / f'frame_{frame_idx:06d}.jpg'
             cv2.imwrite(str(frame_path), frame, [cv2.IMWRITE_JPEG_QUALITY, 95])
 
-            # Also write raw frame to MJPEG container (VideoWriter expects raw numpy array,
-            # NOT a JPEG buffer — passing jpeg_buf would corrupt the file with black frames).
-            if writer is not None:
-                writer.write(frame)
+            # The H.264 video stream is handled automatically by picamera2's
+            # start_video_stream() — frames are encoded and written to the file
+            # by the camera's hardware encoder in the background. No manual
+            # write() call needed.
 
             # Write CSV row
             wall_ts = datetime.now(timezone.utc).isoformat()
@@ -301,7 +307,7 @@ def _collect_with_picamera2(duration_s, resolution, fps, max_exposure_us,
             if now - last_status >= 1.0:
                 elapsed = now - start_time
                 fps_actual = frame_idx / elapsed if elapsed > 0 else 0
-                file_size_mb = mjpeg_path.stat().st_size / (1024 * 1024)
+                file_size_mb = h264_path.stat().st_size / (1024 * 1024)
                 extra = ''
                 if lens_position_warnings > 0:
                     extra = f'  [lens drifts: {lens_position_warnings}]'
@@ -326,22 +332,53 @@ def _collect_with_picamera2(duration_s, resolution, fps, max_exposure_us,
         print(f'\n[collect] Shutting down ...')
         csv_file.flush()
         csv_file.close()
-        if writer is not None:
-            writer.release()
+        # Stop the H.264 recording — this flushes remaining frames to disk
+        picam2.stop_recording()
         picam2.stop()
+
+    # Mux raw H.264 into MP4 container using ffmpeg
+    if h264_path.exists() and h264_path.stat().st_size > 0:
+        print(f'[mux] Converting {h264_path.name} -> {mp4_path.name} via ffmpeg ...')
+        import subprocess
+        try:
+            result = subprocess.run(
+                [
+                    'ffmpeg', '-y',
+                    '-r', str(fps),
+                    '-i', str(h264_path),
+                    '-c:v', 'copy',
+                    '-movflags', '+faststart',
+                    str(mp4_path),
+                ],
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+            if result.returncode == 0:
+                mp4_size = mp4_path.stat().st_size / (1024 * 1024)
+                print(f'[mux] MP4 created: {mp4_size:.1f} MB')
+            else:
+                print(f'[mux] ffmpeg warning: {result.stderr.strip()}')
+                # Fallback: keep the raw .h264 file — most players still handle it
+                mp4_path = None
+        except FileNotFoundError:
+            print('[mux] ffmpeg not found — keeping raw .h264 file (playable in VLC).')
+            mp4_path = None
+        except subprocess.TimeoutExpired:
+            print('[mux] ffmpeg timed out — keeping raw .h264 file.')
+            mp4_path = None
 
     # Final stats
     total_time = time.time() - start_time
     actual_fps = frame_idx / total_time if total_time > 0 else 0
-    final_size = mjpeg_path.stat().st_size / (1024 * 1024)
+    final_size = h264_path.stat().st_size / (1024 * 1024) if h264_path.exists() else 0
     frame_count = len(list(frames_dir.iterdir())) if frames_dir.exists() else 0
     frame_total_size = sum(f.stat().st_size for f in frames_dir.iterdir()) / (1024 * 1024) if frames_dir.exists() else 0
 
-    # Validate MJPEG output; if 0 bytes, the codec was silently broken.
-    # In that case, rely on per-frame JPEG files (which always work).
-    mjpeg_ok = final_size > 0
-    if writer is not None and not mjpeg_ok:
-        print("[WARN] MJPEG file is 0 bytes - codec did not encode frames.")
+    # Validate H.264 output
+    h264_ok = final_size > 0
+    if not h264_ok:
+        print("[WARN] H.264 file is empty - hardware encoding may have failed.")
         print("[WARN] Per-frame JPEG files in 'frames/' directory are the valid output.")
 
     print(f'\n{sep}')
@@ -349,10 +386,14 @@ def _collect_with_picamera2(duration_s, resolution, fps, max_exposure_us,
     print(f'  Frames   : {frame_idx}')
     print(f'  Duration : {total_time:.1f}s')
     print(f'  Average  : {actual_fps:.1f} fps')
-    print(f'  File size: {final_size:.1f} MB')
+    print(f'  H.264 size: {final_size:.1f} MB')
     print(f'  Frame files: {frame_count} ({frame_total_size:.2f} MB)')
     print(f'  Lens drifts: {lens_position_warnings}')
-    print(f'  Output   : {mjpeg_path}')
+    if mp4_path and mp4_path.exists():
+        mp4_size = mp4_path.stat().st_size / (1024 * 1024)
+        print(f'  Output (MP4): {mp4_path} ({mp4_size:.1f} MB)')
+    else:
+        print(f'  Output (H.264): {h264_path}')
     print(f'  Frames dir: {frames_dir}')
     print(sep + '\n')
     return mjpeg_path
@@ -581,7 +622,7 @@ def main():
             run_note=args.run,
         )
 
-    print(f"\nDone! MJPEG file: {mjpeg_path.absolute()}")
+    print(f"\nDone! Video file: {mjpeg_path.absolute()}")
     print(f"Sidecars: {output_dir}/frames.csv, {output_dir}/session_meta.json, {output_dir}/run_note.txt")
 
 
