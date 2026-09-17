@@ -20,3 +20,7 @@ debug_out/
 # Collected data runs
 runs/
 data/runs/
+
+# Local dataset folder (synced to Hugging Face instead)
+datasets/
+

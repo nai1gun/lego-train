@@ -36,7 +36,10 @@ python scripts/annotate_train.py
 ├── scripts/
 │   ├── camera_smoke_test.py        # Camera smoke test (auto-detects Pi / USB)
 │   ├── annotate_train.py           # Regenerates lego_train_annotated.png
-│   └── test_and_copy.ps1           # Helper: run test on Pi, copy results back
+│   ├── test_and_copy.ps1           # Helper: run test on Pi, copy results back
+│   ├── upload_dataset.py           # Upload datasets to Hugging Face
+│   └── example_load_dataset.py     # Example: load and explore datasets
+├── datasets/                       # Local dataset storage (synced to HF)
 ├── tests/                          # Unit tests (reserved for future)
 ├── README.md                       # This file
 └── .clinerules                     # Project documentation and guidelines
@@ -125,6 +128,82 @@ The `src/bluetooth_controller.py` script provides:
 ```bash
 python src/bluetooth_controller.py
 ```
+
+## Dataset Management
+
+This project uses [Hugging Face Datasets](https://huggingface.co/datasets) to store and manage labeled training data.
+
+### Why Hugging Face?
+- **Built for ML data** — handles images, labels, and metadata cleanly
+- **Easy code integration** — load datasets with one line of Python
+- **Version control** — track dataset changes alongside model changes
+- **Free hosting** — generous free tier for private datasets
+- **Team-friendly** — easy to share with Lev for collaborative work
+
+### Setup (One-Time)
+
+1. **Create a Hugging Face account** at [huggingface.co](https://huggingface.co/join)
+
+2. **Get your API token**:
+   - Go to Settings → Access Tokens
+   - Create a new token (type: "Write")
+   - Copy the token
+
+3. **Set the token on your computer**:
+   ```powershell
+   # Windows (current session)
+   $env:HF_TOKEN="your_token_here"
+   
+   # Windows (permanent)
+   setx HF_TOKEN "your_token_here"
+   
+   # Linux/Mac
+   export HF_TOKEN="your_token_here"
+   ```
+
+4. **Login via the helper script**:
+   ```bash
+   python scripts/upload_dataset.py login
+   ```
+
+### Uploading Your Dataset
+
+1. **Organize your data** in the `datasets/` folder:
+   ```
+   datasets/
+   ├── traffic_light_red/
+   │   ├── image1.jpg
+   │   └── image2.jpg
+   ├── traffic_light_green/
+   │   ├── image1.jpg
+   │   └── image2.jpg
+   └── README.md
+   ```
+
+2. **Upload to Hugging Face**:
+   ```bash
+   python scripts/upload_dataset.py upload --dataset-name lev/lego-train-datasets
+   ```
+
+### Loading the Dataset in Code
+
+```python
+from datasets import load_dataset
+
+# Load the dataset
+dataset = load_dataset("lev/lego-train-datasets")
+
+# Access training data
+train_images = dataset["train"]["image"]
+train_labels = dataset["train"]["label"]
+
+print(f"Training samples: {len(train_images)}")
+```
+
+### Dataset Structure
+See [datasets/README.md](./datasets/README.md) for detailed documentation.
+
+---
 
 ## Project Components
 
