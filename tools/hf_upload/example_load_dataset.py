@@ -8,7 +8,7 @@ This script demonstrates how to:
 3. Prepare it for training
 
 Usage:
-    python scripts/example_load_dataset.py
+    python tools/hf_upload/example_load_dataset.py
 """
 
 from datasets import load_dataset
@@ -152,7 +152,7 @@ def main():
     print("✅ Example complete!")
     print("\nNext steps:")
     print("  1. Upload your real dataset using:")
-    print("     python scripts/upload_dataset.py upload")
+    print("     python tools/hf_upload/upload_dataset.py upload")
     print("  2. Replace the dataset name with your actual repo")
     print("  3. Use this data to train your traffic light classifier!")
 

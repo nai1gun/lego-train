@@ -35,3 +35,14 @@ Target Developer: Pair-programming with 11-year-old Lev.
 - Use Bleak librariy for Bluetooth communication with LEGO motors
 - LEGO devices typically appear as "LEGO" or "Train" in device names
 - Connect to RFCOMM port 1 for basic communication
+
+## Data Pipeline Structure
+- `tools/data_collection/` — Scripts for camera data capture on the Pi
+- `tools/labeling/` — Label Studio setup, configs, and task generation
+- `tools/hf_upload/` — HuggingFace dataset upload/download utilities
+- `data/captured/raw/` — Raw video runs from the Pi
+- `data/curated/` — Curated/filtered runs ready for labeling
+- `data/labeled/` — Labeled datasets (ready for HF upload)
+
+## Important Data History & Lessons Learned
+- **CRITICAL**: The legacy `datasets/` directory (now deleted) contained 6 Label Studio annotation JSON files (`datasets/1` through `datasets/6`) — these were NOT empty folders. They contained saved annotation work and should have been preserved or migrated. This was a data loss error during the directory migration.

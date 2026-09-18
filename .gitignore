@@ -18,9 +18,11 @@ logs/
 debug_out/
 
 # Collected data runs
-runs/
-data/runs/
+data/
 
 # Local dataset folder (synced to Hugging Face instead)
 datasets/
+
+# Label Studio config (machine-specific paths)
+tools/labeling/.env.label-studio
 

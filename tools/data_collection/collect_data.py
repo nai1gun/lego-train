@@ -10,10 +10,10 @@ Label Studio, or similar tools.
 Designed to run remotely on the Raspberry Pi via SSH:
     ssh lev@levpi
     cd ~/lego-train
-    python3 scripts/collect_data.py --duration 120 --run "inner curve, speed 40%"
+    python3 tools/data_collection/collect_data.py --duration 120 --run "inner curve, speed 40%"
 
 After collection, retrieve from your dev machine:
-    scp -r lev@levpi:~/lego-train/runs/* ./data/runs/
+    scp -r lev@levpi:~/lego-train/runs/* ./data/captured/raw/
 
 Key design decisions:
 - Locks AE/AWB/AF after auto-convergence to prevent defocus during capture.

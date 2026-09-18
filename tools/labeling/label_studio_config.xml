@@ -1,0 +1,15 @@
+<View>
+  <Image name="image" value="$image"/>
+
+  <RectangleLabels name="trafficLight" toName="image">
+    <Label value="Traffic Light" background="black"/>
+  </RectangleLabels>
+
+  <Choices name="phase" toName="image" choice="multiple" perRegion="true"
+           whenTagName="trafficLight" required="true">
+    <Choice value="Red"/>
+    <Choice value="Yellow"/>
+    <Choice value="Green"/>
+    <Choice value="Off"/>
+  </Choices>
+</View>

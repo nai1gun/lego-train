@@ -4,13 +4,13 @@ Helper script to upload LEGO train datasets to Hugging Face.
 
 Usage:
     # First, login to Hugging Face (one-time setup):
-    #   python scripts/upload_dataset.py login
+    #   python tools/hf_upload/upload_dataset.py login
 
-    # Upload a dataset from the datasets/ folder:
-    #   python scripts/upload_dataset.py upload --dataset-name traffic-light-classification
+    # Upload a dataset from the data/ folder:
+    #   python tools/hf_upload/upload_dataset.py upload --dataset-name traffic-light-classification
 
     # List your datasets:
-    #   python scripts/upload_dataset.py list
+    #   python tools/hf_upload/upload_dataset.py list
 
 Author: Lev & AI Assistant
 """
@@ -88,7 +88,8 @@ def cmd_upload(args):
         return False
     
     dataset_name = args.dataset_name or "lego-train-datasets"
-    dataset_dir = PROJECT_ROOT / "datasets"
+    # Upload from data/curated/ by default (the curated/step before labeling)
+    dataset_dir = PROJECT_ROOT / "data" / "curated"
     
     if not dataset_dir.exists():
         print(f"❌ Dataset directory not found: {dataset_dir}")
