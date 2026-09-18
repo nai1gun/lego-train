@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "predictions": [],
+    "annotations": [],
+    "file_upload": null,
+    "data": {
+      "image": "/data/local-files/?d=data/labeled/20260917_065933/frames/frame_000000.jpg",
+      "frames_csv": "/data/local-files/?d=data/labeled/20260917_065933/frames.csv",
+      "frame_idx": 0,
+      "session": "20260917_065933"
+    },
+    "meta": {
+      "frame_number": 0,
+      "filename": "frame_000000.jpg",
+      "total_frames": 250,
+      "timestamp": "2026-09-17T04:59:41.624961+00:00",
+      "exposure_us": "19983",
+      "analogue_gain": "4.6126"
+    }
+  },
+  {
+    "id": 2,
+    "predictions": [],
+    "annotations": [],
+    "file_upload": null,
+    "data": {
+      "image": "/data/local-files/?d=data/labeled/20260917_065933/frames/frame_000010.jpg",
+      "frames_csv": "/data/local-files/?d=data/labeled/20260917_065933/frames.csv",
+      "frame_idx": 10,
+      "session": "20260917_065933"
+    },
+    "meta": {
+      "frame_number": 10,
+      "filename": "frame_000010.jpg",
+      "total_frames": 250,
+      "timestamp": "2026-09-17T04:59:42.762082+00:00",
+      "exposure_us": "19983",
+      "analogue_gain": "4.6126"
+    }
+  },
+  {
+    "id": 3,
+    "predictions": [],
+    "annotations": [],
+    "file_upload": null,
+    "data": {
+      "image": "/data/local-files/?d=data/labeled/20260917_065933/frames/frame_000020.jpg",
+      "frames_csv": "/data/local-files/?d=data/labeled/20260917_065933/frames.csv",
+      "frame_idx": 20,
+      "session": "20260917_065933"
+    },
+    "meta": {
+      "frame_number": 20,
+      "filename": "frame_000020.jpg",
+      "total_frames": 250,
+      "timestamp": "2026-09-17T04:59:43.962193+00:00",
+      "exposure_us": "19983",
+      "analogue_gain": "4.6126"
+    }
+  },
+  {
+    "id": 4,
+    "predictions": [],
+    "annotations": [],
+    "file_upload": null,
+    "data": {
+      "image": "/data/local-files/?d=data/labeled/20260917_065933/frames/frame_000030.jpg",
+      "frames_csv": "/data/local-files/?d=data/labeled/20260917_065933/frames.csv",
+      "frame_idx": 30,
+      "session": "20260917_065933"
+    },
+    "meta": {
+      "frame_number": 30,
+      "filename": "frame_000030.jpg",
+      "total_frames": 250,
+      "timestamp": "2026-09-17T04:59:45.161854+00:00",
+      "exposure_us": "19983",
+      "analogue_gain": "4.6126"
+    }
+  },
+  {
+    "id": 5,
+    "predictions": [],
+    "annotations": [],
+    "file_upload": null,
+    "data": {
+      "image": "/data/local-files/?d=data/labeled/20260917_065933/frames/frame_000040.jpg",
+      "frames_csv": "/data/local-files/?d=data/labeled/20260917_065933/frames.csv",
+      "frame_idx": 40,
+      "session": "20260917_065933"
+    },
+    "meta": {
+      "frame_number": 40,
+      "filename": "frame_000040.jpg",
+      "total_frames": 250,
+      "timestamp": "2026-09-17T04:59:46.361299+00:00",
+      "exposure_us": "19983",
+      "analogue_gain": "4.6126"
+    }
+  }
+]

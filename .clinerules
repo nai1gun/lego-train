@@ -46,3 +46,11 @@ Target Developer: Pair-programming with 11-year-old Lev.
 
 ## Important Data History & Lessons Learned
 - **CRITICAL**: The legacy `datasets/` directory (now deleted) contained 6 Label Studio annotation JSON files (`datasets/1` through `datasets/6`) — these were NOT empty folders. They contained saved annotation work and should have been preserved or migrated. This was a data loss error during the directory migration.
+
+## Cross-Platform Development
+- **Prefer Python scripts (`.py`)** over platform-specific shell scripts (`.ps1`, `.bat`, `.sh`) wherever feasible.
+- **Use `pathlib.Path`** for all file paths — never string concatenation with `/` or `\`.
+- **Use ANSI escape codes** for colored terminal output instead of platform-specific libraries.
+- **Avoid OS-specific CLI tools** — prefer Python standard library or cross-platform packages.
+- **Handle platform differences explicitly** — test logic on both Windows and Unix-like systems.
+- This project's dev host is Windows 11, but scripts must also work on macOS and Linux.
