@@ -32,6 +32,8 @@ def main():
     # Set environment variables for Label Studio
     os.environ["LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED"] = "true"
     os.environ["LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT"] = str(project_root)
+    # Disable online version check (avoids errors when offline)
+    os.environ["LABEL_STUDIO_DISABLE_INSTALLATION_CHECKS"] = "true"
 
     print(color("Setting Label Studio environment variables...", CYAN))
     print(f"  LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED={os.environ['LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED']}")
