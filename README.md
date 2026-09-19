@@ -1,1 +1,252 @@
-﻿# Autonomous LEGO Train ProjectThis project implements an autonomous LEGO train using Raspberry Pi, camera vision, and Bluetooth controls.## Hardware OverviewHere's an annotated view of our LEGO train showing the key components:![LEGO Train Components](./lego_train_annotated.png)### Component BreakdownThe numbers match the badges on the photo above:| # | Component | Location | Description ||---|-----------|----------|-------------|| 1 | 🔋 **Power bank** | On the roof of the first carriage | Portable 5V supply for the Raspberry Pi, so the train runs untethered || 2 | 📷 **Raspberry Pi Camera** | In the nose of the first carriage | Looks down the track ahead and feeds frames to the Pi for autonomous navigation || 3 | 🖥️ **Raspberry Pi** | Inside the first carriage (visible through the windows) | The brain of the train — runs the Python code, processes camera frames, and sends motor commands || 4 | ⚙️ **LEGO train motor** | Front half of the second carriage | Drives the train forward and backward, controlled over Bluetooth from the Raspberry Pi |The annotated image is generated from the original photo by[`tools/data_collection/annotate_train.py`](./tools/data_collection/annotate_train.py) — edit the coordinatesin that script and re-run it to adjust the labels:```bashpython tools/data_collection/annotate_train.py```## Project Structure```.├── src/│   └── bluetooth_controller.py     # Bluetooth controller for LEGO motors├── tools/                          # All project scripts│   ├── data_collection/            # Camera data capture scripts│   ├── labeling/                   # Label Studio setup and configs│   └── hf_upload/                  # HuggingFace dataset upload/download├── data/                           # Data pipeline directories│   ├── captured/raw/               # Raw video/image runs from the Pi│   ├── curated/                    # Curated/filtered runs ready for labeling│   └── labeled/                    # Labeled datasets (ready for HF upload)├── datasets/                       # Local dataset storage (synced to HF)├── tests/                          # Unit tests (reserved for future)├── README.md                       # This file└── .clinerules                     # Project documentation and guidelines```> 💡 For detailed documentation on the data pipeline, see [tools/README.md](./tools/README.md).## Virtual EnvironmentThis project uses a Python virtual environment located at `.venv`. All development and package installations should be done within this environment.To activate the virtual environment:- Windows: `.venv\Scripts\activate`- Linux/Mac: `source .venv/bin/activate`If the `.venv` directory doesn't exist, it should be created using `python -m venv .venv`## Getting Started### 1. Prerequisites- Python 3.x installed on development machine- Bluetooth support enabled- Raspberry Pi with SSH access (hostname: `levpi`)### 2. Install Required PackagesFirst, activate the virtual environment:```bash# On Windows.venv\Scripts\activate# On Linux/Macsource .venv/bin/activate```Then install required packages:```bashpip install bleakpip install opencv-python       # For local development on Windowspip install opencv-python-headless  # For Raspberry Pi (no GUI needed)pip install pillow              # Only needed to regenerate the annotated photo```### 3. Camera SetupBefore using the camera, make sure:1. The Pi Camera Module is properly connected to the CSI port2. Camera is enabled on Raspberry Pi (`raspi-config` → Interface Options → Camera)#### Test the CameraRun the camera smoke test to verify everything works:```bash# On Windows (development host)python tools/data_collection/camera_smoke_test.py# On Raspberry Pi (via SSH)ssh lev@levpicd ~/lego-trainsource .venv/bin/activatepython tools/data_collection/camera_smoke_test.py```The test will:- Open the camera and display a live preview- Show resolution and FPS information- Capture a screenshot automatically after 5 seconds- Save it as `camera_test_screenshot.jpg`### 4. Connect to Raspberry Pi```bashssh lev@levpi```## Bluetooth ControlThe `src/bluetooth_controller.py` script provides:1. **Device Discovery**: Automatically scans for LEGO devices2. **Connection Management**: Establishes connection to LEGO motors3. **Command Interface**: Sends commands like forward, backward, and stop### Usage```bashpython src/bluetooth_controller.py```## Dataset ManagementThis project uses [Hugging Face Datasets](https://huggingface.co/datasets) to store and manage labeled training data.### Why Hugging Face?- **Built for ML data** — handles images, labels, and metadata cleanly- **Easy code integration** — load datasets with one line of Python- **Version control** — track dataset changes alongside model changes- **Free hosting** — generous free tier for private datasets- **Team-friendly** — easy to share with Lev for collaborative work### Setup (One-Time)1. **Create a Hugging Face account** at [huggingface.co](https://huggingface.co/join)2. **Get your API token**:   - Go to Settings → Access Tokens   - Create a new token (type: "Write")   - Copy the token3. **Set the token on your computer**:   ```powershell   # Windows (current session)   $env:HF_TOKEN="your_token_here"      # Windows (permanent)   setx HF_TOKEN "your_token_here"      # Linux/Mac   export HF_TOKEN="your_token_here"   ```4. **Login via the helper script**:   ```bash   python tools/hf_upload/upload_dataset.py login   ```### Uploading Your Dataset1. **Organize your data** in a folder with class subdirectories:   ```   my_dataset/   ├── traffic_light_red/   │   ├── image1.jpg   │   └── image2.jpg   ├── traffic_light_green/   │   ├── image1.jpg   │   └── image2.jpg   └── README.md   ```2. **Upload to Hugging Face**:   ```bash   python tools/hf_upload/upload_dataset.py upload --dataset-name lev/lego-train-datasets --local-dir my_dataset   ```### Loading the Dataset in Code```pythonfrom datasets import load_dataset# Load the datasetdataset = load_dataset("lev/lego-train-datasets")# Access training datatrain_images = dataset["train"]["image"]train_labels = dataset["train"]["label"]print(f"Training samples: {len(train_images)}")```### Dataset StructureSee [tools/labeling/README.md](./tools/labeling/README.md) for detailed documentation on the labeling workflow.---## Project Components- `src/bluetooth_controller.py`: Main Bluetooth controller with device discovery and command sending- `tools/data_collection/camera_smoke_test.py`: Camera smoke test - verifies camera is working correctly (auto-detects Pi / USB)- `tools/data_collection/annotate_train.py`: Redraws the component labels on `lego_train.jpg` (needs `pillow`)- `tests/`: Unit tests (reserved for future)- `README.md`: Project documentation- `.clinerules`: Project documentation and guidelines## Troubleshooting### Bluetooth IssuesIf you encounter Bluetooth connection problems:1. Ensure Bluetooth is enabled on both devices2. Check that your Raspberry Pi has the necessary Bluetooth support3. Verify permissions for accessing Bluetooth devices### SSH Connection IssuesIf SSH connection fails:1. Verify that the Raspberry Pi is running and connected to network2. Check firewall settings3. Confirm correct hostname (`levpi`) and username (`lev`)## LicenseThis project is created for educational purposes as part of pair-programming with 11-year-old Lev.
+# Autonomous LEGO Train Project
+
+This project implements an autonomous LEGO train using Raspberry Pi, camera vision, and Bluetooth controls.
+
+## Hardware Overview
+
+Here's an annotated view of our LEGO train showing the key components:
+
+![LEGO Train Components](./lego_train_annotated.png)
+
+### Component Breakdown
+
+The numbers match the badges on the photo above:
+
+| # | Component | Location | Description |
+|---|-----------|----------|-------------|
+| 1 | Power bank | On the roof of the first carriage | Portable 5V supply for the Raspberry Pi, so the train runs untethered |
+| 2 | Raspberry Pi Camera | In the nose of the first carriage | Looks down the track ahead and feeds frames to the Pi for autonomous navigation |
+| 3 | Raspberry Pi | Inside the first carriage (visible through the windows) | The brain of the train - runs the Python code, processes camera frames, and sends motor commands |
+| 4 | LEGO train motor | Front half of the second carriage | Drives the train forward and backward, controlled over Bluetooth from the Raspberry Pi |
+
+The annotated image is generated from the original photo by [`tools/data_collection/annotate_train.py`](./tools/data_collection/annotate_train.py) - edit the coordinates in that script and re-run it to adjust the labels:
+
+```bash
+python tools/data_collection/annotate_train.py
+```
+
+## Project Structure
+
+```
+src/
+  bluetooth_controller.py     # Bluetooth controller for LEGO motors
+
+tools/                        # All project scripts
+  data_collection/            # Camera data capture scripts
+  labeling/                   # Label Studio setup and configs
+  hf_upload/                  # HuggingFace dataset upload/download
+
+data/                         # Data pipeline directories
+  captured/raw/               # Raw video/image runs from the Pi
+  curated/                    # Curated/filtered runs ready for labeling
+  labeled/                    # Labeled datasets (ready for HF upload)
+
+datasets/                     # Local dataset storage (synced to HF)
+tests/                        # Unit tests (reserved for future)
+README.md                     # This file
+.clinerules                   # Project documentation and guidelines
+```
+
+> For detailed documentation on the data pipeline, see [tools/README.md](./tools/README.md).
+
+## Virtual Environment
+
+This project uses a Python virtual environment located at `.venv`. All development and package installations should be done within this environment.
+
+To activate the virtual environment:
+
+- **Windows**: `.venv\Scripts\activate`
+- **Linux/Mac**: `source .venv/bin/activate`
+
+If the `.venv` directory doesn't exist, it should be created using `python -m venv .venv`.
+
+## Getting Started
+
+### 1. Prerequisites
+
+- Python 3.x installed on development machine
+- Bluetooth support enabled
+- Raspberry Pi with SSH access (hostname: `levpi`)
+
+### 2. Install Required Packages
+
+First, activate the virtual environment:
+
+```bash
+# On Windows
+.venv\Scripts\activate
+
+# On Linux/Mac
+source .venv/bin/activate
+```
+
+Then install required packages:
+
+```bash
+pip install bleak
+pip install opencv-python       # For local development on Windows
+pip install opencv-python-headless  # For Raspberry Pi (no GUI needed)
+pip install pillow              # Only needed to regenerate the annotated photo
+```
+
+### 3. Camera Setup
+
+Before using the camera, make sure:
+
+1. The Pi Camera Module is properly connected to the CSI port
+2. Camera is enabled on Raspberry Pi (`raspi-config` -> Interface Options -> Camera)
+
+#### Test the Camera
+
+Run the camera smoke test to verify everything works:
+
+```bash
+# On Windows (development host)
+python tools/data_collection/camera_smoke_test.py
+
+# On Raspberry Pi (via SSH)
+ssh lev@levpi
+cd ~/lego-train
+source .venv/bin/activate
+python tools/data_collection/camera_smoke_test.py
+```
+
+The test will:
+
+- Open the camera and display a live preview
+- Show resolution and FPS information
+- Capture a screenshot automatically after 5 seconds
+- Save it to `data/captured/raw/screenshot.png`
+
+### 4. Bluetooth Controller
+
+The Bluetooth controller connects to the LEGO train motor via Bluetooth. Here's how to use it:
+
+```python
+from src.bluetooth_controller import BluetoothController
+
+# Create a controller instance
+controller = BluetoothController()
+
+# Connect to the LEGO motor
+controller.connect()
+
+# Control the motors
+speed = 50  # 0-100
+controller.set_speed(speed)
+controller.forward()
+controller.reverse()
+controller.stop()
+
+# Disconnect when done
+controller.disconnect()
+```
+
+### 5. Data Collection
+
+Capture camera data for training your autonomous navigation model:
+
+```bash
+# Start a camera recording session
+python tools/data_collection/capture_run.py
+
+# Annotate the train components (if needed)
+python tools/data_collection/annotate_train.py
+```
+
+### 6. Labeling
+
+Use Label Studio to annotate your captured data:
+
+```bash
+# Start Label Studio
+python tools/labeling/start_label_studio.py
+
+# Open your browser and navigate to the URL shown
+```
+
+### 7. Upload to HuggingFace
+
+Upload your labeled datasets to HuggingFace Hub:
+
+```bash
+# Upload a dataset
+python tools/hf_upload/upload_dataset.py --dataset_id your-username/lego-train-data
+
+# Download a dataset
+python tools/hf_upload/download_dataset.py --dataset_id your-username/lego-train-data
+```
+
+## Running the Autonomous Train
+
+To run the full autonomous navigation pipeline on the Raspberry Pi:
+
+```bash
+ssh lev@levpi
+cd ~/lego-train
+source .venv/bin/activate
+python src/main.py
+```
+
+The main script will:
+
+1. Initialize the camera
+2. Start the Bluetooth controller
+3. Begin processing camera frames for track detection
+4. Send motor commands based on visual feedback
+
+## Data Pipeline
+
+The data pipeline has three main stages:
+
+1. **Capture**: Raw video/image runs from the camera (`data/captured/raw/`)
+2. **Curate**: Filtered/selected runs ready for labeling (`data/curated/`)
+3. **Label**: Annotated datasets ready for training (`data/labeled/`)
+
+For detailed documentation, see [tools/README.md](./tools/README.md).
+
+## Troubleshooting
+
+### Camera Issues
+
+- **No camera feed**: Check that the camera is enabled (`raspi-config` -> Interface Options -> Camera)
+- **Poor image quality**: Clean the camera lens and adjust focus
+- **Low FPS**: Reduce camera resolution in the capture script
+
+### Bluetooth Issues
+
+- **Cannot connect**: Ensure the LEGO motor is powered on and in pairing mode
+- **Intermittent connection**: Move the Raspberry Pi closer to the motor
+- **Device not found**: Run `bluetoothctl` to scan for available devices
+
+### Virtual Environment Issues
+
+- **Package installation fails**: Make sure the virtual environment is activated
+- **Module not found**: Reinstall packages after activating the virtual environment
+- **Permission errors**: Use `pip install --user` or check file permissions
+
+## Contributing
+
+Feel free to submit issues and pull requests! This is a fun project for learning about:
+
+- Computer vision with OpenCV
+- Bluetooth communication with Bleak
+- Raspberry Pi hardware integration
+- Data collection and labeling pipelines
+- Machine learning for autonomous navigation
+
+## License
+
+This project is open source and available for educational purposes.
+
+## Acknowledgments
+
+- [OpenCV](https://opencv.org/) for computer vision
+- [Bleak](https://bleak.readthedocs.io/) for Bluetooth communication
+- [Label Studio](https://labelstudio.ai/) for data annotation
+- [HuggingFace](https://huggingface.co/) for dataset hosting
+- LEGO for the amazing train set!
+
+---
+
+Built with love by Lev and Cline
