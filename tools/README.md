@@ -20,18 +20,17 @@ Scripts for capturing video and frames from the train-mounted camera on the Rasp
 
 Tools for setting up and running data annotation with Label Studio.
 
-- **`start-label-studio.bat`** — Launches Label Studio with local file serving enabled.
+- **`start_label_studio.py`** — Launches Label Studio with local file serving enabled.
 - **`label_studio_config.xml`** — Annotation config for traffic light phase classification.
-- **`generate-label-studio-tasks.ps1`** — Generates Label Studio task JSON from labeled data.
-- **`.env.label-studio.example`** — Template for local file storage configuration.
+- **`generate_tasks.py`** — Generates Label Studio task JSON from labeled data.
 
 **Usage:**
 ```powershell
 # Start Label Studio
-.\tools\labeling\start-label-studio.bat
+python tools\labeling\start_label_studio.py
 
 # Generate tasks from labeled data
-.\tools\labeling\generate-label-studio-tasks.ps1 -DatasetPath "data\labeled\LEGO-Train-Traffic-Lights"
+python tools\labeling\generate_tasks.py --dataset-path "data\labeled\LEGO-Train-Traffic-Lights"
 ```
 
 ### 3. HuggingFace Upload (`hf_upload/`)

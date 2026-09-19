@@ -4,13 +4,7 @@ Tools for annotating LEGO Train traffic light data using Label Studio.
 
 ## Setup
 
-1. **Configure local file serving** — copy the example env file:
-   ```powershell
-   copy .env.label-studio.example .env.label-studio
-   ```
-   Update `LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT` if needed (defaults to project root).
-
-2. **Start Label Studio:**
+1. **Start Label Studio:**
    ```bash
    python tools/labeling/start_label_studio.py
    ```
@@ -41,8 +35,7 @@ Export from Label Studio in COCO or YOLO format for training.
 
 ```
 labeling/
-├── start_label_studio.py         # Launch Label Studio
-├── label_studio_config.xml       # Annotation config
-├── generate_tasks.py             # Generate task JSON
-└── .env.label-studio.example     # Local file storage config template
+├── start_label_studio.py    # Launch Label Studio
+├── label_studio_config.xml  # Annotation config
+└── generate_tasks.py        # Generate task JSON
 ```
