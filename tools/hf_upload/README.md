@@ -28,8 +28,8 @@ python tools\hf_upload\upload_dataset.py upload --dataset-name lev/lego-train-da
 
 Downloads to `data/labeled/`:
 
-```powershell
-.\tools\hf_upload\download-dataset.ps1
+```bash
+python tools/hf_upload/download_dataset.py
 ```
 
 ### List Datasets
@@ -49,6 +49,6 @@ python tools\hf_upload\example_load_dataset.py
 ```
 hf_upload/
 ├── upload_dataset.py            # Upload to Hugging Face
-├── download-dataset.ps1         # Download from Hugging Face
+├── download_dataset.py          # Download from Hugging Face
 └── example_load_dataset.py      # Dataset exploration example
 ```
