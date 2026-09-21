@@ -95,7 +95,8 @@ def cmd_upload(args):
         dataset_dir = PROJECT_ROOT / "data" / "curated"
         commit_msg = "Upload dataset from local curated data"
     else:
-        # labeled data has structure: data/labeled/{project_name}/{session_id}/
+        # labeled data has structure: data/labeled/{project_name}/
+        # Upload the entire project root so all session folders are included
         labeled_dir = PROJECT_ROOT / "data" / "labeled"
         if not labeled_dir.exists():
             print(f"❌ Labeled data directory not found: {labeled_dir}")
@@ -105,16 +106,9 @@ def cmd_upload(args):
         if not project_folders:
             print(f"❌ No project folders found in: {labeled_dir}")
             return False
-        # Use the first (or only) project folder
-        project_dir = project_folders[0]
-        # Auto-detect the session folder (e.g., 20260917_065933)
-        session_folders = [d for d in project_dir.iterdir() if d.is_dir()]
-        if not session_folders:
-            print(f"❌ No session folders found in: {project_dir}")
-            return False
-        # Use the most recently modified session folder
-        dataset_dir = sorted(session_folders, key=lambda d: d.stat().st_mtime, reverse=True)[0]
-        commit_msg = "Upload dataset from local labeled data"
+        # Use the first (or only) project folder as the source directory
+        dataset_dir = project_folders[0]
+        commit_msg = "Upload labeled dataset from local data"
     
     if not dataset_dir.exists():
         print(f"❌ Dataset directory not found: {dataset_dir}")
@@ -133,19 +127,29 @@ def cmd_upload(args):
         # The repo may have corrupted paths from previous Windows uploads (backslashes in paths).
         # Delete and recreate to ensure a clean state.
         print("Checking repo state...")
-        existing_files = api.list_repo_files(repo_id=dataset_name, repo_type="dataset")
-        bad_files = [f for f in existing_files if "\\" in f]
-        if bad_files:
-            print(f"⚠️  Found {len(bad_files)} files with corrupted (backslash) paths. Deleting repo...")
-            api.delete_repo(repo_id=dataset_name, repo_type="dataset")
-            print("✅ Repo deleted. Recreating...")
+        try:
+            existing_files = api.list_repo_files(repo_id=dataset_name, repo_type="dataset")
+            bad_files = [f for f in existing_files if "\\" in f]
+            if bad_files:
+                print(f"⚠️  Found {len(bad_files)} files with corrupted (backslash) paths. Deleting repo...")
+                api.delete_repo(repo_id=dataset_name, repo_type="dataset")
+                print("✅ Repo deleted. Recreating...")
+                api.create_repo(
+                    repo_id=dataset_name,
+                    repo_type="dataset",
+                    exist_ok=False,
+                )
+            else:
+                print(f"✅ Repo clean ({len(existing_files)} files). Uploading to existing repo...")
+        except Exception as list_err:
+            # Repo doesn't exist — create it fresh
+            print("⚠️  Repo not found. Creating new repo...")
             api.create_repo(
                 repo_id=dataset_name,
                 repo_type="dataset",
                 exist_ok=False,
             )
-        else:
-            print(f"✅ Repo clean ({len(existing_files)} files). Uploading to existing repo...")
+            print("✅ Repo created.")
         
         # Upload the dataset folder
         # Note: upload_folder handles paths correctly (uses forward slashes)
