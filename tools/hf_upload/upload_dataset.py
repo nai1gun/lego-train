@@ -137,10 +137,16 @@ def cmd_list(args):
         return False
     
     try:
-        from huggingface_hub import HfApi
+        from huggingface_hub import HfApi, whoami
+        
+        # Auto-detect the authenticated user's username
+        token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN")
+        user_info = whoami(token)
+        username = user_info["name"]
+        print(f"🔍 Fetching datasets for @{username}...")
         
         api = HfApi()
-        datasets = api.list_datasets(author="nai1gun")
+        datasets = api.list_datasets(author=username)
         
         if not datasets:
             print("No datasets found. Create one first!")
