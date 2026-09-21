@@ -87,9 +87,34 @@ def cmd_upload(args):
     if not check_hf_token():
         return False
     
+    # Default to 'labeled' data (includes JSON annotations from Label Studio)
+    # Use --source curated for inference-ready frames only (no annotations)
     dataset_name = args.dataset_name or "lego-train-datasets"
-    # Upload from data/curated/ by default (the curated/step with annotated frames)
-    dataset_dir = PROJECT_ROOT / "data" / "curated"
+    source = args.source or "labeled"
+    if source == "curated":
+        dataset_dir = PROJECT_ROOT / "data" / "curated"
+        commit_msg = "Upload dataset from local curated data"
+    else:
+        # labeled data has structure: data/labeled/{project_name}/{session_id}/
+        labeled_dir = PROJECT_ROOT / "data" / "labeled"
+        if not labeled_dir.exists():
+            print(f"❌ Labeled data directory not found: {labeled_dir}")
+            return False
+        # Auto-detect the project folder (e.g., LEGO-Train-Traffic-Lights)
+        project_folders = [d for d in labeled_dir.iterdir() if d.is_dir()]
+        if not project_folders:
+            print(f"❌ No project folders found in: {labeled_dir}")
+            return False
+        # Use the first (or only) project folder
+        project_dir = project_folders[0]
+        # Auto-detect the session folder (e.g., 20260917_065933)
+        session_folders = [d for d in project_dir.iterdir() if d.is_dir()]
+        if not session_folders:
+            print(f"❌ No session folders found in: {project_dir}")
+            return False
+        # Use the most recently modified session folder
+        dataset_dir = sorted(session_folders, key=lambda d: d.stat().st_mtime, reverse=True)[0]
+        commit_msg = "Upload dataset from local labeled data"
     
     if not dataset_dir.exists():
         print(f"❌ Dataset directory not found: {dataset_dir}")
@@ -97,6 +122,7 @@ def cmd_upload(args):
     
     print(f"📤 Uploading dataset to: {dataset_name}")
     print(f"   Dataset location: {dataset_dir}")
+    print(f"   Source: {source}")
     print()
     
     try:
@@ -104,21 +130,31 @@ def cmd_upload(args):
         
         api = HfApi()
         
-        # Create repo if it doesn't exist
-        repo_url = api.create_repo(
-            repo_id=dataset_name,
-            repo_type="dataset",
-            exist_ok=True,
-        )
-        print(f"✅ Repository ready: {repo_url}")
-        print()
+        # The repo may have corrupted paths from previous Windows uploads (backslashes in paths).
+        # Delete and recreate to ensure a clean state.
+        print("Checking repo state...")
+        existing_files = api.list_repo_files(repo_id=dataset_name, repo_type="dataset")
+        bad_files = [f for f in existing_files if "\\" in f]
+        if bad_files:
+            print(f"⚠️  Found {len(bad_files)} files with corrupted (backslash) paths. Deleting repo...")
+            api.delete_repo(repo_id=dataset_name, repo_type="dataset")
+            print("✅ Repo deleted. Recreating...")
+            api.create_repo(
+                repo_id=dataset_name,
+                repo_type="dataset",
+                exist_ok=False,
+            )
+        else:
+            print(f"✅ Repo clean ({len(existing_files)} files). Uploading to existing repo...")
         
         # Upload the dataset folder
+        # Note: upload_folder handles paths correctly (uses forward slashes)
         print("Uploading files...")
         api.upload_folder(
             folder_path=str(dataset_dir),
             repo_id=dataset_name,
             repo_type="dataset",
+            commit_message=commit_msg,
         )
         
         print()
@@ -176,8 +212,11 @@ Examples:
   # Login to Hugging Face
   python upload_dataset.py login
 
-  # Upload your dataset
+  # Upload your dataset (default: labeled data with annotations)
   python upload_dataset.py upload --dataset-name lev/lego-train-datasets
+
+  # Or upload curated frames only (no annotations)
+  python upload_dataset.py upload --dataset-name lev/lego-train-datasets --source curated
 
   # List your datasets
   python upload_dataset.py list
@@ -195,6 +234,13 @@ Examples:
         "--dataset-name",
         type=str,
         help="Dataset name (e.g., lev/lego-train-datasets)",
+    )
+    upload_parser.add_argument(
+        "--source",
+        type=str,
+        choices=["labeled", "curated"],
+        default="labeled",
+        help="Data source: 'labeled' (default, includes JSON annotations) or 'curated' (frames only)",
     )
     
     # List command
