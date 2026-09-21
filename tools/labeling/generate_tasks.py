@@ -39,7 +39,7 @@ def parse_args():
         "--dataset-path",
         type=str,
         default="",
-        help="Path to the downloaded dataset (default: tools/../data/labeled/)",
+        help="Path to the curated dataset (default: tools/../data/curated/)",
     )
     parser.add_argument(
         "--output-path",
@@ -70,9 +70,15 @@ def main():
     project_root = script_dir.parent  # tools/
 
     if not args.dataset_path:
-        dataset_path = project_root / ".." / "data" / "labeled"
+        dataset_path = project_root / ".." / "data" / "curated"
     else:
         dataset_path = Path(args.dataset_path)
+        # Resolve relative paths against the repo root (two levels up from tools/labeling/)
+        if not dataset_path.is_absolute():
+            repo_root = project_root.parent  # go from tools/ to repo root
+            dataset_path = (repo_root / dataset_path).resolve()
+        else:
+            dataset_path = dataset_path.resolve()
 
     if not args.output_path:
         output_path = script_dir / "tasks_label_studio.json"
@@ -129,7 +135,7 @@ def main():
 
         # Build Label Studio local file path
         dataset_name = dataset_path.resolve().name
-        local_path = f"data/labeled/{dataset_name}/frames/{frame.name}"
+        local_path = f"data/curated/{dataset_name}/frames/{frame.name}"
 
         task = {
             "id": task_index + 1,
@@ -138,7 +144,7 @@ def main():
             "file_upload": None,
             "data": {
                 "image": f"/data/local-files/?d={local_path}",
-                "frames_csv": f"/data/local-files/?d=data/labeled/{dataset_name}/frames.csv",
+                "frames_csv": f"/data/local-files/?d=data/curated/{dataset_name}/frames.csv",
                 "frame_idx": frame_num,
                 "session": dataset_name,
             },
@@ -172,7 +178,7 @@ def main():
     print("  3. Go to Data Manager > Import")
     print(f"  4. Upload the file: {output_path}")
     print("  5. Set up local storage: Settings > Cloud Storage > Add Target Storage > Local Files")
-    print("  6. Set path to: /data/labeled")
+    print("  6. Set path to: /data/curated")
 
 
 if __name__ == "__main__":

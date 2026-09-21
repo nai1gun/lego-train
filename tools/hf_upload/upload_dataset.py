@@ -88,7 +88,7 @@ def cmd_upload(args):
         return False
     
     dataset_name = args.dataset_name or "lego-train-datasets"
-    # Upload from data/curated/ by default (the curated/step before labeling)
+    # Upload from data/curated/ by default (the curated/step with annotated frames)
     dataset_dir = PROJECT_ROOT / "data" / "curated"
     
     if not dataset_dir.exists():
