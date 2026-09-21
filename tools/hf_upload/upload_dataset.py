@@ -140,7 +140,7 @@ def cmd_list(args):
         from huggingface_hub import HfApi
         
         api = HfApi()
-        datasets = api.list_datasets(author="lev")  # Replace with your username
+        datasets = api.list_datasets(author="nai1gun")
         
         if not datasets:
             print("No datasets found. Create one first!")
