@@ -241,7 +241,7 @@ def benchmark_one_frame(annotation, image_path):
 # ============================================================================
 
 
-def generate_report(results, generated_at=None, git_commit=None):
+def generate_report(results, generated_at=None, git_commit=None, session_meta=None):
     """Generate a comprehensive benchmark report from the results."""
     total = len(results)
     if total == 0:
@@ -262,6 +262,29 @@ def generate_report(results, generated_at=None, git_commit=None):
         "generated_at": generated_at,
         "git_commit": git_commit,
     }
+
+    # Extract key session/run info
+    if session_meta:
+        resolution = session_meta.get("resolution", [])
+        if len(resolution) == 2:
+            metadata["resolution"] = f"{resolution[0]}x{resolution[1]}"
+        fps = session_meta.get("fps")
+        if fps is not None:
+            metadata["fps"] = fps
+        backend = session_meta.get("backend")
+        if backend:
+            metadata["camera_backend"] = backend
+        controls = session_meta.get("controls", {})
+        if controls:
+            # Key exposure/camera settings that impact detection quality
+            metadata["exposure_time_us"] = controls.get("ExposureTime")
+            metadata["analogue_gain"] = controls.get("AnalogueGain")
+            metadata["hdr_mode"] = controls.get("HdrMode")
+            metadata["nr_mode"] = controls.get("NoiseReductionMode")
+            # Extract run note if present
+            run_note = session_meta.get("run_note")
+            if run_note:
+                metadata["run_note"] = run_note
 
     phase_counts = defaultdict(lambda: {"total": 0, "correct": 0, "ious": []})
     failure_modes = defaultdict(int)
@@ -443,6 +466,23 @@ def generate_markdown_report(report):
     add("|-------|-------|")
     add(f'| Generated at | {metadata.get("generated_at", "unknown")} |')
     add(f'| Git commit   | `{metadata.get("git_commit", "unknown")}` |')
+
+    # Session/run info (camera settings, resolution, etc.)
+    session_fields = [
+        ("Resolution", "resolution"),
+        ("FPS", "fps"),
+        ("Camera backend", "camera_backend"),
+        ("Exposure (us)", "exposure_time_us"),
+        ("Analogue gain", "analogue_gain"),
+        ("HDR mode", "hdr_mode"),
+        ("NR mode", "nr_mode"),
+        ("Run note", "run_note"),
+    ]
+    for label, key in session_fields:
+        val = metadata.get(key)
+        if val is not None:
+            add(f"| {label} | {val} |")
+
     add("")
 
     # Dataset overview
@@ -563,6 +603,18 @@ def main():
 
     print(f"[INFO] Found {len(annotation_files)} annotation files")
 
+    # Load session metadata if available
+    session_meta = None
+    session_meta_path = run_dir / "session_meta.json"
+    if session_meta_path.exists():
+        try:
+            with open(session_meta_path, "r", encoding="utf-8") as f:
+                session_meta = json.load(f)
+            print(f"[INFO] Loaded session metadata from {session_meta_path.name}")
+        except Exception as e:
+            print(f"[WARN] Failed to load session metadata: {e}")
+
+    # Initialize annotations list
     annotations = []
     for ann_file in annotation_files:
         ann = load_annotation(ann_file)
@@ -627,7 +679,7 @@ def main():
     # Generate report with metadata
     generated_at = datetime.now().isoformat()
     git_commit = _get_git_commit()
-    report = generate_report(results, generated_at=generated_at, git_commit=git_commit)
+    report = generate_report(results, generated_at=generated_at, git_commit=git_commit, session_meta=session_meta)
 
     # Save report in all formats
     output_base = Path(args.output)
