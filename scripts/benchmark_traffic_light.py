@@ -681,20 +681,22 @@ def main():
     git_commit = _get_git_commit()
     report = generate_report(results, generated_at=generated_at, git_commit=git_commit, session_meta=session_meta)
 
-    # Save report in all formats
-    output_base = Path(args.output)
-    if output_base.suffix == ".json":
-        output_base = output_base.with_suffix("")
+    # Determine report output directory
+    reports_dir = PROJECT_ROOT / "reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+
+    # Default output filename
+    output_filename = "benchmark_report"
 
     # JSON
-    json_path = output_base.with_suffix(".json")
+    json_path = reports_dir / f"{output_filename}.json"
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, default=str)
     print(f"\n[INFO] JSON report saved to {json_path}")
 
     # Markdown
     md_report = generate_markdown_report(report)
-    md_path = output_base.with_suffix(".md")
+    md_path = reports_dir / f"{output_filename}.md"
     with open(md_path, "w", encoding="utf-8") as f:
         f.write(md_report)
     print(f"[INFO] Markdown report saved to {md_path}")

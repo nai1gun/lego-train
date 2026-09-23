@@ -3,8 +3,16 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-23T20:07:59.192743 |
-| Git commit   | `6c883a8d93bf` |
+| Generated at | 2026-09-23T20:28:00.393507 |
+| Git commit   | `8f4f176059ab` |
+| Resolution | 640x480 |
+| FPS | 30 |
+| Camera backend | picamera2 |
+| Exposure (us) | 20000 |
+| Analogue gain | 4.612612724304199 |
+| HDR mode | HdrModeEnum.Off |
+| NR mode | NoiseReductionModeEnum.Fast |
+| Run note | round trip, speed 10% |
 
 ## Dataset Overview
 
@@ -27,7 +35,7 @@
 | IoU P50 | 0.0000 |
 | IoU P90 | 0.2181 |
 | IoU P95 | 0.2687 |
-| Avg Detection Time | 9.96 ms |
+| Avg Detection Time | 8.64 ms |
 
 ## Per-Phase Breakdown
 
