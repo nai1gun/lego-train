@@ -45,8 +45,7 @@ Target Developer: Pair-programming with 11-year-old Lev.
 - `data/labeled/` — Labeled datasets (ready for HF upload)
 
 ## Important Data History & Lessons Learned
-- **CRITICAL**: The legacy `datasets/` directory (now deleted) contained 6 Label Studio annotation JSON files (`datasets/1` through `datasets/6`) — these were NOT empty folders. They contained saved annotation work and should have been preserved or migrated. This was a data loss error during the directory migration.
-- **CRITICAL**: Annotation data lives inside `data/labeled/<dataset-name>/<run-name>/frames/` as extensionless files named by Label Studio task number (e.g. `1`, `2`, `3`). Each file is a JSON object with an `"id"` field matching its filename. **Never skip, ignore, or treat these `frames/` directories as empty** — they contain the human-annotated ground truth used for benchmarking, training, and evaluation. Always verify annotation files exist before running benchmarks or training scripts.
+- **CRITICAL**: Annotation data lives inside `data/labeled/<dataset-name>/<run-name>/frames/` as extensionless files named by Label Studio task number (e.g. `1`, `2`, `3`). Each file is a JSON object with an `"id"` field matching its filename. **Never skip, ignore, or treat these extensionless files inside `frames/` as empty directories** — they contain the human-annotated ground truth used for benchmarking, training, and evaluation. Always verify annotation files exist before running benchmarks or training scripts.
 
 ## Cross-Platform Development
 - **Prefer Python scripts (`.py`)** over platform-specific shell scripts (`.ps1`, `.bat`, `.sh`) wherever feasible.
