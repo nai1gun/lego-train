@@ -100,9 +100,9 @@ def load_annotation(annotation_path: Path) -> Optional[Dict[str, Any]]:
     else:
         bbox_px = None
 
-    # Extract phase label
+    # Extract phase label — normalize to lowercase for consistent comparison
     if choices_value and len(choices_value) > 0:
-        phase = choices_value[0]
+        phase = choices_value[0].lower()
     else:
         phase = "off"
 
@@ -416,6 +416,97 @@ def print_failure_details(results, top_n=10):
 
 
 # ============================================================================
+# MARKDOWN REPORT GENERATION
+# ============================================================================
+
+
+def generate_markdown_report(report):
+    """Generate a human-readable Markdown benchmark report."""
+    lines = []
+
+    def add(text=""):
+        lines.append(text)
+
+    metadata = report.get("metadata", {})
+    summary = report["summary"]
+    per_phase = report["per_phase"]
+    failure_modes = report["failure_modes"]
+    per_frame = report["per_frame_results"]
+
+    # Title
+    add("# Traffic Light Detection Benchmark Report")
+
+    # Metadata
+    add("## Metadata")
+    add("")
+    add("| Field | Value |")
+    add("|-------|-------|")
+    add(f'| Generated at | {metadata.get("generated_at", "unknown")} |')
+    add(f'| Git commit   | `{metadata.get("git_commit", "unknown")}` |')
+    add("")
+
+    # Dataset overview
+    add("## Dataset Overview")
+    add("")
+    add(f"- **Total frames**: {summary['total_frames']}")
+    add(f"- **Ground truth with bbox**: {summary['frames_with_gt_bbox']}")
+    add(f"- **Ground truth without bbox**: {summary['frames_without_gt_bbox']}")
+    add(f"- **Housing detected**: {summary['housing_detected_count']}")
+    add(f"- **Housing missed as GT**: {summary['housing_missed_as_gt']}")
+    add("")
+
+    # Overall metrics
+    add("## Overall Metrics")
+    add("")
+    add("| Metric | Value |")
+    add("|--------|-------|")
+    add(f"| Phase Accuracy | {summary['phase_accuracy'] * 100:.1f}% ({int(summary['phase_accuracy'] * summary['total_frames'])}/{summary['total_frames']}) |")
+    add(f"| Localization Accuracy | {summary['localization_accuracy'] * 100:.1f}% ({int(summary['localization_accuracy'] * summary['total_frames'])}/{summary['total_frames']}) |")
+    add(f"| Mean IoU | {summary['mean_iou']:.4f} |")
+    add(f"| Median IoU | {summary['median_iou']:.4f} |")
+    add(f"| IoU Std Dev | {summary['std_iou']:.4f} |")
+    add(f"| IoU Range | [{summary['min_iou']:.4f}, {summary['max_iou']:.4f}] |")
+    add(f"| IoU P50 | {summary['p50_iou']:.4f} |")
+    add(f"| IoU P90 | {summary['p90_iou']:.4f} |")
+    add(f"| IoU P95 | {summary['p95_iou']:.4f} |")
+    add(f"| Avg Detection Time | {summary['avg_detection_time_ms']:.2f} ms |")
+    add("")
+
+    # Per-phase breakdown
+    add("## Per-Phase Breakdown")
+    add("")
+    add("| Phase | Count | Phase Accuracy | Mean IoU | Median IoU | Min IoU | Max IoU |")
+    add("|-------|-------|----------------|----------|------------|---------|---------|")
+    for phase in sorted(per_phase.keys()):
+        data = per_phase[phase]
+        acc = data["phase_accuracy"] * 100
+        add(f"| {phase} | {data['count']} | {acc:.1f}% | {data['mean_iou']:.4f} | {data['median_iou']:.4f} | {data['min_iou']:.4f} | {data['max_iou']:.4f} |")
+    add("")
+
+    # Failure modes
+    add("## Failure Modes")
+    add("")
+    add("| Failure Mode | Count | Percentage |")
+    add("|--------------|-------|------------|")
+    for mode, count in sorted(failure_modes.items(), key=lambda x: -x[1]):
+        pct = count / summary["total_frames"] * 100
+        add(f"| {mode} | {count} | {pct:.1f}% |")
+    add("")
+
+    # Per-frame results
+    add("## Per-Frame Results")
+    add("")
+    add("| Frame | GT Phase | Predicted | IoU | Localization Correct | Housing Found | Failure Mode |")
+    add("|-------|----------|-----------|-----|---------------------|---------------|--------------|")
+    for r in per_frame:
+        metrics = r["metrics"]
+        add(f"| {r['frame_idx']} | {r['ground_truth']['phase']} | {r['prediction']['phase']} | {metrics['iou']:.4f} | {metrics['localization_correct']} | {metrics['housing_found']} | {r['failure_mode']} |")
+    add("")
+
+    return "\n".join(lines)
+
+
+# ============================================================================
 # MAIN
 # ============================================================================
 
@@ -538,11 +629,23 @@ def main():
     git_commit = _get_git_commit()
     report = generate_report(results, generated_at=generated_at, git_commit=git_commit)
 
-    # Save report
-    output_path = Path(args.output)
-    with open(output_path, "w", encoding="utf-8") as f:
+    # Save report in all formats
+    output_base = Path(args.output)
+    if output_base.suffix == ".json":
+        output_base = output_base.with_suffix("")
+
+    # JSON
+    json_path = output_base.with_suffix(".json")
+    with open(json_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, default=str)
-    print(f"\n[INFO] Report saved to {output_path}")
+    print(f"\n[INFO] JSON report saved to {json_path}")
+
+    # Markdown
+    md_report = generate_markdown_report(report)
+    md_path = output_base.with_suffix(".md")
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(md_report)
+    print(f"[INFO] Markdown report saved to {md_path}")
 
     # Print report
     print_report(report)
@@ -555,3 +658,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
