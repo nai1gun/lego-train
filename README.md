@@ -31,10 +31,17 @@ python tools/data_collection/annotate_train.py
 src/
   bluetooth_controller.py     # Bluetooth controller for LEGO motors
 
+scripts/                      # Development & utility scripts
+  benchmark_traffic_light.py  # Benchmark detection model against curated runs
+
 tools/                        # All project scripts
   data_collection/            # Camera data capture scripts
   labeling/                   # Label Studio setup and configs
   hf_upload/                  # HuggingFace dataset upload/download
+
+reports/                      # Generated benchmark reports
+  benchmark_report.json       # Machine-readable benchmark results
+  benchmark_report.md         # Human-readable benchmark summary
 
 data/                         # Data pipeline directories
   captured/raw/               # Raw video/image runs from the Pi
@@ -219,6 +226,34 @@ The main script will:
 2. Start the Bluetooth controller
 3. Begin processing camera frames for track detection
 4. Send motor commands based on visual feedback
+
+## Benchmarking
+
+Evaluate your traffic-light detection model against a curated video run:
+
+```bash
+# Activate the virtual environment first
+source .venv/bin/activate   # Linux/Mac
+# .venv\Scripts\activate   # Windows
+
+# Run benchmark (defaults to first run in data/labeled/)
+python scripts/benchmark_traffic_light.py
+
+# Benchmark a specific run
+python scripts/benchmark_traffic_light.py --dataset-dir data/curated/20260917_065933
+
+# Quick dry run (first 5 frames only)
+python scripts/benchmark_traffic_light.py --dry-run
+```
+
+The script produces two reports in the `reports/` directory:
+
+| File | Description |
+|------|-------------|
+| `reports/benchmark_report.json` | Full machine-readable results (per-frame IoU, failure modes, metrics) |
+| `reports/benchmark_report.md` | Human-readable summary with metadata (resolution, camera settings, exposure) |
+
+The Markdown report includes session metadata (resolution, FPS, exposure time, analogue gain, HDR/NR mode) so you can correlate detection quality with camera conditions.
 
 ## Data Pipeline
 
