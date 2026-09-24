@@ -375,6 +375,35 @@ def _detect_lamps_lit(
                     f"outside expected ranges {ranges}"
                 )
 
+    # --- Red-glow spill fix for yellow lamp ---
+    # When red is lit, its glow can spill into the yellow disc, causing
+    # false-positive yellow detection (e.g. frames 000202–000228).
+    # Suppress yellow as "lit" unless BOTH hold:
+    #   (a) its median hue is genuinely in the yellow range (12–32), NOT red
+    #   (b) its brightness is at least ~0.6× the red lamp's brightness
+    if lit_states.get("yellow", False) and lit_states.get("red", False):
+        yellow_hue = lamp_hues.get("yellow", 0.0)
+        red_brightness = lamp_brightnesses.get("red", 0.0)
+        yellow_brightness = lamp_brightnesses.get("yellow", 0.0)
+
+        # (a) Hue must be in yellow range, not red range
+        hue_in_yellow = any(r[0] <= yellow_hue <= r[1] for r in HUE_YELLOW_RANGES)
+        hue_in_red = any(r[0] <= yellow_hue <= r[1] for r in HUE_RED_RANGES)
+
+        if not hue_in_yellow or hue_in_red:
+            lit_states["yellow"] = False
+            hue_warnings.append(
+                f"Yellow suppressed: red-glow detected (hue={yellow_hue:.1f}, "
+                f"red_hue={lamp_hues.get('red', 0.0):.1f})"
+            )
+        elif red_brightness > 0 and yellow_brightness < 0.6 * red_brightness:
+            # (b) Yellow brightness too low relative to red — likely spill
+            lit_states["yellow"] = False
+            hue_warnings.append(
+                f"Yellow suppressed: brightness ratio {yellow_brightness:.1f}/{red_brightness:.1f} "
+                f"= {yellow_brightness / red_brightness:.2f} < 0.60"
+            )
+
     return lit_states, lamp_brightnesses, lamp_hues, hue_warnings
 
 
