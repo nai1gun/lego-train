@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated_at": "2026-09-23T20:28:00.393507",
-    "git_commit": "8f4f176059ab",
+    "generated_at": "2026-09-24T19:24:24.735289",
+    "git_commit": "6e55efeb446d",
     "resolution": "640x480",
     "fps": 30,
     "camera_backend": "picamera2",
@@ -15,57 +15,58 @@
     "total_frames": 102,
     "frames_with_gt_bbox": 71,
     "frames_without_gt_bbox": 31,
-    "housing_detected_count": 33,
-    "housing_missed_as_gt": 38,
-    "phase_accuracy": 0.6078431372549019,
-    "localization_accuracy": 0.0,
-    "mean_iou": 0.0531,
-    "median_iou": 0.0,
-    "std_iou": 0.0933,
+    "housing_detected_count": 71,
+    "housing_missed_as_gt": 0,
+    "phase_accuracy": 0.6764705882352942,
+    "localization_accuracy": 0.12745098039215685,
+    "mean_iou": 0.4187,
+    "median_iou": 0.4066,
+    "std_iou": 0.1039,
     "min_iou": 0.0,
-    "max_iou": 0.2991,
-    "p50_iou": 0.0,
-    "p90_iou": 0.2181,
-    "p95_iou": 0.2687,
-    "avg_detection_time_ms": 8.64
+    "max_iou": 0.6053,
+    "p50_iou": 0.4066,
+    "p90_iou": 0.5421,
+    "p95_iou": 0.563,
+    "avg_detection_time_ms": 12.44
   },
   "per_phase": {
     "green": {
       "count": 37,
-      "phase_accuracy": 0.7567567567567568,
-      "mean_iou": 0.18846000000000002,
-      "median_iou": 0.1805,
-      "min_iou": 0.0221,
-      "max_iou": 0.2991
+      "phase_accuracy": 0.918918918918919,
+      "mean_iou": 0.4099729729729729,
+      "median_iou": 0.4054,
+      "min_iou": 0.0454,
+      "max_iou": 0.5663
     },
     "off": {
       "count": 34,
       "phase_accuracy": 1.0,
-      "mean_iou": 0.0,
-      "median_iou": 0.0,
-      "min_iou": 0.0,
-      "max_iou": 0.0
+      "mean_iou": 0.28354999999999997,
+      "median_iou": 0.28354999999999997,
+      "min_iou": 0.2588,
+      "max_iou": 0.3083
     },
     "red": {
       "count": 31,
-      "phase_accuracy": 0.0,
-      "mean_iou": 0.0,
-      "median_iou": 0.0,
-      "min_iou": 0.0,
-      "max_iou": 0.0
+      "phase_accuracy": 0.03225806451612903,
+      "mean_iou": 0.4512645161290323,
+      "median_iou": 0.4171,
+      "min_iou": 0.3603,
+      "max_iou": 0.6053
     }
   },
   "failure_modes": {
-    "poor_localization (IoU < 0.5)": 33,
+    "poor_localization (IoU < 0.5)": 58,
     "false_positive (phantom detection)": 20,
-    "false_negative (missed detection)": 38,
+    "correct": 7,
+    "phase_mismatch (GT=red, pred=red_yellow)": 6,
     "correct (no detection)": 11
   },
   "per_frame_results": [
     {
       "frame_idx": 1,
-      "image_filename": "frame_000001.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000001.jpg",
+      "image_filename": "frame_000002.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000002.jpg",
       "ground_truth": {
         "phase": "green",
         "bbox_px": [
@@ -74,6 +75,135 @@
           44.05063291139241,
           209.77214958094345
         ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          0,
+          257,
+          49,
+          103
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4138,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 31.9
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 10,
+      "image_filename": "frame_000005.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000005.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          104.0506329113924,
+          258.2278481012658,
+          66.07594936708864,
+          205.06329113924053
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          115,
+          250,
+          59,
+          106
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3739,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.51
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 100,
+      "image_filename": "frame_000197.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000197.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          350,
+          180,
+          43,
+          107
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.07
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 101,
+      "image_filename": "frame_000000.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000000.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          294,
+          151,
+          159,
+          313
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.29
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 102,
+      "image_filename": "frame_000001.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000001.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
       },
       "prediction": {
         "phase": "off",
@@ -92,145 +222,16 @@
       "metrics": {
         "iou": 0.0,
         "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": true,
-        "elapsed_ms": 15.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 10,
-      "image_filename": "frame_000010.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000010.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          104.0506329113924,
-          258.2278481012658,
-          66.07594936708864,
-          205.06329113924053
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          325,
-          244,
-          62,
-          116
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.36
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 100,
-      "image_filename": "frame_000100.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000100.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          481,
-          141,
-          75,
-          132
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.99
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 101,
-      "image_filename": "frame_000101.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000101.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          532,
-          136,
-          68,
-          133
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 102,
-      "image_filename": "frame_000102.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000102.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          580,
-          134,
-          60,
-          130
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 13.22
+        "elapsed_ms": 13.0
       },
       "failure_mode": "false_positive (phantom detection)"
     },
     {
       "frame_idx": 11,
-      "image_filename": "frame_000011.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000011.jpg",
+      "image_filename": "frame_000006.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000006.jpg",
       "ground_truth": {
         "phase": "green",
         "bbox_px": [
@@ -238,1680 +239,6 @@
           255.18987341772146,
           67.59493670886077,
           212.65822784810132
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          360,
-          238,
-          64,
-          119
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 13.12
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 12,
-      "image_filename": "frame_000012.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000012.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          191.39240506329116,
-          255.18987341772146,
-          69.87341772151899,
-          215.6962025316456
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          380,
-          233,
-          67,
-          122
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.06
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 13,
-      "image_filename": "frame_000013.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000013.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          236.96202531645574,
-          255.94936708860757,
-          74.43037974683544,
-          216.45569620253164
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          390,
-          226,
-          69,
-          125
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.13
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 14,
-      "image_filename": "frame_000014.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000014.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          275.69620253164555,
-          252.9113924050633,
-          72.91139240506331,
-          221.01265822784808
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          395,
-          220,
-          70,
-          128
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 15,
-      "image_filename": "frame_000015.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000015.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          319.746835443038,
-          251.39240506329116,
-          74.43037974683543,
-          221.0126582278481
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          399,
-          218,
-          72,
-          131
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 13.01
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 16,
-      "image_filename": "frame_000016.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000016.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          356.2025316455696,
-          246.07594936708858,
-          74.43037974683538,
-          228.60759493670895
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          405,
-          215,
-          74,
-          135
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.1094,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 10.69
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 17,
-      "image_filename": "frame_000017.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000017.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          376.7088607594937,
-          240.0,
-          78.22784810126582,
-          236.96202531645568
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          408,
-          212,
-          76,
-          139
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2181,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.01
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 18,
-      "image_filename": "frame_000018.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000018.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          386.5822784810127,
-          233.9240506329114,
-          80.50632911392404,
-          240.0
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          413,
-          209,
-          79,
-          143
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2636,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 14.19
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 19,
-      "image_filename": "frame_000019.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000019.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          391.1392405063291,
-          228.60759493670884,
-          82.78481012658234,
-          246.0759493670887
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          416,
-          205,
-          81,
-          147
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2844,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.01
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 2,
-      "image_filename": "frame_000002.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000002.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          17.468354430379748,
-          262.0253164556962,
-          69.87341772151899,
-          205.06329113924048
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          0,
-          257,
-          49,
-          103
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.1897,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.51
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 20,
-      "image_filename": "frame_000020.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000020.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          396.4556962025318,
-          224.81012658227849,
-          85.06329113924043,
-          249.87341772151905
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          420,
-          199,
-          82,
-          152
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2991,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 21,
-      "image_filename": "frame_000021.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000021.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          404.05063291139237,
-          222.53164556962022,
-          77.46835443037972,
-          254.43037974683546
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          424,
-          190,
-          86,
-          157
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2748,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 22,
-      "image_filename": "frame_000022.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000022.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          406.3291139240506,
-          219.49367088607593,
-          85.06329113924053,
-          257.46835443037975
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          429,
-          180,
-          88,
-          165
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2739,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 23,
-      "image_filename": "frame_000023.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000023.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          416.9620253164557,
-          216.45569620253164,
-          79.74683544303798,
-          260.50632911392404
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          437,
-          170,
-          92,
-          172
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2576,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 24,
-      "image_filename": "frame_000024.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000024.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          420.0,
-          211.89873417721523,
-          78.98734177215192,
-          265.06329113924045
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          444,
-          163,
-          96,
-          182
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2354,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 25,
-      "image_filename": "frame_000025.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000025.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          422.2784810126583,
-          206.58227848101265,
-          82.7848101265823,
-          269.6202531645569
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          454,
-          153,
-          102,
-          192
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.2029,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 26,
-      "image_filename": "frame_000026.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000026.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          432.9113924050634,
-          197.4683544303798,
-          69.87341772151895,
-          277.215189873418
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          462,
-          138,
-          108,
-          203
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.1652,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.01
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 27,
-      "image_filename": "frame_000027.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000027.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          438.22784810126586,
-          188.35443037974682,
-          69.11392405063289,
-          291.6455696202532
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          474,
-          121,
-          115,
-          217
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.1244,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 28,
-      "image_filename": "frame_000028.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000028.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          445.82278481012605,
-          177.72151898734177,
-          74.4303797468354,
-          298.48101265822777
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          486,
-          100,
-          124,
-          233
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.1162,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.01
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 29,
-      "image_filename": "frame_000029.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000029.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          452.65822784810155,
-          170.88607594936704,
-          79.74683544303781,
-          303.0379746835439
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          505,
-          74,
-          135,
-          253
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0792,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 3,
-      "image_filename": "frame_000003.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000003.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          63.037974683544306,
-          258.2278481012658,
-          66.8354430379747,
-          207.34177215189874
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          32,
-          254,
-          60,
-          104
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.1679,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 30,
-      "image_filename": "frame_000030.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000030.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          461.77215189873425,
-          158.73417721518987,
-          85.06329113924043,
-          318.227848101266
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          609,
-          105,
-          31,
-          71
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": true,
-        "elapsed_ms": 11.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 31,
-      "image_filename": "frame_000031.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000031.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          470.12658227848107,
-          145.0632911392405,
-          91.13924050632913,
-          331.8987341772152
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          553,
-          159,
-          68,
-          96
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0221,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 32,
-      "image_filename": "frame_000032.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000032.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          483.037974683544,
-          126.07594936708864,
-          98.73417721518989,
-          350.12658227848107
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          583,
-          128,
-          57,
-          106
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": true,
-        "elapsed_ms": 11.09
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 33,
-      "image_filename": "frame_000033.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000033.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          494.43037974683523,
-          104.8101265822785,
-          108.60759493670881,
-          369.873417721519
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          617,
-          0,
-          23,
-          64
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 34,
-      "image_filename": "frame_000034.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000034.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          514.1772151898734,
-          78.9873417721519,
-          119.24050632911394,
-          399.4936708860759
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 35,
-      "image_filename": "frame_000035.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000035.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          529.367088607595,
-          46.32911392405063,
-          110.12658227848097,
-          432.9113924050632
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 36,
-      "image_filename": "frame_000036.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000036.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          555.9493670886077,
-          11.39240506329114,
-          84.05063291139231,
-          466.3291139240506
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 37,
-      "image_filename": "frame_000037.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000037.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          577.9746835443038,
-          0.0,
-          62.02531645569616,
-          362.27848101265823
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 38,
-      "image_filename": "frame_000038.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000038.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": [
-          622.0253164556963,
-          0.0,
-          17.97468354430375,
-          229.36708860759492
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 4.5
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 39,
-      "image_filename": "frame_000039.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000039.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": [
-          0.0,
-          268.1012658227848,
-          9.873417721518988,
-          201.26582278481013
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 4.01
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 4,
-      "image_filename": "frame_000004.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000004.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          104.0506329113924,
-          259.746835443038,
-          67.59493670886076,
-          208.1012658227848
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          75,
-          251,
-          60,
-          105
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.1713,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 40,
-      "image_filename": "frame_000040.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000040.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          0.759493670886076,
-          263.5443037974684,
-          46.32911392405063,
-          204.30379746835442
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 41,
-      "image_filename": "frame_000041.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000041.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          25.063291139240487,
-          261.26582278481,
-          69.11392405063293,
-          210.37974683544326
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 42,
-      "image_filename": "frame_000042.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000042.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          68.35443037974683,
-          258.98734177215186,
-          67.59493670886079,
-          209.620253164557
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 43,
-      "image_filename": "frame_000043.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000043.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          110.12658227848097,
-          255.18987341772146,
-          67.59493670886081,
-          214.17721518987375
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 44,
-      "image_filename": "frame_000044.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000044.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          149.62025316455697,
-          256.70886075949363,
-          68.35443037974687,
-          211.8987341772152
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 45,
-      "image_filename": "frame_000045.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000045.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          190.63291139240508,
-          253.6708860759494,
-          67.59493670886077,
-          214.93670886075947
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 46,
-      "image_filename": "frame_000046.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000046.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          236.20253164556962,
-          255.18987341772146,
-          71.39240506329115,
-          218.73417721518993
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 47,
-      "image_filename": "frame_000047.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000047.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          274.93670886075955,
-          252.15189873417722,
-          72.91139240506327,
-          224.81012658227849
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 48,
-      "image_filename": "frame_000048.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000048.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          315.1898734177215,
-          252.15189873417722,
-          74.43037974683548,
-          224.05063291139234
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 49,
-      "image_filename": "frame_000049.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000049.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          351.6455696202531,
-          246.83544303797464,
-          78.22784810126586,
-          230.12658227848104
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 5,
-      "image_filename": "frame_000005.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000005.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          145.0632911392405,
-          255.94936708860757,
-          72.15189873417722,
-          211.89873417721523
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          115,
-          250,
-          59,
-          106
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.1553,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 50,
-      "image_filename": "frame_000050.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000050.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          375.94936708860763,
-          241.51898734177215,
-          78.98734177215188,
-          235.44303797468353
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 51,
-      "image_filename": "frame_000051.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000051.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          388.10126582278485,
-          233.9240506329114,
-          79.74683544303794,
-          243.03797468354432
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 52,
-      "image_filename": "frame_000052.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000052.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          391.8987341772152,
-          228.60759493670884,
-          83.54430379746832,
-          248.35443037974684
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.01
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 53,
-      "image_filename": "frame_000053.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000053.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          394.1772151898734,
-          224.81012658227849,
-          85.06329113924053,
-          251.39240506329108
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 54,
-      "image_filename": "frame_000054.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000054.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          400.2531645569621,
-          224.81012658227849,
-          88.10126582278477,
-          252.15189873417722
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 55,
-      "image_filename": "frame_000055.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000055.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          404.05063291139237,
-          221.7721518987342,
-          90.37974683544307,
-          255.18987341772151
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 56,
-      "image_filename": "frame_000056.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000056.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          409.36708860759495,
-          217.21518987341773,
-          90.37974683544304,
-          260.50632911392404
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.51
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 57,
-      "image_filename": "frame_000057.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000057.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          419.24050632911394,
-          213.41772151898735,
-          82.02531645569624,
-          263.5443037974684
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 58,
-      "image_filename": "frame_000058.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000058.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          423.7974683544304,
-          208.10126582278477,
-          80.50632911392404,
-          268.1012658227848
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 59,
-      "image_filename": "frame_000059.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000059.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          433.6708860759491,
-          198.98734177215178,
-          66.83544303797466,
-          281.01265822784825
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 6,
-      "image_filename": "frame_000006.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000006.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          189.873417721519,
-          253.6708860759494,
-          65.31645569620252,
-          214.17721518987338
         ]
       },
       "prediction": {
@@ -1929,294 +256,1896 @@
         }
       },
       "metrics": {
-        "iou": 0.1587,
+        "iou": 0.3944,
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.03
+        "elapsed_ms": 13.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
     {
-      "frame_idx": 60,
-      "image_filename": "frame_000060.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000060.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          436.7088607594937,
-          187.59493670886076,
-          70.63291139240509,
-          291.6455696202532
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 61,
-      "image_filename": "frame_000061.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000061.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          445.82278481012656,
-          182.27848101265815,
-          73.67088607594926,
-          294.6835443037972
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 62,
-      "image_filename": "frame_000062.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000062.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          449.62025316455697,
-          175.44303797468353,
-          78.98734177215192,
-          302.2784810126582
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 6.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 63,
-      "image_filename": "frame_000063.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000063.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          461.01265822784757,
-          163.29113924050628,
-          82.02531645569569,
-          313.670886075949
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.01
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 64,
-      "image_filename": "frame_000064.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000064.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          468.6075949367089,
-          149.62025316455697,
-          88.86075949367087,
-          327.34177215189874
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 65,
-      "image_filename": "frame_000065.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000065.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          480.0,
-          132.15189873417722,
-          97.97468354430384,
-          344.8101265822785
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 6.04
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 66,
-      "image_filename": "frame_000066.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000066.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          493.6708860759491,
-          110.88607594936711,
-          107.08860759493676,
-          364.5569620253163
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 67,
-      "image_filename": "frame_000067.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000067.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          511.8987341772148,
-          86.58227848101265,
-          116.2025316455696,
-          388.1012658227847
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 68,
-      "image_filename": "frame_000068.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000068.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          530.1265822784811,
-          60.0,
-          109.87341772151895,
-          416.9620253164557
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 69,
-      "image_filename": "frame_000069.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000069.jpg",
-      "ground_truth": {
-        "phase": "red",
-        "bbox_px": [
-          549.8734177215191,
-          19.746835443038,
-          89.620253164557,
-          460.2531645569619
-        ]
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
-      "frame_idx": 7,
+      "frame_idx": 12,
       "image_filename": "frame_000007.jpg",
       "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000007.jpg",
       "ground_truth": {
         "phase": "green",
         "bbox_px": [
+          191.39240506329116,
+          255.18987341772146,
+          69.87341772151899,
+          215.6962025316456
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          199,
+          247,
+          60,
+          109
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3887,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 13,
+      "image_filename": "frame_000008.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000008.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          236.96202531645574,
+          255.94936708860757,
+          74.43037974683544,
+          216.45569620253164
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          246,
+          248,
+          60,
+          111
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3727,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 14.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 14,
+      "image_filename": "frame_000009.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000009.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          275.69620253164555,
+          252.9113924050633,
+          72.91139240506331,
+          221.01265822784808
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          284,
+          246,
+          60,
+          113
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3851,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.02
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 15,
+      "image_filename": "frame_000010.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000010.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          319.746835443038,
+          251.39240506329116,
+          74.43037974683543,
+          221.0126582278481
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          325,
+          244,
+          62,
+          116
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3982,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.02
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 16,
+      "image_filename": "frame_000011.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000011.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          356.2025316455696,
+          246.07594936708858,
+          74.43037974683538,
+          228.60759493670895
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          360,
+          238,
+          64,
+          119
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4049,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 17,
+      "image_filename": "frame_000012.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000012.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          376.7088607594937,
+          240.0,
+          78.22784810126582,
+          236.96202531645568
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          380,
+          233,
+          67,
+          122
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4054,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 14.51
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 18,
+      "image_filename": "frame_000013.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000013.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          386.5822784810127,
+          233.9240506329114,
+          80.50632911392404,
+          240.0
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          390,
+          226,
+          69,
+          125
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4066,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 19,
+      "image_filename": "frame_000014.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000014.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          391.1392405063291,
+          228.60759493670884,
+          82.78481012658234,
+          246.0759493670887
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          395,
+          220,
+          70,
+          128
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3985,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.23
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 2,
+      "image_filename": "frame_000003.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000003.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          17.468354430379748,
+          262.0253164556962,
+          69.87341772151899,
+          205.06329113924048
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          32,
+          254,
+          60,
+          104
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3481,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 20,
+      "image_filename": "frame_000015.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000015.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          396.4556962025318,
+          224.81012658227849,
+          85.06329113924043,
+          249.87341772151905
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          399,
+          218,
+          72,
+          131
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4112,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 21,
+      "image_filename": "frame_000016.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000016.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          404.05063291139237,
+          222.53164556962022,
+          77.46835443037972,
+          254.43037974683546
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          405,
+          215,
+          74,
+          135
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4654,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.51
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 22,
+      "image_filename": "frame_000017.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000017.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          406.3291139240506,
+          219.49367088607593,
+          85.06329113924053,
+          257.46835443037975
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          408,
+          212,
+          76,
+          139
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4448,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 23,
+      "image_filename": "frame_000018.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000018.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          416.9620253164557,
+          216.45569620253164,
+          79.74683544303798,
+          260.50632911392404
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          413,
+          209,
+          79,
+          143
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4644,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.51
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 24,
+      "image_filename": "frame_000019.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000019.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          420.0,
+          211.89873417721523,
+          78.98734177215192,
+          265.06329113924045
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          416,
+          205,
+          81,
+          147
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4891,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 25,
+      "image_filename": "frame_000020.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000020.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          422.2784810126583,
+          206.58227848101265,
+          82.7848101265823,
+          269.6202531645569
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          420,
+          199,
+          82,
+          152
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4947,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.04
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 26,
+      "image_filename": "frame_000021.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000021.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          432.9113924050634,
+          197.4683544303798,
+          69.87341772151895,
+          277.215189873418
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          424,
+          190,
+          86,
+          157
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4659,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 14.36
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 27,
+      "image_filename": "frame_000022.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000022.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          438.22784810126586,
+          188.35443037974682,
+          69.11392405063289,
+          291.6455696202532
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          429,
+          180,
+          88,
+          165
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4539,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 28,
+      "image_filename": "frame_000023.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000023.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          445.82278481012605,
+          177.72151898734177,
+          74.4303797468354,
+          298.48101265822777
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          437,
+          170,
+          92,
+          172
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4737,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.23
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 29,
+      "image_filename": "frame_000024.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000024.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          452.65822784810155,
+          170.88607594936704,
+          79.74683544303781,
+          303.0379746835439
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          444,
+          163,
+          96,
+          182
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.5003,
+        "localization_correct": true,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.92
+      },
+      "failure_mode": "correct"
+    },
+    {
+      "frame_idx": 3,
+      "image_filename": "frame_000004.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000004.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          63.037974683544306,
+          258.2278481012658,
+          66.8354430379747,
+          207.34177215189874
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          75,
+          251,
+          60,
+          105
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3627,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 30,
+      "image_filename": "frame_000025.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000025.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          461.77215189873425,
+          158.73417721518987,
+          85.06329113924043,
+          318.227848101266
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          454,
+          153,
+          102,
+          192
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.5143,
+        "localization_correct": true,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.02
+      },
+      "failure_mode": "correct"
+    },
+    {
+      "frame_idx": 31,
+      "image_filename": "frame_000026.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000026.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          470.12658227848107,
+          145.0632911392405,
+          91.13924050632913,
+          331.8987341772152
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          462,
+          138,
+          108,
+          203
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.5204,
+        "localization_correct": true,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.51
+      },
+      "failure_mode": "correct"
+    },
+    {
+      "frame_idx": 32,
+      "image_filename": "frame_000027.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000027.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          483.037974683544,
+          126.07594936708864,
+          98.73417721518989,
+          350.12658227848107
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          474,
+          121,
+          115,
+          217
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.5421,
+        "localization_correct": true,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.71
+      },
+      "failure_mode": "correct"
+    },
+    {
+      "frame_idx": 33,
+      "image_filename": "frame_000028.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000028.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          494.43037974683523,
+          104.8101265822785,
+          108.60759493670881,
+          369.873417721519
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          486,
+          100,
+          124,
+          233
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.5597,
+        "localization_correct": true,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.5
+      },
+      "failure_mode": "correct"
+    },
+    {
+      "frame_idx": 34,
+      "image_filename": "frame_000029.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000029.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          514.1772151898734,
+          78.9873417721519,
+          119.24050632911394,
+          399.4936708860759
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          505,
+          74,
+          135,
+          253
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.5663,
+        "localization_correct": true,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 14.42
+      },
+      "failure_mode": "correct"
+    },
+    {
+      "frame_idx": 35,
+      "image_filename": "frame_000030.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000030.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          529.367088607595,
+          46.32911392405063,
+          110.12658227848097,
+          432.9113924050632
+        ]
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          609,
+          105,
+          31,
+          71
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0454,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.49
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 36,
+      "image_filename": "frame_000031.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000031.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          555.9493670886077,
+          11.39240506329114,
+          84.05063291139231,
+          466.3291139240506
+        ]
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          553,
+          159,
+          68,
+          96
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.1582,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.01
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 37,
+      "image_filename": "frame_000032.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000032.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          577.9746835443038,
           0.0,
+          62.02531645569616,
+          362.27848101265823
+        ]
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          583,
+          128,
+          57,
+          106
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.2689,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.53
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 38,
+      "image_filename": "frame_000033.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000033.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": [
+          622.0253164556963,
+          0.0,
+          17.97468354430375,
+          229.36708860759492
+        ]
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          617,
+          0,
+          23,
+          64
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.2588,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.51
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 39,
+      "image_filename": "frame_000198.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000198.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": [
+          0.0,
+          268.1012658227848,
+          9.873417721518988,
+          201.26582278481013
+        ]
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          415,
+          141,
+          35,
+          60
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.36
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 4,
+      "image_filename": "frame_000005.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000005.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          104.0506329113924,
+          259.746835443038,
+          67.59493670886076,
+          208.1012658227848
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          115,
+          250,
+          59,
+          106
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3667,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 40,
+      "image_filename": "frame_000199.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000199.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          0.759493670886076,
           263.5443037974684,
-          45.56962025316456,
+          46.32911392405063,
+          204.30379746835442
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          0,
+          256,
+          58,
+          104
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4052,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 14.15
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 41,
+      "image_filename": "frame_000200.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000200.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          25.063291139240487,
+          261.26582278481,
+          69.11392405063293,
+          210.37974683544326
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          37,
+          254,
+          61,
+          104
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.3603,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 42,
+      "image_filename": "frame_000201.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000201.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          68.35443037974683,
+          258.98734177215186,
+          67.59493670886079,
+          209.620253164557
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          80,
+          251,
+          60,
+          105
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.3609,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.45
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 43,
+      "image_filename": "frame_000202.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000202.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          110.12658227848097,
+          255.18987341772146,
+          67.59493670886081,
+          214.17721518987375
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          120,
+          249,
+          61,
+          105
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.3758,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.01
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 44,
+      "image_filename": "frame_000203.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000203.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          149.62025316455697,
+          256.70886075949363,
+          68.35443037974687,
+          211.8987341772152
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          159,
+          248,
+          61,
+          109
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.3886,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.67
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 45,
+      "image_filename": "frame_000204.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000204.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          190.63291139240508,
+          253.6708860759494,
+          67.59493670886077,
+          214.93670886075947
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          199,
+          247,
+          60,
+          109
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4038,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.01
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 46,
+      "image_filename": "frame_000205.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000205.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          236.20253164556962,
+          255.18987341772146,
+          71.39240506329115,
+          218.73417721518993
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          244,
+          248,
+          61,
+          111
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.3944,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.23
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 47,
+      "image_filename": "frame_000206.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000206.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          274.93670886075955,
+          252.15189873417722,
+          72.91139240506327,
+          224.81012658227849
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          282,
+          246,
+          62,
+          113
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.395,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.51
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 48,
+      "image_filename": "frame_000207.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000207.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          315.1898734177215,
+          252.15189873417722,
+          74.43037974683548,
+          224.05063291139234
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          320,
+          243,
+          63,
+          116
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.3902,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.71
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 49,
+      "image_filename": "frame_000208.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000208.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          351.6455696202531,
+          246.83544303797464,
+          78.22784810126586,
+          230.12658227848104
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          356,
+          238,
+          65,
+          119
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.3855,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.1
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 5,
+      "image_filename": "frame_000006.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000006.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          145.0632911392405,
+          255.94936708860757,
+          72.15189873417722,
+          211.89873417721523
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          157,
+          249,
+          60,
+          108
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.386,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 50,
+      "image_filename": "frame_000209.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000209.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          375.94936708860763,
+          241.51898734177215,
+          78.98734177215188,
+          235.44303797468353
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          380,
+          233,
+          67,
+          122
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.3967,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 51,
+      "image_filename": "frame_000210.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000210.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          388.10126582278485,
+          233.9240506329114,
+          79.74683544303794,
+          243.03797468354432
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          391,
+          226,
+          69,
+          126
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4088,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.51
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 52,
+      "image_filename": "frame_000211.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000211.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          391.8987341772152,
+          228.60759493670884,
+          83.54430379746832,
+          248.35443037974684
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          394,
+          221,
+          71,
+          128
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4015,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 53,
+      "image_filename": "frame_000212.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000212.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          394.1772151898734,
+          224.81012658227849,
+          85.06329113924053,
+          251.39240506329108
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          398,
+          218,
+          71,
+          132
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4065,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.56
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 54,
+      "image_filename": "frame_000213.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000213.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          400.2531645569621,
+          224.81012658227849,
+          88.10126582278477,
+          252.15189873417722
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          403,
+          216,
+          74,
+          135
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4084,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 55,
+      "image_filename": "frame_000214.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000214.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          404.05063291139237,
+          221.7721518987342,
+          90.37974683544307,
+          255.18987341772151
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          407,
+          213,
+          76,
+          139
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4171,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.45
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 56,
+      "image_filename": "frame_000215.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000215.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          409.36708860759495,
+          217.21518987341773,
+          90.37974683544304,
+          260.50632911392404
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          412,
+          210,
+          78,
+          142
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4361,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 11.37
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 57,
+      "image_filename": "frame_000216.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000216.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          419.24050632911394,
+          213.41772151898735,
+          82.02531645569624,
+          263.5443037974684
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          415,
+          206,
+          80,
+          146
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4605,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.01
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 58,
+      "image_filename": "frame_000217.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000217.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          423.7974683544304,
+          208.10126582278477,
+          80.50632911392404,
+          268.1012658227848
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          420,
+          200,
+          82,
+          152
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4937,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.72
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 59,
+      "image_filename": "frame_000218.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000218.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          433.6708860759491,
+          198.98734177215178,
+          66.83544303797466,
+          281.01265822784825
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          424,
+          192,
+          85,
+          158
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4563,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 6,
+      "image_filename": "frame_000007.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000007.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          189.873417721519,
+          253.6708860759494,
+          65.31645569620252,
           214.17721518987338
         ]
       },
@@ -2235,18 +2164,414 @@
         }
       },
       "metrics": {
-        "iou": 0.0,
+        "iou": 0.389,
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.01
+        "elapsed_ms": 12.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 60,
+      "image_filename": "frame_000219.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000219.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          436.7088607594937,
+          187.59493670886076,
+          70.63291139240509,
+          291.6455696202532
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          428,
+          182,
+          88,
+          163
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4666,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.92
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 61,
+      "image_filename": "frame_000220.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000220.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          445.82278481012656,
+          182.27848101265815,
+          73.67088607594926,
+          294.6835443037972
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          436,
+          173,
+          92,
+          171
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4667,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 62,
+      "image_filename": "frame_000221.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000221.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          449.62025316455697,
+          175.44303797468353,
+          78.98734177215192,
+          302.2784810126582
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          441,
+          165,
+          97,
+          180
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4793,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.54
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 63,
+      "image_filename": "frame_000222.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000222.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          461.01265822784757,
+          163.29113924050628,
+          82.02531645569569,
+          313.670886075949
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          451,
+          155,
+          102,
+          190
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.4935,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 64,
+      "image_filename": "frame_000223.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000223.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          468.6075949367089,
+          149.62025316455697,
+          88.86075949367087,
+          327.34177215189874
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          459,
+          142,
+          108,
+          201
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.5112,
+        "localization_correct": true,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.78
+      },
+      "failure_mode": "phase_mismatch (GT=red, pred=red_yellow)"
+    },
+    {
+      "frame_idx": 65,
+      "image_filename": "frame_000224.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000224.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          480.0,
+          132.15189873417722,
+          97.97468354430384,
+          344.8101265822785
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          471,
+          125,
+          114,
+          214
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.5345,
+        "localization_correct": true,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 12.18
+      },
+      "failure_mode": "phase_mismatch (GT=red, pred=red_yellow)"
+    },
+    {
+      "frame_idx": 66,
+      "image_filename": "frame_000225.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000225.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          493.6708860759491,
+          110.88607594936711,
+          107.08860759493676,
+          364.5569620253163
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          485,
+          104,
+          123,
+          230
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.5501,
+        "localization_correct": true,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "phase_mismatch (GT=red, pred=red_yellow)"
+    },
+    {
+      "frame_idx": 67,
+      "image_filename": "frame_000226.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000226.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          511.8987341772148,
+          86.58227848101265,
+          116.2025316455696,
+          388.1012658227847
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          503,
+          81,
+          137,
+          249
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.5554,
+        "localization_correct": true,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "phase_mismatch (GT=red, pred=red_yellow)"
+    },
+    {
+      "frame_idx": 68,
+      "image_filename": "frame_000227.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000227.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          530.1265822784811,
+          60.0,
+          109.87341772151895,
+          416.9620253164557
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          521,
+          54,
+          119,
+          272
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.597,
+        "localization_correct": true,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 13.49
+      },
+      "failure_mode": "phase_mismatch (GT=red, pred=red_yellow)"
+    },
+    {
+      "frame_idx": 69,
+      "image_filename": "frame_000228.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000228.jpg",
+      "ground_truth": {
+        "phase": "red",
+        "bbox_px": [
+          549.8734177215191,
+          19.746835443038,
+          89.620253164557,
+          460.2531645569619
+        ]
+      },
+      "prediction": {
+        "phase": "red_yellow",
+        "bbox_px": [
+          542,
+          17,
+          98,
+          300
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": true,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.6053,
+        "localization_correct": true,
+        "phase_correct": false,
+        "housing_found": true,
+        "elapsed_ms": 14.73
+      },
+      "failure_mode": "phase_mismatch (GT=red, pred=red_yellow)"
+    },
+    {
+      "frame_idx": 7,
+      "image_filename": "frame_000002.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000002.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          0.0,
+          263.5443037974684,
+          45.56962025316456,
+          214.17721518987338
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          0,
+          257,
+          49,
+          103
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.4222,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 14.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
     {
       "frame_idx": 70,
-      "image_filename": "frame_000070.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000070.jpg",
+      "image_filename": "frame_000229.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000229.jpg",
       "ground_truth": {
         "phase": "red",
         "bbox_px": [
@@ -2257,23 +2582,32 @@
         ]
       },
       "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
+        "phase": "red",
+        "bbox_px": [
+          567,
+          0,
+          73,
+          302
+        ],
+        "detected_lamps": {
+          "red": true,
+          "yellow": false,
+          "green": false
+        }
       },
       "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.0
+        "iou": 0.5843,
+        "localization_correct": true,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 14.97
       },
-      "failure_mode": "false_negative (missed detection)"
+      "failure_mode": "correct"
     },
     {
       "frame_idx": 71,
-      "image_filename": "frame_000071.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000071.jpg",
+      "image_filename": "frame_000230.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000230.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": [
@@ -2285,22 +2619,31 @@
       },
       "prediction": {
         "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
+        "bbox_px": [
+          603,
+          0,
+          37,
+          88
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "metrics": {
-        "iou": 0.0,
+        "iou": 0.3083,
         "localization_correct": false,
         "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 4.5
+        "housing_found": true,
+        "elapsed_ms": 13.0
       },
-      "failure_mode": "false_negative (missed detection)"
+      "failure_mode": "poor_localization (IoU < 0.5)"
     },
     {
       "frame_idx": 72,
-      "image_filename": "frame_000072.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000072.jpg",
+      "image_filename": "frame_000231.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000231.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2315,14 +2658,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 5.43
       },
       "failure_mode": "correct (no detection)"
     },
     {
       "frame_idx": 73,
-      "image_filename": "frame_000073.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000073.jpg",
+      "image_filename": "frame_000232.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000232.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2337,14 +2680,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 4.0
+        "elapsed_ms": 7.0
       },
       "failure_mode": "correct (no detection)"
     },
     {
       "frame_idx": 74,
-      "image_filename": "frame_000074.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000074.jpg",
+      "image_filename": "frame_000233.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000233.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2359,14 +2702,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
     {
       "frame_idx": 75,
-      "image_filename": "frame_000075.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000075.jpg",
+      "image_filename": "frame_000234.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000234.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2387,74 +2730,8 @@
     },
     {
       "frame_idx": 76,
-      "image_filename": "frame_000076.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000076.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 77,
-      "image_filename": "frame_000077.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000077.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.31
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 78,
-      "image_filename": "frame_000078.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000078.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 4.0
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 79,
-      "image_filename": "frame_000079.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000079.jpg",
+      "image_filename": "frame_000235.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000235.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2474,45 +2751,9 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 8,
-      "image_filename": "frame_000008.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000008.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          21.26582278481013,
-          260.5063291139241,
-          66.07594936708861,
-          210.37974683544303
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          246,
-          248,
-          60,
-          111
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 80,
-      "image_filename": "frame_000080.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000080.jpg",
+      "frame_idx": 77,
+      "image_filename": "frame_000236.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000236.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2532,9 +2773,111 @@
       "failure_mode": "correct (no detection)"
     },
     {
+      "frame_idx": 78,
+      "image_filename": "frame_000237.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000237.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": null,
+        "detected_lamps": {}
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 5.39
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 79,
+      "image_filename": "frame_000238.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000238.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": null,
+        "detected_lamps": {}
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 4.85
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 8,
+      "image_filename": "frame_000003.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000003.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          21.26582278481013,
+          260.5063291139241,
+          66.07594936708861,
+          210.37974683544303
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          32,
+          254,
+          60,
+          104
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3659,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.01
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 80,
+      "image_filename": "frame_000239.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000239.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": null,
+        "detected_lamps": {}
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 6.0
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
       "frame_idx": 81,
-      "image_filename": "frame_000081.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000081.jpg",
+      "image_filename": "frame_000240.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000240.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2555,70 +2898,8 @@
     },
     {
       "frame_idx": 82,
-      "image_filename": "frame_000082.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000082.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          146,
-          181,
-          26,
-          53
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 83,
-      "image_filename": "frame_000083.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000083.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          174,
-          121,
-          27,
-          45
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.5
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 84,
-      "image_filename": "frame_000084.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000084.jpg",
+      "image_filename": "frame_000034.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000034.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2633,14 +2914,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 4.0
+        "elapsed_ms": 5.03
       },
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 85,
-      "image_filename": "frame_000085.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000085.jpg",
+      "frame_idx": 83,
+      "image_filename": "frame_000180.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000180.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2648,263 +2929,10 @@
       "prediction": {
         "phase": "off",
         "bbox_px": [
-          252,
-          132,
-          33,
-          90
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 86,
-      "image_filename": "frame_000086.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000086.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          302,
-          199,
-          28,
-          74
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 13.76
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 87,
-      "image_filename": "frame_000087.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000087.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          336,
-          172,
-          40,
-          95
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 88,
-      "image_filename": "frame_000088.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000088.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          0,
-          157,
-          24,
-          103
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 89,
-      "image_filename": "frame_000089.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000089.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          406,
-          93,
-          22,
-          40
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.0
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 9,
-      "image_filename": "frame_000009.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000009.jpg",
-      "ground_truth": {
-        "phase": "green",
-        "bbox_px": [
-          64.55696202531647,
-          261.2658227848101,
-          63.037974683544306,
-          206.58227848101265
-        ]
-      },
-      "prediction": {
-        "phase": "green",
-        "bbox_px": [
-          284,
-          246,
-          60,
-          113
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.01
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 90,
-      "image_filename": "frame_000090.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000090.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          45,
-          157,
-          70,
-          131
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.99
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 91,
-      "image_filename": "frame_000091.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000091.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          74,
-          155,
-          84,
-          129
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 13.01
-      },
-      "failure_mode": "false_positive (phantom detection)"
-    },
-    {
-      "frame_idx": 92,
-      "image_filename": "frame_000092.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000092.jpg",
-      "ground_truth": {
-        "phase": "off",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phase": "off",
-        "bbox_px": [
-          120,
-          150,
-          82,
-          132
+          544,
+          153,
+          73,
+          171
         ],
         "detected_lamps": {
           "red": false,
@@ -2922,9 +2950,9 @@
       "failure_mode": "false_positive (phantom detection)"
     },
     {
-      "frame_idx": 93,
-      "image_filename": "frame_000093.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000093.jpg",
+      "frame_idx": 84,
+      "image_filename": "frame_000181.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000181.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2932,10 +2960,10 @@
       "prediction": {
         "phase": "off",
         "bbox_px": [
-          580,
-          14,
-          21,
-          54
+          0,
+          42,
+          15,
+          38
         ],
         "detected_lamps": {
           "red": false,
@@ -2948,14 +2976,329 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.51
+        "elapsed_ms": 13.1
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 85,
+      "image_filename": "frame_000182.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000182.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          290,
+          322,
+          23,
+          64
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.25
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 86,
+      "image_filename": "frame_000183.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000183.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          323,
+          301,
+          24,
+          64
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 14.32
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 87,
+      "image_filename": "frame_000184.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000184.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          360,
+          232,
+          27,
+          57
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 88,
+      "image_filename": "frame_000185.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000185.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          387,
+          235,
+          34,
+          60
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.26
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 89,
+      "image_filename": "frame_000186.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000186.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          433,
+          199,
+          25,
+          64
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.63
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 9,
+      "image_filename": "frame_000004.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000004.jpg",
+      "ground_truth": {
+        "phase": "green",
+        "bbox_px": [
+          64.55696202531647,
+          261.2658227848101,
+          63.037974683544306,
+          206.58227848101265
+        ]
+      },
+      "prediction": {
+        "phase": "green",
+        "bbox_px": [
+          75,
+          251,
+          60,
+          105
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": true
+        }
+      },
+      "metrics": {
+        "iou": 0.3475,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.2
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 90,
+      "image_filename": "frame_000187.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000187.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          479,
+          185,
+          27,
+          48
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.99
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 91,
+      "image_filename": "frame_000188.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000188.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          520,
+          137,
+          21,
+          38
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.5
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 92,
+      "image_filename": "frame_000189.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000189.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          57,
+          218,
+          27,
+          51
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 14.45
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 93,
+      "image_filename": "frame_000190.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000190.jpg",
+      "ground_truth": {
+        "phase": "off",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phase": "off",
+        "bbox_px": [
+          255,
+          415,
+          27,
+          35
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
       },
       "failure_mode": "false_positive (phantom detection)"
     },
     {
       "frame_idx": 94,
-      "image_filename": "frame_000094.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000094.jpg",
+      "image_filename": "frame_000191.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000191.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2963,10 +3306,10 @@
       "prediction": {
         "phase": "off",
         "bbox_px": [
-          206,
-          151,
-          81,
-          132
+          597,
+          0,
+          21,
+          28
         ],
         "detected_lamps": {
           "red": false,
@@ -2979,14 +3322,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.04
       },
       "failure_mode": "false_positive (phantom detection)"
     },
     {
       "frame_idx": 95,
-      "image_filename": "frame_000095.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000095.jpg",
+      "image_filename": "frame_000192.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000192.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -2994,10 +3337,10 @@
       "prediction": {
         "phase": "off",
         "bbox_px": [
-          248,
-          151,
-          82,
-          133
+          116,
+          340,
+          33,
+          71
         ],
         "detected_lamps": {
           "red": false,
@@ -3010,14 +3353,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 17.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "false_positive (phantom detection)"
     },
     {
       "frame_idx": 96,
-      "image_filename": "frame_000096.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000096.jpg",
+      "image_filename": "frame_000193.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000193.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -3025,10 +3368,10 @@
       "prediction": {
         "phase": "off",
         "bbox_px": [
-          292,
-          152,
-          81,
-          132
+          190,
+          247,
+          39,
+          68
         ],
         "detected_lamps": {
           "red": false,
@@ -3041,14 +3384,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 17.0
+        "elapsed_ms": 12.88
       },
       "failure_mode": "false_positive (phantom detection)"
     },
     {
       "frame_idx": 97,
-      "image_filename": "frame_000097.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000097.jpg",
+      "image_filename": "frame_000194.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000194.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -3056,10 +3399,10 @@
       "prediction": {
         "phase": "off",
         "bbox_px": [
-          339,
-          149,
-          79,
-          134
+          237,
+          221,
+          36,
+          64
         ],
         "detected_lamps": {
           "red": false,
@@ -3072,14 +3415,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 17.72
+        "elapsed_ms": 13.02
       },
       "failure_mode": "false_positive (phantom detection)"
     },
     {
       "frame_idx": 98,
-      "image_filename": "frame_000098.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000098.jpg",
+      "image_filename": "frame_000195.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000195.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -3087,10 +3430,10 @@
       "prediction": {
         "phase": "off",
         "bbox_px": [
-          384,
-          151,
-          79,
-          131
+          276,
+          212,
+          37,
+          56
         ],
         "detected_lamps": {
           "red": false,
@@ -3103,14 +3446,14 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 15.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "false_positive (phantom detection)"
     },
     {
       "frame_idx": 99,
-      "image_filename": "frame_000099.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000099.jpg",
+      "image_filename": "frame_000196.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000196.jpg",
       "ground_truth": {
         "phase": "off",
         "bbox_px": null
@@ -3118,10 +3461,10 @@
       "prediction": {
         "phase": "off",
         "bbox_px": [
-          430,
-          144,
-          76,
-          133
+          317,
+          238,
+          24,
+          30
         ],
         "detected_lamps": {
           "red": false,

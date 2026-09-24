@@ -113,6 +113,8 @@ def load_annotation(annotation_path: Path) -> Optional[Dict[str, Any]]:
         # Decode Label Studio URL: /data/local-files/?d=data%5Cto_label%5C...%5Cframe_XXXXXX.jpg
         import urllib.parse
         decoded = urllib.parse.unquote(image_url)
+        # Normalise backslashes to forward slashes (Label Studio may store Windows paths)
+        decoded = decoded.replace("\\", "/")
         # Extract filename from decoded path
         for part in decoded.split("/"):
             if part.startswith("frame_") and part.endswith(".jpg"):
@@ -121,6 +123,10 @@ def load_annotation(annotation_path: Path) -> Optional[Dict[str, Any]]:
 
     # Extract frame index from annotation ID
     frame_idx = int(data.get("id", 0))
+
+    # Warn if image_filename could not be resolved (will trigger fallback later)
+    if not image_filename:
+        print(f"[WARN] Could not extract image_filename from annotation {data.get('id', '?')}: image_url was '{image_url}'")
 
     return {
         "bbox_px": bbox_px,
@@ -629,6 +635,7 @@ def main():
             # Fallback: derive frame filename from annotation ID
             if not image_filename:
                 image_filename = f"frame_{frame_idx:06d}.jpg"
+                print(f"[WARN] Fallback: using frame_{frame_idx:06d}.jpg for annotation {ann_file.name} (no image_filename found)")
 
             if image_filename:
                 # Try to find the image file
