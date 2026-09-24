@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-24T19:24:24.735289 |
-| Git commit   | `6e55efeb446d` |
+| Generated at | 2026-09-24T19:56:27.971099 |
+| Git commit   | `df1376a1d2cd` |
 | Resolution | 640x480 |
 | FPS | 30 |
 | Camera backend | picamera2 |
@@ -26,7 +26,7 @@
 
 | Metric | Value |
 |--------|-------|
-| Phase Accuracy | 67.6% (69/102) |
+| Phase Accuracy | 97.1% (99/102) |
 | Localization Accuracy | 12.7% (13/102) |
 | Mean IoU | 0.4187 |
 | Median IoU | 0.4066 |
@@ -35,7 +35,7 @@
 | IoU P50 | 0.4066 |
 | IoU P90 | 0.5421 |
 | IoU P95 | 0.5630 |
-| Avg Detection Time | 12.44 ms |
+| Avg Detection Time | 11.78 ms |
 
 ## Per-Phase Breakdown
 
@@ -43,7 +43,7 @@
 |-------|-------|----------------|----------|------------|---------|---------|
 | green | 37 | 91.9% | 0.4100 | 0.4054 | 0.0454 | 0.5663 |
 | off | 34 | 100.0% | 0.2835 | 0.2835 | 0.2588 | 0.3083 |
-| red | 31 | 3.2% | 0.4513 | 0.4171 | 0.3603 | 0.6053 |
+| red | 31 | 100.0% | 0.4513 | 0.4171 | 0.3603 | 0.6053 |
 
 ## Failure Modes
 
@@ -51,9 +51,8 @@
 |--------------|-------|------------|
 | poor_localization (IoU < 0.5) | 58 | 56.9% |
 | false_positive (phantom detection) | 20 | 19.6% |
+| correct | 13 | 12.7% |
 | correct (no detection) | 11 | 10.8% |
-| correct | 7 | 6.9% |
-| phase_mismatch (GT=red, pred=red_yellow) | 6 | 5.9% |
 
 ## Per-Frame Results
 
@@ -96,38 +95,38 @@
 | 38 | off | off | 0.2588 | False | True | poor_localization (IoU < 0.5) |
 | 39 | off | off | 0.0000 | False | True | poor_localization (IoU < 0.5) |
 | 4 | green | green | 0.3667 | False | True | poor_localization (IoU < 0.5) |
-| 40 | red | red_yellow | 0.4052 | False | True | poor_localization (IoU < 0.5) |
-| 41 | red | red_yellow | 0.3603 | False | True | poor_localization (IoU < 0.5) |
-| 42 | red | red_yellow | 0.3609 | False | True | poor_localization (IoU < 0.5) |
-| 43 | red | red_yellow | 0.3758 | False | True | poor_localization (IoU < 0.5) |
-| 44 | red | red_yellow | 0.3886 | False | True | poor_localization (IoU < 0.5) |
-| 45 | red | red_yellow | 0.4038 | False | True | poor_localization (IoU < 0.5) |
-| 46 | red | red_yellow | 0.3944 | False | True | poor_localization (IoU < 0.5) |
-| 47 | red | red_yellow | 0.3950 | False | True | poor_localization (IoU < 0.5) |
-| 48 | red | red_yellow | 0.3902 | False | True | poor_localization (IoU < 0.5) |
-| 49 | red | red_yellow | 0.3855 | False | True | poor_localization (IoU < 0.5) |
+| 40 | red | red | 0.4052 | False | True | poor_localization (IoU < 0.5) |
+| 41 | red | red | 0.3603 | False | True | poor_localization (IoU < 0.5) |
+| 42 | red | red | 0.3609 | False | True | poor_localization (IoU < 0.5) |
+| 43 | red | red | 0.3758 | False | True | poor_localization (IoU < 0.5) |
+| 44 | red | red | 0.3886 | False | True | poor_localization (IoU < 0.5) |
+| 45 | red | red | 0.4038 | False | True | poor_localization (IoU < 0.5) |
+| 46 | red | red | 0.3944 | False | True | poor_localization (IoU < 0.5) |
+| 47 | red | red | 0.3950 | False | True | poor_localization (IoU < 0.5) |
+| 48 | red | red | 0.3902 | False | True | poor_localization (IoU < 0.5) |
+| 49 | red | red | 0.3855 | False | True | poor_localization (IoU < 0.5) |
 | 5 | green | green | 0.3860 | False | True | poor_localization (IoU < 0.5) |
-| 50 | red | red_yellow | 0.3967 | False | True | poor_localization (IoU < 0.5) |
-| 51 | red | red_yellow | 0.4088 | False | True | poor_localization (IoU < 0.5) |
-| 52 | red | red_yellow | 0.4015 | False | True | poor_localization (IoU < 0.5) |
-| 53 | red | red_yellow | 0.4065 | False | True | poor_localization (IoU < 0.5) |
-| 54 | red | red_yellow | 0.4084 | False | True | poor_localization (IoU < 0.5) |
-| 55 | red | red_yellow | 0.4171 | False | True | poor_localization (IoU < 0.5) |
-| 56 | red | red_yellow | 0.4361 | False | True | poor_localization (IoU < 0.5) |
-| 57 | red | red_yellow | 0.4605 | False | True | poor_localization (IoU < 0.5) |
-| 58 | red | red_yellow | 0.4937 | False | True | poor_localization (IoU < 0.5) |
-| 59 | red | red_yellow | 0.4563 | False | True | poor_localization (IoU < 0.5) |
+| 50 | red | red | 0.3967 | False | True | poor_localization (IoU < 0.5) |
+| 51 | red | red | 0.4088 | False | True | poor_localization (IoU < 0.5) |
+| 52 | red | red | 0.4015 | False | True | poor_localization (IoU < 0.5) |
+| 53 | red | red | 0.4065 | False | True | poor_localization (IoU < 0.5) |
+| 54 | red | red | 0.4084 | False | True | poor_localization (IoU < 0.5) |
+| 55 | red | red | 0.4171 | False | True | poor_localization (IoU < 0.5) |
+| 56 | red | red | 0.4361 | False | True | poor_localization (IoU < 0.5) |
+| 57 | red | red | 0.4605 | False | True | poor_localization (IoU < 0.5) |
+| 58 | red | red | 0.4937 | False | True | poor_localization (IoU < 0.5) |
+| 59 | red | red | 0.4563 | False | True | poor_localization (IoU < 0.5) |
 | 6 | green | green | 0.3890 | False | True | poor_localization (IoU < 0.5) |
-| 60 | red | red_yellow | 0.4666 | False | True | poor_localization (IoU < 0.5) |
-| 61 | red | red_yellow | 0.4667 | False | True | poor_localization (IoU < 0.5) |
-| 62 | red | red_yellow | 0.4793 | False | True | poor_localization (IoU < 0.5) |
-| 63 | red | red_yellow | 0.4935 | False | True | poor_localization (IoU < 0.5) |
-| 64 | red | red_yellow | 0.5112 | True | True | phase_mismatch (GT=red, pred=red_yellow) |
-| 65 | red | red_yellow | 0.5345 | True | True | phase_mismatch (GT=red, pred=red_yellow) |
-| 66 | red | red_yellow | 0.5501 | True | True | phase_mismatch (GT=red, pred=red_yellow) |
-| 67 | red | red_yellow | 0.5554 | True | True | phase_mismatch (GT=red, pred=red_yellow) |
-| 68 | red | red_yellow | 0.5970 | True | True | phase_mismatch (GT=red, pred=red_yellow) |
-| 69 | red | red_yellow | 0.6053 | True | True | phase_mismatch (GT=red, pred=red_yellow) |
+| 60 | red | red | 0.4666 | False | True | poor_localization (IoU < 0.5) |
+| 61 | red | red | 0.4667 | False | True | poor_localization (IoU < 0.5) |
+| 62 | red | red | 0.4793 | False | True | poor_localization (IoU < 0.5) |
+| 63 | red | red | 0.4935 | False | True | poor_localization (IoU < 0.5) |
+| 64 | red | red | 0.5112 | True | True | correct |
+| 65 | red | red | 0.5345 | True | True | correct |
+| 66 | red | red | 0.5501 | True | True | correct |
+| 67 | red | red | 0.5554 | True | True | correct |
+| 68 | red | red | 0.5970 | True | True | correct |
+| 69 | red | red | 0.6053 | True | True | correct |
 | 7 | green | green | 0.4222 | False | True | poor_localization (IoU < 0.5) |
 | 70 | red | red | 0.5843 | True | True | correct |
 | 71 | off | off | 0.3083 | False | True | poor_localization (IoU < 0.5) |
