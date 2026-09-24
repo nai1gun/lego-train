@@ -12,12 +12,12 @@ Here's an annotated view of our LEGO train showing the key components:
 
 The numbers match the badges on the photo above:
 
-| # | Component | Location | Description |
-|---|-----------|----------|-------------|
-| 1 | Power bank | On the roof of the first carriage | Portable 5V supply for the Raspberry Pi, so the train runs untethered |
-| 2 | Raspberry Pi Camera | In the nose of the first carriage | Looks down the track ahead and feeds frames to the Pi for autonomous navigation |
-| 3 | Raspberry Pi | Inside the first carriage (visible through the windows) | The brain of the train - runs the Python code, processes camera frames, and sends motor commands |
-| 4 | LEGO train motor | Front half of the second carriage | Drives the train forward and backward, controlled over Bluetooth from the Raspberry Pi |
+| # | Component           | Location                                                | Description                                                                                      |
+| - | ------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| 1 | Power bank          | On the roof of the first carriage                       | Portable 5V supply for the Raspberry Pi, so the train runs untethered                            |
+| 2 | Raspberry Pi Camera | In the nose of the first carriage                       | Looks down the track ahead and feeds frames to the Pi for autonomous navigation                  |
+| 3 | Raspberry Pi        | Inside the first carriage (visible through the windows) | The brain of the train - runs the Python code, processes camera frames, and sends motor commands |
+| 4 | LEGO train motor    | Front half of the second carriage                       | Drives the train forward and backward, controlled over Bluetooth from the Raspberry Pi           |
 
 The annotated image is generated from the original photo by [`tools/data_collection/annotate_train.py`](./tools/data_collection/annotate_train.py) - edit the coordinates in that script and re-run it to adjust the labels:
 
@@ -240,7 +240,7 @@ source .venv/bin/activate   # Linux/Mac
 python scripts/benchmark_traffic_light.py
 
 # Benchmark a specific run
-python scripts/benchmark_traffic_light.py --dataset-dir data/curated/20260917_065933
+python scripts/benchmark_traffic_light.py --dataset-dir data\labeled\LEGO-Train-Traffic-Lights
 
 # Quick dry run (first 5 frames only)
 python scripts/benchmark_traffic_light.py --dry-run
@@ -248,10 +248,10 @@ python scripts/benchmark_traffic_light.py --dry-run
 
 The script produces two reports in the `reports/` directory:
 
-| File | Description |
-|------|-------------|
-| `reports/benchmark_report.json` | Full machine-readable results (per-frame IoU, failure modes, metrics) |
-| `reports/benchmark_report.md` | Human-readable summary with metadata (resolution, camera settings, exposure) |
+| File                              | Description                                                                  |
+| --------------------------------- | ---------------------------------------------------------------------------- |
+| `reports/benchmark_report.json` | Full machine-readable results (per-frame IoU, failure modes, metrics)        |
+| `reports/benchmark_report.md`   | Human-readable summary with metadata (resolution, camera settings, exposure) |
 
 The Markdown report includes session metadata (resolution, FPS, exposure time, analogue gain, HDR/NR mode) so you can correlate detection quality with camera conditions.
 
