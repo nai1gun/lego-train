@@ -13,9 +13,10 @@ from typing import Any, Dict, List, Optional, Tuple
 import cv2
 import numpy as np
 
-SCRIPT_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = SCRIPT_DIR.parent
-sys.path.insert(0, str(SCRIPT_DIR))
+SRC_DIR = Path(__file__).resolve().parent.parent / "src"
+PROJECT_ROOT = SRC_DIR.parent
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
 from detect_traffic_light import (
     find_traffic_light_housing,

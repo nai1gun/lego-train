@@ -15,31 +15,31 @@ Features:
 
 Usage:
   # Live camera on Pi (auto-detects CSI camera):
-  python scripts/detect_traffic_light.py
+  python src/detect_traffic_light.py
 
   # Live camera with debug overlay:
-  python scripts/detect_traffic_light.py --show
+  python src/detect_traffic_light.py --show
 
   # Process a video file for offline testing:
-  python scripts/detect_traffic_light.py --video path/to/video.mp4
+  python src/detect_traffic_light.py --video path/to/video.mp4
 
   # Process a single image (for debugging):
-  python scripts/detect_traffic_light.py --image media/traffic_light_green.jpg
+  python src/detect_traffic_light.py --image media/traffic_light_green.jpg
 
   # Process multiple images and print a regression summary:
-  python scripts/detect_traffic_light.py --images media/traffic_light_green.jpg media/traffic_light_red.jpg
+  python src/detect_traffic_light.py --images media/traffic_light_green.jpg media/traffic_light_red.jpg
 
   # Save debug overlays and masks to a directory:
-  python scripts/detect_traffic_light.py --images media/traffic_light_*.jpg --save-debug debug_output/
+  python src/detect_traffic_light.py --images media/traffic_light_*.jpg --save-debug debug_output/
 
   # Calibrate colors from Pi camera data:
-  python scripts/detect_traffic_light.py --calibrate
+  python src/detect_traffic_light.py --calibrate
 
   # Disable auto white balance to prevent color shift on Pi:
-  python scripts/detect_traffic_light.py --no-auto-wb
+  python src/detect_traffic_light.py --no-auto-wb
 
   # Custom resolution:
-  python scripts/detect_traffic_light.py --resolution 800x600
+  python src/detect_traffic_light.py --resolution 800x600
 """
 
 import argparse
@@ -1057,22 +1057,22 @@ def parse_args() -> argparse.Namespace:
         epilog="""
 Examples:
   # Live camera (auto-detects platform):
-  python scripts/detect_traffic_light.py
+  python src/detect_traffic_light.py
 
   # Live camera with debug overlay:
-  python scripts/detect_traffic_light.py --show
+  python src/detect_traffic_light.py --show
 
   # Process a video file for offline testing:
-  python scripts/detect_traffic_light.py --video path/to/video.mp4
+  python src/detect_traffic_light.py --video path/to/video.mp4
 
   # Calibrate colors from Pi camera data:
-  python scripts/detect_traffic_light.py --calibrate
+  python src/detect_traffic_light.py --calibrate
 
   # Disable auto white balance on Pi camera:
-  python scripts/detect_traffic_light.py --no-auto-wb
+  python src/detect_traffic_light.py --no-auto-wb
 
   # Custom resolution:
-  python scripts/detect_traffic_light.py --resolution 800x600
+  python src/detect_traffic_light.py --resolution 800x600
         """,
     )
 
