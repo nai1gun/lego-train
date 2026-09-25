@@ -87,14 +87,20 @@ First, activate the virtual environment:
 source .venv/bin/activate
 ```
 
-Then install required packages:
+Then install required packages on your **development machine** (Windows, Linux, or Mac):
 
 ```bash
 pip install bleak
-pip install opencv-python       # For local development on Windows
-pip install opencv-python-headless  # For Raspberry Pi (no GUI needed)
+pip install opencv-python       # Full OpenCV with GUI support (needed for imshow on the dev host)
 pip install pillow              # Only needed to regenerate the annotated photo
 ```
+
+> **Note:** `opencv-python` and `opencv-python-headless` are **mutually exclusive** — do **not** install both. Choose one based on your platform:
+>
+> | Platform | Package | Why |
+> |----------|---------|-----|
+> | **Development host** (Windows / Linux / Mac) | `opencv-python` | Needs GUI backend for `cv2.imshow()` on the dev machine |
+> | **Raspberry Pi** | `opencv-python-headless` | No display needed; lighter weight |
 
 ### 3. Camera Setup
 
