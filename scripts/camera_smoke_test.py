@@ -26,6 +26,13 @@ def _draw_text(frame, text, position, color):
     )
 
 
+def _ensure_debug_out() -> Path:
+    """Create and return the debug_out directory (relative to project root)."""
+    output_dir = Path("debug_out")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    return output_dir
+
+
 def _capture_with_picamera2(preview_seconds: int) -> Path:
     """Capture frames using Picamera2 (Pi Camera Module 3)."""
     try:
@@ -59,7 +66,8 @@ def _capture_with_picamera2(preview_seconds: int) -> Path:
     print("Camera started successfully!")
     frame_count = 0
     start_time = time.time()
-    output_path = Path("camera_test_screenshot.jpg")
+    output_dir = _ensure_debug_out()
+    output_path = output_dir / "camera_test_screenshot.jpg"
 
     print(f"\nCapturing for {preview_seconds} seconds...")
     print("-" * 60)
@@ -83,14 +91,14 @@ def _capture_with_picamera2(preview_seconds: int) -> Path:
             _draw_text(frame, f"FPS: {current_fps:.1f}", (10, 90), (0, 150, 255))
 
         if frame_count % 10 == 0:
-            preview_name = f"camera_test_preview_{frame_count:04d}.jpg"
-            cv2.imwrite(preview_name, frame)
+            preview_name = output_dir / f"camera_test_preview_{frame_count:04d}.jpg"
+            cv2.imwrite(str(preview_name), frame)
 
         if elapsed >= preview_seconds:
             break
 
     print(f"\nCaptured {frame_count} frames total.")
-    print(f"   Preview frames saved as camera_test_preview_*.jpg")
+    print(f"   Preview frames saved in {output_dir}/")
 
     still_config = picam2.create_still_configuration(main={"size": (2304, 1296)})
     still_frame = picam2.switch_mode_and_capture_array(still_config)
@@ -132,7 +140,8 @@ def _capture_with_opencv(preview_seconds: int) -> Path:
     print("-" * 60)
 
     frame_count = 0
-    output_path = Path("camera_test_screenshot.jpg")
+    output_dir = _ensure_debug_out()
+    output_path = output_dir / "camera_test_screenshot.jpg"
     start_time = time.time()
 
     print(f"Auto mode: Previewing for {preview_seconds} seconds...")

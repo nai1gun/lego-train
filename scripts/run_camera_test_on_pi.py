@@ -8,7 +8,7 @@ Usage:
 Requires:
     - SSH access to the Pi (ssh lev@levpi)
     - scp available on this machine
-    - The Pi must have camera_smoke_test.py at /home/lev/
+    - The Pi must have camera_smoke_test.py at /home/lev/lego-train/scripts/
 """
 
 import subprocess
@@ -40,12 +40,12 @@ def run_command(cmd, label: str) -> subprocess.CompletedProcess:
 def main():
     # Resolve paths relative to this script's location
     script_dir = Path(__file__).resolve().parent
-    output_dir = script_dir / "camera_test_results"
+    output_dir = script_dir.parent / "debug_out"
 
     # Step 1: Run the camera test on the Pi
     ssh_cmd = [
         "ssh", "lev@levpi",
-        "cd /home/lev && rm -f camera_test_preview_*.jpg camera_test_screenshot.jpg && python3 camera_smoke_test.py",
+        "cd /home/lev/lego-train && rm -f camera_test_preview_*.jpg camera_test_screenshot.jpg && python3 scripts/camera_smoke_test.py",
     ]
     run_command(ssh_cmd, "Running camera test on Pi")
 
@@ -53,11 +53,11 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Step 3: Copy the high-res screenshot
-    scp_cmd1 = ["scp", "lev@levpi:/home/lev/camera_test_screenshot.jpg", str(output_dir)]
+    scp_cmd1 = ["scp", "lev@levpi:/home/lev/lego-train/camera_test_screenshot.jpg", str(output_dir)]
     run_command(scp_cmd1, "Copying screenshot")
 
     # Step 4: Copy preview frames (glob pattern)
-    scp_cmd2 = ["scp", "lev@levpi:/home/lev/camera_test_preview_*.jpg", str(output_dir)]
+    scp_cmd2 = ["scp", "lev@levpi:/home/lev/lego-train/camera_test_preview_*.jpg", str(output_dir)]
     run_command(scp_cmd2, "Copying preview frames")
 
     # Step 5: Report results
