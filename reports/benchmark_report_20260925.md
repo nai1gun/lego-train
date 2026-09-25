@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-25T23:19:18.864776 |
-| Git commit   | `c5852b8654ae` |
+| Generated at | 2026-09-25T23:26:37.856411 |
+| Git commit   | `e8da3320d4ee` |
 
 ## Dataset Overview
 
@@ -27,7 +27,7 @@
 | IoU P50 | 0.1762 |
 | IoU P90 | 0.1842 |
 | IoU P95 | 0.2613 |
-| Avg Detection Time | 11.03 ms |
+| Avg Detection Time | 10.59 ms |
 
 ## Per-Phase Breakdown
 

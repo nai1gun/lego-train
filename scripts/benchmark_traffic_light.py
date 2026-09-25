@@ -717,9 +717,12 @@ def main():
     if len(run_dirs) > 1:
         output_filename = "benchmark_report"
     elif args.run:
-        output_filename = args.output if args.output != "benchmark_report.json" else "benchmark_report"
+        # Strip .json extension from user-provided output to avoid double extension
+        base = args.output.removesuffix(".json") if args.output != "benchmark_report.json" else "benchmark_report"
+        output_filename = base
     else:
-        output_filename = args.output if args.output != "benchmark_report.json" else "benchmark_report"
+        base = args.output.removesuffix(".json") if args.output != "benchmark_report.json" else "benchmark_report"
+        output_filename = base
 
     # JSON
     json_path = reports_dir / f"{output_filename}.json"

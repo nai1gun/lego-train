@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-25T23:19:07.939920 |
-| Git commit   | `c5852b8654ae` |
+| Generated at | 2026-09-25T23:26:26.075572 |
+| Git commit   | `e8da3320d4ee` |
 
 ## Dataset Overview
 
@@ -18,7 +18,7 @@
 
 | Metric | Value |
 |--------|-------|
-| Phase Accuracy | 93.1% (95/102) |
+| Phase Accuracy | 94.1% (96/102) |
 | Localization Accuracy | 57.8% (59/102) |
 | Mean IoU | 0.6299 |
 | Median IoU | 0.6545 |
@@ -27,14 +27,13 @@
 | IoU P50 | 0.6545 |
 | IoU P90 | 0.8072 |
 | IoU P95 | 0.8480 |
-| Avg Detection Time | 11.27 ms |
+| Avg Detection Time | 11.03 ms |
 
 ## Per-Phase Breakdown
 
 | Phase | Count | Phase Accuracy | Mean IoU | Median IoU | Min IoU | Max IoU |
 |-------|-------|----------------|----------|------------|---------|---------|
-| green | 36 | 91.7% | 0.6024 | 0.6521 | 0.0716 | 0.8538 |
-| green,off | 1 | 0.0% | 0.7925 | 0.7925 | 0.7925 | 0.7925 |
+| green | 37 | 91.9% | 0.6075 | 0.6545 | 0.0716 | 0.8538 |
 | off | 34 | 91.2% | 0.2835 | 0.2835 | 0.2588 | 0.3083 |
 | red | 31 | 100.0% | 0.6993 | 0.6737 | 0.5794 | 0.8867 |
 
@@ -42,11 +41,10 @@
 
 | Failure Mode | Count | Percentage |
 |--------------|-------|------------|
-| correct | 58 | 56.9% |
+| correct | 59 | 57.8% |
 | false_positive (phantom detection) | 20 | 19.6% |
 | poor_localization (IoU < 0.5) | 12 | 11.8% |
 | correct (no detection) | 11 | 10.8% |
-| phase_mismatch (GT={'off', 'green'}, pred={'green'}) | 1 | 1.0% |
 
 ## Per-Lamp Accuracy
 
@@ -87,7 +85,7 @@
 | 29 | green | green | 0.7661 | True | True | correct |
 | 3 | green | green | 0.3627 | False | True | poor_localization (IoU < 0.5) |
 | 30 | green | green | 0.7719 | True | True | correct |
-| 31 | green,off | green | 0.7925 | True | True | phase_mismatch (GT={'off', 'green'}, pred={'green'}) |
+| 31 | green | green | 0.7925 | True | True | correct |
 | 32 | green | green | 0.8113 | True | True | correct |
 | 33 | green | green | 0.8422 | True | True | correct |
 | 34 | green | green | 0.8538 | True | True | correct |
