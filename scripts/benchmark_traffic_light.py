@@ -561,31 +561,68 @@ def generate_markdown_report(report):
 def main():
     """Run the benchmark and save results."""
     parser = argparse.ArgumentParser(description="Benchmark traffic light detection")
-    parser.add_argument("--dataset-dir", type=str, default=None, help="Path to dataset directory")
-    parser.add_argument("--output", type=str, default="benchmark_report.json", help="Output report path")
+    parser.add_argument("--dataset-dir", type=str, default=None, help="Path to dataset or run directory")
+    parser.add_argument("--run", type=str, default=None, help="Specific run name to benchmark (e.g. 20260917_065933)")
+    parser.add_argument("--output", type=str, default="benchmark_report.json", help="Output report path (used only when --run is specified)")
     parser.add_argument("--dry-run", action="store_true", help="Run only first 5 frames for testing")
     args = parser.parse_args()
 
-    # Determine dataset directory
+    # Determine the base directory the user passed
     if args.dataset_dir:
-        dataset_dir = Path(args.dataset_dir)
+        base_dir = Path(args.dataset_dir).resolve()
     else:
         # Default: labeled dataset root
-        dataset_dir = PROJECT_ROOT / "data" / "labeled" / "LEGO-Train-Traffic-Lights"
+        base_dir = (PROJECT_ROOT / "data" / "labeled" / "LEGO-Train-Traffic-Lights").resolve()
 
-    # Look for the run subdirectory (e.g. 20260917_065933)
-    runs = [d for d in dataset_dir.iterdir() if d.is_dir() and not d.name.startswith(('.', '_'))]
-    if not runs:
-        print(f"[ERROR] No run directories found in {dataset_dir}")
-        return
-    run_dir = runs[0]  # Use first (and likely only) run
+    # Detect whether base_dir is already a run directory or a collection of runs
+    is_run_dir = (
+        (base_dir / "frames").is_dir()
+        and (base_dir / "frames.csv").is_file()
+        and (base_dir / "session_meta.json").is_file()
+    )
+
+    if is_run_dir:
+        # User passed a single run directory directly
+        run_dirs = [base_dir]
+        print(f"[INFO] Detected run directory: {base_dir.name}")
+    else:
+        # base_dir is a collection — find all run subdirectories
+        runs = sorted([
+            d for d in base_dir.iterdir()
+            if d.is_dir() and not d.name.startswith(('.', '_'))
+        ])
+        if not runs:
+            print(f"[ERROR] No run directories found in {base_dir}")
+            return
+
+        if args.run:
+            # Filter to the specific run requested by name
+            run_dirs = [r for r in runs if r.name == args.run]
+            if not run_dirs:
+                print(f"[ERROR] Run '{args.run}' not found in {base_dir}. Available: {', '.join(r.name for r in runs)}")
+                return
+            print(f"[INFO] Using specified run: {run_dirs[0].name}")
+        else:
+            # Default: process all runs
+            run_dirs = runs
+            print(f"[INFO] Found {len(run_dirs)} runs. Benchmarking all...")
+
+    # Process each run directory
+    for run_dir in run_dirs:
+        _benchmark_single_run(run_dir, args, len(run_dirs))
+
+
+def _benchmark_single_run(run_dir: Path, args: argparse.Namespace, num_runs: int):
+    """Benchmark a single run directory and generate reports."""
+    print()  # blank line between runs
+    print("=" * 70)
+    print(f"  BENCHMARKING RUN: {run_dir.name}")
+    print("=" * 70)
 
     annotations_dir = run_dir / "frames"
     images_dir = run_dir / "frames"  # Images are in same 'frames' dir
     csv_path = run_dir / "frames.csv"
 
-    print(f"[INFO] Dataset directory: {dataset_dir}")
-    print(f"[INFO] Run directory: {run_dir}")
     print(f"[INFO] Annotations dir: {annotations_dir}")
     print(f"[INFO] Images dir: {images_dir}")
     print(f"[INFO] CSV path: {csv_path}")
@@ -643,7 +680,7 @@ def main():
                 possible_paths = [
                     images_dir / image_filename,
                     run_dir / "frames" / image_filename,
-                    dataset_dir / run_dir.name / "frames" / image_filename,
+                    run_dir / image_filename,
                 ]
                 image_path = None
                 for pp in possible_paths:
@@ -693,8 +730,11 @@ def main():
     reports_dir = PROJECT_ROOT / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
 
-    # Default output filename
-    output_filename = "benchmark_report"
+    # Output filename: per-run when processing multiple, user-specified when single
+    if num_runs > 1 or args.run:
+        output_filename = f"{run_dir.name}_benchmark_report"
+    else:
+        output_filename = args.output if args.output != "benchmark_report.json" else "benchmark_report"
 
     # JSON
     json_path = reports_dir / f"{output_filename}.json"
@@ -714,8 +754,6 @@ def main():
 
     # Print failure details
     print_failure_details(results, top_n=10)
-
-    return report
 
 
 if __name__ == "__main__":
