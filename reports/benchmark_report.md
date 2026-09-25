@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-25T19:25:24.786965 |
-| Git commit   | `6e740a76870e` |
+| Generated at | 2026-09-25T23:29:36.837541 |
+| Git commit   | `d5fc96ad27b0` |
 
 ## Dataset Overview
 
@@ -18,7 +18,7 @@
 
 | Metric | Value |
 |--------|-------|
-| Phase Accuracy | 89.2% (107/120) |
+| Phase Accuracy | 83.3% (100/120) |
 | Localization Accuracy | 50.0% (60/120) |
 | Mean IoU | 0.5305 |
 | Median IoU | 0.6399 |
@@ -27,15 +27,17 @@
 | IoU P50 | 0.6399 |
 | IoU P90 | 0.7950 |
 | IoU P95 | 0.8365 |
-| Avg Detection Time | 10.54 ms |
+| Avg Detection Time | 10.31 ms |
 
 ## Per-Phase Breakdown
 
 | Phase | Count | Phase Accuracy | Mean IoU | Median IoU | Min IoU | Max IoU |
 |-------|-------|----------------|----------|------------|---------|---------|
 | green | 41 | 90.2% | 0.5755 | 0.6475 | 0.0716 | 0.8538 |
-| off | 38 | 100.0% | 0.2310 | 0.2193 | 0.1772 | 0.3083 |
-| red | 40 | 77.5% | 0.6270 | 0.6512 | 0.1743 | 0.8867 |
+| green,red,yellow | 1 | 0.0% | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+| off | 38 | 81.6% | 0.2310 | 0.2193 | 0.1772 | 0.3083 |
+| red | 36 | 86.1% | 0.6678 | 0.6721 | 0.1776 | 0.8867 |
+| red,yellow | 3 | 0.0% | 0.1781 | 0.1758 | 0.1743 | 0.1843 |
 | yellow | 1 | 100.0% | 0.6974 | 0.6974 | 0.6974 | 0.6974 |
 
 ## Failure Modes
@@ -48,10 +50,18 @@
 | correct (no detection) | 11 | 9.2% |
 | false_negative (missed detection) | 6 | 5.0% |
 
+## Per-Lamp Accuracy
+
+| Lamp | Correct | Total | Accuracy |
+|------|---------|-------|----------|
+| green | 110 | 120 | 91.7% |
+| red | 111 | 120 | 92.5% |
+| yellow | 117 | 120 | 97.5% |
+
 ## Per-Frame Results
 
-| Frame | GT Phase | Predicted | IoU | Localization Correct | Housing Found | Failure Mode |
-|-------|----------|-----------|-----|---------------------|---------------|--------------|
+| Frame | GT Phases | Predicted | IoU | Localization Correct | Housing Found | Failure Mode |
+|-------|-----------|-----------|-----|---------------------|---------------|--------------|
 | 1 | green | green | 0.4138 | False | True | poor_localization (IoU < 0.5) |
 | 10 | green | green | 0.6580 | True | True | correct |
 | 100 | off | off | 0.0000 | False | True | false_positive (phantom detection) |
@@ -154,16 +164,16 @@
 | 97 | off | off | 0.0000 | False | True | false_positive (phantom detection) |
 | 98 | off | off | 0.0000 | False | True | false_positive (phantom detection) |
 | 99 | off | off | 0.0000 | False | True | false_positive (phantom detection) |
-| 103 | red | yellow | 0.1822 | False | True | poor_localization (IoU < 0.5) |
+| 103 | red | green,yellow | 0.1822 | False | True | poor_localization (IoU < 0.5) |
 | 104 | off | off | 0.1799 | False | True | poor_localization (IoU < 0.5) |
 | 105 | off | off | 0.0000 | False | True | poor_localization (IoU < 0.5) |
 | 106 | red | off | 0.0000 | False | False | false_negative (missed detection) |
 | 107 | red | off | 0.0000 | False | False | false_negative (missed detection) |
 | 108 | red | off | 0.0000 | False | False | false_negative (missed detection) |
-| 109 | red | yellow | 0.1758 | False | True | poor_localization (IoU < 0.5) |
-| 110 | red | yellow | 0.1843 | False | True | poor_localization (IoU < 0.5) |
-| 111 | red | yellow | 0.1743 | False | True | poor_localization (IoU < 0.5) |
-| 112 | red | off | 0.0000 | False | False | false_negative (missed detection) |
+| 109 | red,yellow | green,yellow | 0.1758 | False | True | poor_localization (IoU < 0.5) |
+| 110 | red,yellow | green,yellow | 0.1843 | False | True | poor_localization (IoU < 0.5) |
+| 111 | red,yellow | green,yellow | 0.1743 | False | True | poor_localization (IoU < 0.5) |
+| 112 | green,red,yellow | off | 0.0000 | False | False | false_negative (missed detection) |
 | 113 | green | green | 0.1841 | False | True | poor_localization (IoU < 0.5) |
 | 114 | green | green | 0.1795 | False | True | poor_localization (IoU < 0.5) |
 | 115 | off | off | 0.1772 | False | True | poor_localization (IoU < 0.5) |
@@ -171,4 +181,4 @@
 | 117 | green | off | 0.0000 | False | False | false_negative (missed detection) |
 | 118 | green | green | 0.1765 | False | True | poor_localization (IoU < 0.5) |
 | 119 | yellow | yellow | 0.6974 | True | True | correct |
-| 120 | red | yellow | 0.1776 | False | True | poor_localization (IoU < 0.5) |
+| 120 | red | green,yellow | 0.1776 | False | True | poor_localization (IoU < 0.5) |
