@@ -102,10 +102,12 @@ def load_annotation(annotation_path: Path) -> Optional[Dict[str, Any]]:
         bbox_px = None
 
     # Extract phase label — normalize to lowercase for consistent comparison
+    # GT is now a set of lit lamp names (e.g. {"red"}, {"red", "yellow"}, {"green"})
+    # Empty set means "off"
     if choices_value and len(choices_value) > 0:
-        phase = choices_value[0].lower()
+        gt_phases = {c.lower() for c in choices_value}
     else:
-        phase = "off"
+        gt_phases = set()  # no choices = off
 
     # Extract image reference from task data
     image_url = data.get("task", {}).get("data", {}).get("image", "")
@@ -131,7 +133,7 @@ def load_annotation(annotation_path: Path) -> Optional[Dict[str, Any]]:
 
     return {
         "bbox_px": bbox_px,
-        "phase": phase,
+        "gt_phases": gt_phases,
         "frame_idx": frame_idx,
         "image_filename": image_filename,
         "annotation_id": frame_idx,
@@ -205,19 +207,40 @@ def run_detection_on_image(image_path):
 
 def benchmark_one_frame(annotation, image_path):
     """Benchmark detection on a single frame."""
-    gt_phase = annotation["phase"]
+    gt_phases = annotation["gt_phases"]
     gt_bbox = annotation["bbox_px"]
     start_time = time.time()
     prediction = run_detection_on_image(image_path)
     elapsed_ms = (time.time() - start_time) * 1000
-    pred_phase = prediction["phase"]
+
+    # Prediction: set of lamp names whose lit_states is True
+    pred_phases = {
+        lamp for lamp, lit in prediction["detected_lamps"].items() if lit
+    }
+
+    pred_phase_str = ",".join(sorted(pred_phases)) if pred_phases else "off"
     pred_bbox = prediction["housing_bbox"]
     iou = 0.0
     localization_correct = False
     if gt_bbox is not None and pred_bbox is not None:
         iou = compute_iou(gt_bbox, pred_bbox)
         localization_correct = iou >= 0.5
-    phase_correct = gt_phase == pred_phase
+
+    # Phase accuracy: exact set match
+    phase_correct = gt_phases == pred_phases
+
+    # Per-lamp accuracy for this frame: each of 3 lamps, right or wrong
+    all_lamps = {"red", "yellow", "green"}
+    per_lamp = {}
+    for lamp in sorted(all_lamps):
+        gt_lit = lamp in gt_phases
+        pred_lit = lamp in pred_phases
+        per_lamp[lamp] = {
+            "gt_lit": gt_lit,
+            "pred_lit": pred_lit,
+            "correct": gt_lit == pred_lit,
+        }
+
     if gt_bbox is None:
         if pred_bbox is not None:
             failure_mode = "false_positive (phantom detection)"
@@ -229,16 +252,28 @@ def benchmark_one_frame(annotation, image_path):
         elif iou < 0.5:
             failure_mode = "poor_localization (IoU < 0.5)"
         elif not phase_correct:
-            failure_mode = f"phase_mismatch (GT={gt_phase}, pred={pred_phase})"
+            failure_mode = f"phase_mismatch (GT={gt_phases}, pred={pred_phases})"
         else:
             failure_mode = "correct"
     return {
         "frame_idx": annotation["frame_idx"],
         "image_filename": annotation["image_filename"],
         "image_path": str(image_path),
-        "ground_truth": {"phase": gt_phase, "bbox_px": gt_bbox},
-        "prediction": {"phase": pred_phase, "bbox_px": pred_bbox, "detected_lamps": {k: v for k, v in prediction["detected_lamps"].items()}},
-        "metrics": {"iou": round(iou, 4), "localization_correct": localization_correct, "phase_correct": phase_correct, "housing_found": prediction["housing_found"], "elapsed_ms": round(elapsed_ms, 2)},
+        "ground_truth": {"phases": gt_phases, "bbox_px": gt_bbox},
+        "prediction": {
+            "phases": pred_phases,
+            "phase_str": pred_phase_str,
+            "bbox_px": pred_bbox,
+            "detected_lamps": {k: v for k, v in prediction["detected_lamps"].items()},
+        },
+        "per_lamp": per_lamp,
+        "metrics": {
+            "iou": round(iou, 4),
+            "localization_correct": localization_correct,
+            "phase_correct": phase_correct,
+            "housing_found": prediction["housing_found"],
+            "elapsed_ms": round(elapsed_ms, 2),
+        },
         "failure_mode": failure_mode,
     }
 
@@ -299,8 +334,12 @@ def generate_report(results, generated_at=None, git_commit=None, session_meta=No
     housing_found_count = 0
     housing_missed_as_gt = 0
 
+    # Per-lamp aggregation: counts of correct / total per lamp
+    per_lamp_total = defaultdict(int)
+    per_lamp_correct = defaultdict(int)
+
     for r in results:
-        gt_phase = r["ground_truth"]["phase"]
+        gt_phases = r["ground_truth"]["phases"]
         metrics = r["metrics"]
         iou = metrics["iou"]
         phase_correct = metrics["phase_correct"]
@@ -314,13 +353,21 @@ def generate_report(results, generated_at=None, git_commit=None, session_meta=No
             else:
                 housing_missed_as_gt += 1
 
-        phase_counts[gt_phase]["total"] += 1
+        # Encode gt_phases as a string key for phase_counts
+        gt_key = ",".join(sorted(gt_phases)) if gt_phases else "off"
+        phase_counts[gt_key]["total"] += 1
         if phase_correct:
-            phase_counts[gt_phase]["correct"] += 1
+            phase_counts[gt_key]["correct"] += 1
         if gt_bbox is not None and iou > 0:
-            phase_counts[gt_phase]["ious"].append(iou)
+            phase_counts[gt_key]["ious"].append(iou)
 
         failure_modes[r["failure_mode"]] += 1
+
+        # Accumulate per-lamp stats
+        for lamp, lamp_data in r["per_lamp"].items():
+            per_lamp_total[lamp] += 1
+            if lamp_data["correct"]:
+                per_lamp_correct[lamp] += 1
 
     total_correct_phase = sum(1 for r in results if r["metrics"]["phase_correct"])
     total_correct_localization = sum(1 for r in results if r["metrics"]["localization_correct"])
@@ -346,6 +393,16 @@ def generate_report(results, generated_at=None, git_commit=None, session_meta=No
             "max_iou": float(np.max(ious)) if ious else 0.0,
         }
 
+    per_lamp_accuracy = {}
+    for lamp in sorted(per_lamp_total.keys()):
+        total = per_lamp_total[lamp]
+        correct = per_lamp_correct[lamp]
+        per_lamp_accuracy[lamp] = {
+            "correct": correct,
+            "total": total,
+            "accuracy": correct / total if total > 0 else 0.0,
+        }
+
     return {
         "metadata": metadata,
         "summary": {
@@ -367,6 +424,7 @@ def generate_report(results, generated_at=None, git_commit=None, session_meta=No
             "avg_detection_time_ms": round(avg_time_ms, 2),
         },
         "per_phase": per_phase,
+        "per_lamp_accuracy": per_lamp_accuracy,
         "failure_modes": dict(failure_modes),
         "per_frame_results": results,
     }
@@ -418,6 +476,18 @@ def print_report(report):
         print(f"  {phase:<10} {data['count']:>6} {acc_pct:>7.1f}% {data['mean_iou']:>10.4f} {data['median_iou']:>10.4f}")
 
     print("\n" + "-" * 70)
+    print("  PER-LAMP ACCURACY")
+    print("-" * 70)
+    per_lamp_acc = report.get("per_lamp_accuracy", {})
+    print(f"  {'Lamp':<10} {'Correct':>8} {'Total':>6} {'Accuracy':>10}")
+    print(f"  {'-'*10} {'-'*8} {'-'*6} {'-'*10}")
+    for lamp in sorted(per_lamp_acc.keys()):
+        data = per_lamp_acc[lamp]
+        acc_pct = data["accuracy"] * 100
+        print(f"  {lamp:<10} {data['correct']:>8} {data['total']:>6} {acc_pct:>9.1f}%")
+    print()
+
+    print("\n" + "-" * 70)
     print("  FAILURE MODES")
     print("-" * 70)
     for mode, count in sorted(failure_modes.items(), key=lambda x: -x[1]):
@@ -442,7 +512,10 @@ def print_failure_details(results, top_n=10):
     sorted_failures = sorted(failures, key=lambda r: r["metrics"]["iou"])
     for r in sorted_failures[:top_n]:
         metrics = r["metrics"]
-        print(f"  {r['frame_idx']:<8} {r['ground_truth']['phase']:<10} {r['prediction']['phase']:<10} {metrics['iou']:>8.4f} {r['failure_mode']}")
+        gt_phases = r["ground_truth"]["phases"]
+        gt_str = ",".join(sorted(gt_phases)) if gt_phases else "off"
+        pred_str = r["prediction"]["phase_str"]
+        print(f"  {r['frame_idx']:<8} {gt_str:<10} {pred_str:<10} {metrics['iou']:>8.4f} {r['failure_mode']}")
 
 
 # ============================================================================
@@ -540,14 +613,29 @@ def generate_markdown_report(report):
         add(f"| {mode} | {count} | {pct:.1f}% |")
     add("")
 
+    # Per-lamp accuracy
+    add("## Per-Lamp Accuracy")
+    add("")
+    add("| Lamp | Correct | Total | Accuracy |")
+    add("|------|---------|-------|----------|")
+    per_lamp_acc = report.get("per_lamp_accuracy", {})
+    for lamp in sorted(per_lamp_acc.keys()):
+        data = per_lamp_acc[lamp]
+        acc_pct = data["accuracy"] * 100
+        add(f"| {lamp} | {data['correct']} | {data['total']} | {acc_pct:.1f}% |")
+    add("")
+
     # Per-frame results
     add("## Per-Frame Results")
     add("")
-    add("| Frame | GT Phase | Predicted | IoU | Localization Correct | Housing Found | Failure Mode |")
-    add("|-------|----------|-----------|-----|---------------------|---------------|--------------|")
+    add("| Frame | GT Phases | Predicted | IoU | Localization Correct | Housing Found | Failure Mode |")
+    add("|-------|-----------|-----------|-----|---------------------|---------------|--------------|")
     for r in per_frame:
         metrics = r["metrics"]
-        add(f"| {r['frame_idx']} | {r['ground_truth']['phase']} | {r['prediction']['phase']} | {metrics['iou']:.4f} | {metrics['localization_correct']} | {metrics['housing_found']} | {r['failure_mode']} |")
+        gt_phases = r["ground_truth"]["phases"]
+        gt_str = ",".join(sorted(gt_phases)) if gt_phases else "off"
+        pred_str = r["prediction"]["phase_str"]
+        add(f"| {r['frame_idx']} | {gt_str} | {pred_str} | {metrics['iou']:.4f} | {metrics['localization_correct']} | {metrics['housing_found']} | {r['failure_mode']} |")
     add("")
 
     return "\n".join(lines)
@@ -742,7 +830,6 @@ def _benchmark_single_run(run_dir: Path, args: argparse.Namespace):
     for i, ann in enumerate(annotations):
         image_path = ann["image_path"]
         frame_idx = ann["frame_idx"]
-        gt_phase = ann["phase"]
 
         # Run benchmark
         result = benchmark_one_frame(ann, image_path)
@@ -751,7 +838,9 @@ def _benchmark_single_run(run_dir: Path, args: argparse.Namespace):
         # Progress indicator
         if (i + 1) % 10 == 0 or i == len(annotations) - 1:
             status = "PASS" if result["failure_mode"] == "correct" else "FAIL"
-            print(f"  [{i+1:3d}/{len(annotations)}] Frame {frame_idx:06d} (GT={gt_phase:6s}) -> {result['prediction']['phase']:6s} IoU={result['metrics']['iou']:.4f} [{status}]")
+            gt_str = ",".join(sorted(result["ground_truth"]["phases"])) if result["ground_truth"]["phases"] else "off"
+            pred_str = result["prediction"]["phase_str"]
+            print(f"  [{i+1:3d}/{len(annotations)}] Frame {frame_idx:06d} (GT={gt_str:20s}) -> {pred_str:20s} IoU={result['metrics']['iou']:.4f} [{status}]")
 
     return results
 
