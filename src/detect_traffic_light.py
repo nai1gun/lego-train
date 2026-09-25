@@ -117,7 +117,7 @@ DEBOUNCE_SECONDS = 0.5          # minimum time between phase change events
 DEFAULT_WIDTH = 640
 DEFAULT_HEIGHT = 480
 TARGET_FPS = 30
-PI_CAMERA_INDEX = -1            # Picamera2 auto-detects CSI camera
+PI_CAMERA_INDEX = -1            # Ignored on Pi — picamera2 auto-detects CSI
 WIN_CAMERA_INDEX = 0            # First USB/webcam device on Windows
 
 # --- Logging ---
@@ -558,6 +558,90 @@ def _is_raspberry_pi() -> bool:
         return False
 
 
+def _opencv_has_gui_backend() -> bool:
+    """Check whether the installed OpenCV supports GUI (imshow, waitKey, etc.).
+
+    On Raspberry Pi we typically install ``opencv-python-headless`` which has
+    no GUI backend.  This function detects that so we can gracefully skip
+    window operations instead of crashing with:
+
+        cv2.error: The function is not implemented. Rebuild the library with
+        Windows, GTK+ 2.x or Cocoa support.
+
+    Returns:
+        True if ``cv2.imshow`` / ``cv2.waitKey`` will work, False otherwise.
+    """
+    try:
+        import cv2
+
+        # Check the compiled GUI backend list
+        backends = cv2.getBuildInformation()
+        # headless OpenCV shows "GUI: NONE" — we need GTK+, Cocoa, or Qt
+        gui_section = False
+        for line in backends.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("GUI:"):
+                gui_section = True
+            elif stripped and not stripped.startswith((" ", "\t")) and gui_section:
+                # Next non-indented line ends the GUI section
+                gui_section = False
+            if gui_section and "NONE" in stripped:
+                return False
+        # If we never saw a "GUI:" line or it had no "NONE", assume GUI is present
+        return True
+    except Exception:
+        # If we can't determine, assume no GUI to be safe
+        return False
+
+
+class _Picamera2Camera:
+    """Thin wrapper around Picamera2 to provide a cap.read()-like interface.
+
+    This lets us swap between cv2.VideoCapture and picamera2 without changing
+    the rest of the detection loop.
+
+    Attributes:
+        cam: The underlying Picamera2 instance.
+    """
+
+    def __init__(self, resolution: tuple, no_auto_wb: bool = False):
+        """Initialize the picamera2 camera at the given resolution.
+
+        Args:
+            resolution: (width, height) tuple for the video stream.
+            no_auto_wb: If True, disable auto white balance to prevent color shift.
+        """
+        from picamera2 import Picamera2
+
+        self.cam = Picamera2()
+        cfg = self.cam.create_video_configuration(
+            main={"size": resolution, "format": "RGB888"}
+        )
+        self.cam.configure(cfg)
+        self.cam.start()
+
+        # Disable auto white balance if requested (prevents color shift)
+        if no_auto_wb:
+            self.cam.set_controls({"AeEnable": False, "AwbEnable": False})
+            print("[INFO] Auto white balance disabled on Pi camera.")
+
+    def read(self):
+        """Capture one frame.
+
+        Returns:
+            Tuple of (success: bool, frame: numpy array).
+            The frame is always a BGR888 numpy array (OpenCV expects BGR).
+        """
+        frame = self.cam.capture_array("main")  # RGB888 numpy array
+        # picamera2 returns RGB; OpenCV expects BGR — convert
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        return True, frame
+
+    def release(self):
+        """Stop and release the camera."""
+        self.cam.stop()
+
+
 def _get_camera_source(
     input_arg: Optional[str],
     resolution: Tuple[int, int] = (DEFAULT_WIDTH, DEFAULT_HEIGHT),
@@ -853,6 +937,7 @@ def run_detection(
     calibrate: bool,
     resolution: Tuple[int, int],
     use_dshow: bool = False,
+    no_auto_wb: bool = False,
 ):
     """
     Main detection loop: read frames, detect housing, detect phase, log changes.
@@ -861,23 +946,31 @@ def run_detection(
     if is_video:
         cap = cv2.VideoCapture(camera_source)
     else:
-        # On Windows, set DirectShow backend BEFORE opening the camera
-        if use_dshow:
-            cap = cv2.VideoCapture(camera_source, cv2.CAP_DSHOW)
+        # On Raspberry Pi, use picamera2 for CSI camera (IMX708).
+        # cv2.VideoCapture fails because the CSI camera is managed by libcamera,
+        # not exposed as a standard V4L2 device.
+        if _is_raspberry_pi():
+            print("[INFO] Detected Raspberry Pi — using picamera2 for CSI camera.")
+            cap = _Picamera2Camera(resolution, no_auto_wb=no_auto_wb)
+            print(f"[INFO] Camera configured: {resolution[0]}x{resolution[1]} @ ~30 fps")
         else:
-            cap = cv2.VideoCapture(camera_source)
-        if not cap.isOpened():
-            print(f"ERROR: Could not open camera at index {camera_source}")
-            sys.exit(1)
+            # On Windows, set DirectShow backend BEFORE opening the camera
+            if use_dshow:
+                cap = cv2.VideoCapture(camera_source, cv2.CAP_DSHOW)
+            else:
+                cap = cv2.VideoCapture(camera_source)
+            if not cap.isOpened():
+                print(f"ERROR: Could not open camera at index {camera_source}")
+                sys.exit(1)
 
-        # Set resolution for live camera
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
+            # Set resolution for live camera
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
 
-        # Verify actual resolution
-        actual_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        actual_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        print(f"Camera resolution: {actual_w}x{actual_h}")
+            # Verify actual resolution
+            actual_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            actual_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+            print(f"Camera resolution: {actual_w}x{actual_h}")
 
     # Initialize logger
     logger = TrafficLightLogger()
@@ -1184,25 +1277,18 @@ def main():
         print("  Use format: WIDTHxHEIGHT (e.g., 640x480)")
         sys.exit(1)
 
-    # Determine show mode
+    # Determine show mode — but only if OpenCV has GUI backend installed
     show = args.show and not args.no_show and not args.dry_run
+
+    # If OpenCV is headless (e.g. opencv-python-headless on Pi), disable show
+    if show and not _opencv_has_gui_backend():
+        show = False
+        print("[INFO] OpenCV has no GUI backend (headless build detected). "
+              "Debug overlay disabled. Use --show on a machine with full OpenCV.")
 
     # Determine camera source (video or live)
     input_source = args.video or args.input
     cam_index, is_video, _, use_dshow = _get_camera_source(input_source, resolution)
-
-    # Handle Pi camera auto-white-balance
-    if args.no_auto_wb and _is_raspberry_pi():
-        try:
-            from picamera2 import Picamera2
-            picam2 = Picamera2()
-            # Disable auto white balance to prevent color shift
-            picam2.set_controls({"AeEnable": False, "AwbEnable": False})
-            print("Auto white balance disabled on Pi camera.")
-        except ImportError:
-            print("WARNING: picamera2 not available — cannot disable auto white balance.")
-        except Exception as e:
-            print(f"WARNING: Could not disable auto white balance: {e}")
 
     # Run detection
     run_detection(
@@ -1213,6 +1299,7 @@ def main():
         calibrate=args.calibrate,
         resolution=resolution,
         use_dshow=use_dshow,
+        no_auto_wb=args.no_auto_wb if _is_raspberry_pi() else False,
     )
 
 
@@ -1384,10 +1471,6 @@ def run_regression_test(
     print(f"{'='*60}\n")
 
     return {"results": results, "total": total, "correct": correct}
-
-if __name__ == "__main__":
-    main()
-
 
 if __name__ == "__main__":
     main()
