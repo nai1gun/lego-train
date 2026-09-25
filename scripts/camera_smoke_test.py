@@ -79,6 +79,9 @@ def _capture_with_picamera2(preview_seconds: int) -> Path:
         else:
             frame = frame.copy()
 
+        # Picamera2 returns RGB; OpenCV expects BGR — convert before saving
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+
         frame_count += 1
         _draw_text(frame, f"Frames: {frame_count}", (10, 30), (0, 255, 0))
 
@@ -106,6 +109,8 @@ def _capture_with_picamera2(preview_seconds: int) -> Path:
 
     if still_frame.shape[2] == 4:
         still_frame = still_frame[:, :, :3]
+    # Picamera2 returns RGB; OpenCV expects BGR — convert before saving
+    still_frame = cv2.cvtColor(still_frame, cv2.COLOR_RGB2BGR)
     cv2.imwrite(str(output_path), still_frame)
     print(f"Screenshot saved to: {output_path.absolute()}")
 
@@ -118,6 +123,8 @@ def _capture_with_picamera2(preview_seconds: int) -> Path:
     print(f"   Average FPS: {actual_fps:.1f}")
     print(f"   Frame size: {target_width}x{target_height}")
     print("-" * 60)
+
+    return output_path
 
 def _capture_with_opencv(preview_seconds: int) -> Path:
     """Capture frames using OpenCV's cv2.VideoCapture (USB webcam)."""
