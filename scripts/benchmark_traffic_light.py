@@ -607,13 +607,56 @@ def main():
             run_dirs = runs
             print(f"[INFO] Found {len(run_dirs)} runs. Benchmarking all...")
 
+    # Accumulate results across all runs
+    all_results = []
+
     # Process each run directory
     for run_dir in run_dirs:
-        _benchmark_single_run(run_dir, args, len(run_dirs))
+        run_results = _benchmark_single_run(run_dir, args)
+        if run_results:
+            all_results.extend(run_results)
+
+    # Generate a single combined report across all runs
+    generated_at = datetime.now().isoformat()
+    git_commit = _get_git_commit()
+    report = generate_report(all_results, generated_at=generated_at, git_commit=git_commit)
+
+    # Determine report output directory
+    reports_dir = PROJECT_ROOT / "reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+
+    # Output filename
+    if len(run_dirs) > 1:
+        output_filename = "benchmark_report"
+    elif args.run:
+        output_filename = args.output if args.output != "benchmark_report.json" else "benchmark_report"
+    else:
+        output_filename = args.output if args.output != "benchmark_report.json" else "benchmark_report"
+
+    # JSON
+    json_path = reports_dir / f"{output_filename}.json"
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2, default=str)
+    print(f"\n[INFO] JSON report saved to {json_path}")
+
+    # Markdown
+    md_report = generate_markdown_report(report)
+    md_path = reports_dir / f"{output_filename}.md"
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(md_report)
+    print(f"[INFO] Markdown report saved to {md_path}")
+
+    # Print report
+    print_report(report)
+
+    # Print failure details
+    print_failure_details(all_results, top_n=10)
+
+    return report
 
 
-def _benchmark_single_run(run_dir: Path, args: argparse.Namespace, num_runs: int):
-    """Benchmark a single run directory and generate reports."""
+def _benchmark_single_run(run_dir: Path, args: argparse.Namespace):
+    """Benchmark a single run directory. Returns list of results, or None on error."""
     print()  # blank line between runs
     print("=" * 70)
     print(f"  BENCHMARKING RUN: {run_dir.name}")
@@ -635,7 +678,7 @@ def _benchmark_single_run(run_dir: Path, args: argparse.Namespace, num_runs: int
     # Load all annotations (files with numeric names, no .jpg extension)
     if not annotations_dir.exists():
         print(f"[ERROR] Annotations directory not found: {annotations_dir}")
-        return
+        return None
 
     annotation_files = sorted([
         f for f in annotations_dir.iterdir()
@@ -643,20 +686,9 @@ def _benchmark_single_run(run_dir: Path, args: argparse.Namespace, num_runs: int
     ])
     if not annotation_files:
         print(f"[ERROR] No annotation files found in {annotations_dir}")
-        return
+        return None
 
     print(f"[INFO] Found {len(annotation_files)} annotation files")
-
-    # Load session metadata if available
-    session_meta = None
-    session_meta_path = run_dir / "session_meta.json"
-    if session_meta_path.exists():
-        try:
-            with open(session_meta_path, "r", encoding="utf-8") as f:
-                session_meta = json.load(f)
-            print(f"[INFO] Loaded session metadata from {session_meta_path.name}")
-        except Exception as e:
-            print(f"[WARN] Failed to load session metadata: {e}")
 
     # Initialize annotations list
     annotations = []
@@ -699,7 +731,7 @@ def _benchmark_single_run(run_dir: Path, args: argparse.Namespace, num_runs: int
 
     if not annotations:
         print("[ERROR] No valid annotations with resolvable images found.")
-        return
+        return None
 
     print(f"[INFO] Running benchmark on {len(annotations)} frames...")
     if args.dry_run:
@@ -721,39 +753,7 @@ def _benchmark_single_run(run_dir: Path, args: argparse.Namespace, num_runs: int
             status = "PASS" if result["failure_mode"] == "correct" else "FAIL"
             print(f"  [{i+1:3d}/{len(annotations)}] Frame {frame_idx:06d} (GT={gt_phase:6s}) -> {result['prediction']['phase']:6s} IoU={result['metrics']['iou']:.4f} [{status}]")
 
-    # Generate report with metadata
-    generated_at = datetime.now().isoformat()
-    git_commit = _get_git_commit()
-    report = generate_report(results, generated_at=generated_at, git_commit=git_commit, session_meta=session_meta)
-
-    # Determine report output directory
-    reports_dir = PROJECT_ROOT / "reports"
-    reports_dir.mkdir(parents=True, exist_ok=True)
-
-    # Output filename: per-run when processing multiple, user-specified when single
-    if num_runs > 1 or args.run:
-        output_filename = f"{run_dir.name}_benchmark_report"
-    else:
-        output_filename = args.output if args.output != "benchmark_report.json" else "benchmark_report"
-
-    # JSON
-    json_path = reports_dir / f"{output_filename}.json"
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(report, f, indent=2, default=str)
-    print(f"\n[INFO] JSON report saved to {json_path}")
-
-    # Markdown
-    md_report = generate_markdown_report(report)
-    md_path = reports_dir / f"{output_filename}.md"
-    with open(md_path, "w", encoding="utf-8") as f:
-        f.write(md_report)
-    print(f"[INFO] Markdown report saved to {md_path}")
-
-    # Print report
-    print_report(report)
-
-    # Print failure details
-    print_failure_details(results, top_n=10)
+    return results
 
 
 if __name__ == "__main__":

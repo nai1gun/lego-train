@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-25T19:06:30.608583 |
-| Git commit   | `dc949316ea3f` |
+| Generated at | 2026-09-25T19:17:22.455865 |
+| Git commit   | `34087617b701` |
 | Resolution | 640x480 |
 | FPS | 30 |
 | Camera backend | picamera2 |
@@ -35,7 +35,7 @@
 | IoU P50 | 0.1762 |
 | IoU P90 | 0.1842 |
 | IoU P95 | 0.2613 |
-| Avg Detection Time | 9.71 ms |
+| Avg Detection Time | 9.64 ms |
 
 ## Per-Phase Breakdown
 
