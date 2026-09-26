@@ -651,7 +651,7 @@ def main():
     parser = argparse.ArgumentParser(description="Benchmark traffic light detection")
     parser.add_argument("--dataset-dir", type=str, default=None, help="Path to dataset or run directory")
     parser.add_argument("--run", type=str, default=None, help="Specific run name to benchmark (e.g. 20260917_065933)")
-    parser.add_argument("--output", type=str, default="benchmark_report.json", help="Output report path (used only when --run is specified)")
+    parser.add_argument("--output", type=str, default="benchmark_report.json", help="Custom output report base name (without extension). Default: benchmark_report_<run_name>")
     parser.add_argument("--dry-run", action="store_true", help="Run only first 5 frames for testing")
     args = parser.parse_args()
 
@@ -672,6 +672,7 @@ def main():
     if is_run_dir:
         # User passed a single run directory directly
         run_dirs = [base_dir]
+        single_run_output_suffix = base_dir.name
         print(f"[INFO] Detected run directory: {base_dir.name}")
     else:
         # base_dir is a collection — find all run subdirectories
@@ -695,6 +696,10 @@ def main():
             run_dirs = runs
             print(f"[INFO] Found {len(run_dirs)} runs. Benchmarking all...")
 
+        # When a single run is selected via --run flag, also track its name for output naming
+        if args.run and len(run_dirs) == 1:
+            single_run_output_suffix = run_dirs[0].name
+
     # Accumulate results across all runs
     all_results = []
 
@@ -715,14 +720,14 @@ def main():
 
     # Output filename
     if len(run_dirs) > 1:
+        # Multiple runs → combined report with generic name
         output_filename = "benchmark_report"
-    elif args.run:
-        # Strip .json extension from user-provided output to avoid double extension
-        base = args.output.removesuffix(".json") if args.output != "benchmark_report.json" else "benchmark_report"
-        output_filename = base
+    elif args.output and args.output != "benchmark_report.json":
+        # User explicitly provided a custom --output path
+        output_filename = args.output.removesuffix(".json")
     else:
-        base = args.output.removesuffix(".json") if args.output != "benchmark_report.json" else "benchmark_report"
-        output_filename = base
+        # Single run (via --dataset-dir or --run) → use run name as suffix
+        output_filename = f"benchmark_report_{run_dirs[0].name}"
 
     # JSON
     json_path = reports_dir / f"{output_filename}.json"
