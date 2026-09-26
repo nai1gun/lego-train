@@ -105,7 +105,8 @@ def load_annotation(annotation_path: Path) -> Optional[Dict[str, Any]]:
     # GT is now a set of lit lamp names (e.g. {"red"}, {"red", "yellow"}, {"green"})
     # Empty set means "off"
     if choices_value and len(choices_value) > 0:
-        gt_phases = {c.lower() for c in choices_value}
+        # An explicit "Off" choice means no lamp lit (same as no choices)
+        gt_phases = {c.lower() for c in choices_value} - {"off"}
     else:
         gt_phases = set()  # no choices = off
 

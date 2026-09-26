@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-26T18:49:12.233049 |
-| Git commit   | `5c0b074e1ec6` |
+| Generated at | 2026-09-26T22:40:34.354188 |
+| Git commit   | `68957f394e0a` |
 
 ## Dataset Overview
 
@@ -18,42 +18,43 @@
 
 | Metric | Value |
 |--------|-------|
-| Phase Accuracy | 85.3% (87/102) |
-| Localization Accuracy | 49.0% (50/102) |
-| Mean IoU | 0.6863 |
-| Median IoU | 0.8827 |
-| IoU Std Dev | 0.3395 |
+| Phase Accuracy | 94.1% (96/102) |
+| Localization Accuracy | 56.9% (58/102) |
+| Mean IoU | 0.7545 |
+| Median IoU | 0.8936 |
+| IoU Std Dev | 0.2873 |
 | IoU Range | [0.0000, 0.9711] |
-| IoU P50 | 0.8827 |
-| IoU P90 | 0.9412 |
-| IoU P95 | 0.9502 |
-| Avg Detection Time | 10.74 ms |
+| IoU P50 | 0.8936 |
+| IoU P90 | 0.9426 |
+| IoU P95 | 0.9508 |
+| Avg Detection Time | 12.18 ms |
 
 ## Per-Phase Breakdown
 
 | Phase | Count | Phase Accuracy | Mean IoU | Median IoU | Min IoU | Max IoU |
 |-------|-------|----------------|----------|------------|---------|---------|
-| green | 37 | 70.3% | 0.6165 | 0.8708 | 0.0266 | 0.9711 |
-| off | 34 | 91.2% | 0.2628 | 0.2628 | 0.2596 | 0.2660 |
-| red | 31 | 96.8% | 0.8587 | 0.9024 | 0.0598 | 0.9508 |
+| green | 37 | 83.8% | 0.7310 | 0.8936 | 0.0304 | 0.9711 |
+| off | 34 | 100.0% | 0.4003 | 0.4003 | 0.2596 | 0.5411 |
+| red | 31 | 100.0% | 0.8769 | 0.9024 | 0.6228 | 0.9508 |
 
 ## Failure Modes
 
 | Failure Mode | Count | Percentage |
 |--------------|-------|------------|
-| correct | 50 | 49.0% |
+| correct | 57 | 55.9% |
 | correct (no detection) | 28 | 27.5% |
-| poor_localization (IoU < 0.5) | 18 | 17.6% |
+| poor_localization (IoU < 0.5) | 10 | 9.8% |
 | false_positive (phantom detection) | 3 | 2.9% |
 | false_negative (missed detection) | 3 | 2.9% |
+| phase_mismatch (GT={'green'}, pred={'green', 'yellow'}) | 1 | 1.0% |
 
 ## Per-Lamp Accuracy
 
 | Lamp | Correct | Total | Accuracy |
 |------|---------|-------|----------|
-| green | 91 | 102 | 89.2% |
-| red | 101 | 102 | 99.0% |
-| yellow | 102 | 102 | 100.0% |
+| green | 97 | 102 | 95.1% |
+| red | 102 | 102 | 100.0% |
+| yellow | 101 | 102 | 99.0% |
 
 ## Per-Frame Results
 
@@ -81,14 +82,14 @@
 | 24 | green | green | 0.9637 | True | True | correct |
 | 25 | green | green | 0.9240 | True | True | correct |
 | 26 | green | green | 0.9509 | True | True | correct |
-| 27 | green | off | 0.4383 | False | True | poor_localization (IoU < 0.5) |
-| 28 | green | off | 0.4210 | False | True | poor_localization (IoU < 0.5) |
-| 29 | green | off | 0.4101 | False | True | poor_localization (IoU < 0.5) |
+| 27 | green | green | 0.9655 | True | True | correct |
+| 28 | green | green | 0.9124 | True | True | correct |
+| 29 | green | green | 0.9077 | True | True | correct |
 | 3 | green | green | 0.3024 | False | True | poor_localization (IoU < 0.5) |
-| 30 | green | off | 0.0474 | False | True | poor_localization (IoU < 0.5) |
-| 31 | green | off | 0.0462 | False | True | poor_localization (IoU < 0.5) |
-| 32 | green | off | 0.0352 | False | True | poor_localization (IoU < 0.5) |
-| 33 | green | off | 0.0266 | False | True | poor_localization (IoU < 0.5) |
+| 30 | green | green | 0.8936 | True | True | correct |
+| 31 | green | green | 0.8751 | True | True | correct |
+| 32 | green | off | 0.2676 | False | True | poor_localization (IoU < 0.5) |
+| 33 | green | green,yellow | 0.6115 | True | True | phase_mismatch (GT={'green'}, pred={'green', 'yellow'}) |
 | 34 | green | off | 0.0304 | False | True | poor_localization (IoU < 0.5) |
 | 35 | green | off | 0.0313 | False | True | poor_localization (IoU < 0.5) |
 | 36 | green | off | 0.0000 | False | False | false_negative (missed detection) |
@@ -129,8 +130,8 @@
 | 68 | red | red | 0.6396 | True | True | correct |
 | 69 | red | red | 0.6355 | True | True | correct |
 | 7 | green | green | 0.8293 | True | True | correct |
-| 70 | red | off | 0.0598 | False | True | poor_localization (IoU < 0.5) |
-| 71 | off | off | 0.2660 | False | True | poor_localization (IoU < 0.5) |
+| 70 | red | red | 0.6228 | True | True | correct |
+| 71 | off | off | 0.5411 | True | True | correct |
 | 72 | off | off | 0.0000 | False | False | correct (no detection) |
 | 73 | off | off | 0.0000 | False | False | correct (no detection) |
 | 74 | off | off | 0.0000 | False | False | correct (no detection) |

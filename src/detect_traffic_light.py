@@ -91,6 +91,9 @@ STRIPE_NEAR_PX = 15          # keep red within this neighborhood of a red/white 
 HOUSING_BOX_W_BIAS = 1.28
 HOUSING_BOX_H_BIAS = 1.11
 
+# Merge gap: fraction of current box height used to find nearby stripe fragments
+MERGE_GAP_FRAC = 0.75
+
 # --- Phase Detection (LAMP-BASED — position, not colour) (Requirement B) ---
 # The architecture now determines phase by lamp *position* within the panel:
 #   top lamp  = always red
@@ -183,6 +186,72 @@ class KeyboardListener:
 # HOUSING DETECTION
 # ============================================================================
 
+
+def _merge_nearby_contours(
+    all_bboxes: List[Tuple[int, int, int, int]],
+    best_bbox: Tuple[int, int, int, int],
+) -> Tuple[int, int, int, int]:
+    """Expand best_bbox by merging nearby gated-red contours.
+
+    Starting from best_bbox, repeatedly add any contour whose bounding rect
+    is within MERGE_GAP_FRAC * current_box_height pixels of the current union.
+    Rejects merges that would violate HOUSING_MIN/MAX_ASPECT_RATIO.
+
+    Args:
+        all_bboxes: all candidate bounding rects from the gated, dilated mask.
+        best_bbox: the currently best contour's (x, y, w, h).
+
+    Returns:
+        Merged (x, y, w, h) bounding box.
+    """
+    bx, by, bw, bh = best_bbox
+    # Work with (x_min, y_min, x_max, y_max) for easy gap computation
+    cur_xmin, cur_ymin, cur_xmax, cur_ymax = bx, by, bx + bw, by + bh
+
+    gap = MERGE_GAP_FRAC * bh  # max gap distance in pixels
+
+    remaining = list(all_bboxes)
+    changed = True
+    while changed:
+        changed = False
+        for rect in list(remaining):
+            cx, cy, cw, ch = rect
+            cxmin, cxmax = cx, cx + cw
+            cymin, cymax = cy, cy + ch
+
+            # Compute gap between this rect and current union
+            # (0 if they overlap)
+            dx = max(cur_xmin - cxmax, 0, cxmin - cur_xmax)
+            dy = max(cur_ymin - cymax, 0, cymin - cur_ymax)
+            dist = (dx ** 2 + dy ** 2) ** 0.5
+
+            if dist <= gap:
+                # Merge: take union
+                new_xmin = min(cur_xmin, cxmin)
+                new_ymin = min(cur_ymin, cymin)
+                new_xmax = max(cur_xmax, cxmax)
+                new_ymax = max(cur_ymax, cymax)
+
+                new_w = new_xmax - new_xmin
+                new_h = new_ymax - new_ymin
+
+                # Reject if aspect ratio goes out of bounds
+                new_ar = new_w / max(new_h, 1)
+                if new_ar < HOUSING_MIN_ASPECT_RATIO or new_ar > HOUSING_MAX_ASPECT_RATIO:
+                    continue
+
+                remaining.remove(rect)
+                if (new_xmin, new_ymin, new_xmax, new_ymax) != (cur_xmin, cur_ymin, cur_xmax, cur_ymax):
+                    cur_xmin, cur_ymin, cur_xmax, cur_ymax = new_xmin, new_ymin, new_xmax, new_ymax
+                    changed = True
+
+    return (cur_xmin, cur_ymin, cur_xmax - cur_xmin, cur_ymax - cur_ymin)
+
+
+# ============================================================================
+# HOUSING DETECTION
+# ============================================================================
+
 def find_traffic_light_housing(
     frame: np.ndarray,
 ) -> Optional[Tuple[int, int, int, int]]:
@@ -251,6 +320,9 @@ def find_traffic_light_housing(
     best_bbox = None
     best_score = -1.0
 
+    # Collect all valid bboxes for later merge step
+    all_valid_bboxes: List[Tuple[int, int, int, int]] = []
+
     for contour in contours:
         area = cv2.contourArea(contour)
 
@@ -267,6 +339,9 @@ def find_traffic_light_housing(
         if aspect_ratio < HOUSING_MIN_ASPECT_RATIO or aspect_ratio > HOUSING_MAX_ASPECT_RATIO:
             continue
 
+        # Store valid bbox for merge step
+        all_valid_bboxes.append((x, y, bw, bh))
+
         # --- Score candidate on fill ratio and aspect ratio ---
         # Fill ratio: how much of the bounding box is covered by the contour
         bbox_area = bw * bh
@@ -282,6 +357,10 @@ def find_traffic_light_housing(
         if score > best_score:
             best_score = score
             best_bbox = (x, y, bw, bh)
+
+    # --- Merge nearby stripe fragments BEFORE bias correction ---
+    if best_bbox is not None and all_valid_bboxes:
+        best_bbox = _merge_nearby_contours(all_valid_bboxes, best_bbox)
 
     # --- Correct systematic box-size bias (shrink around center) ---
     if best_bbox is not None:
