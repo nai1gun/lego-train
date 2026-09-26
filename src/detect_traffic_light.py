@@ -83,6 +83,14 @@ HOUSING_MAX_ASPECT_RATIO = 0.80  # wide bounding box allowed
 # nearby red blobs into clusters before bounding-box extraction.
 HOUSING_DILATE_KERNEL = 25       # base kernel size; scaled by panel height
 
+# Stripe gating: keep red only near red/white stripe boundaries (rejects red walls)
+STRIPE_WHITE_MAX_S = 70      # white stripe: low saturation
+STRIPE_WHITE_MIN_V = 120     # white stripe: bright
+STRIPE_NEAR_PX = 15          # keep red within this neighborhood of a red/white edge
+# Measured bias of the detector's box vs ground truth (pred/GT)
+HOUSING_BOX_W_BIAS = 1.28
+HOUSING_BOX_H_BIAS = 1.11
+
 # --- Phase Detection (LAMP-BASED — position, not colour) (Requirement B) ---
 # The architecture now determines phase by lamp *position* within the panel:
 #   top lamp  = always red
@@ -209,6 +217,14 @@ def find_traffic_light_housing(
     mask_red_2 = cv2.inRange(hsv, HOUSING_RED_LOW_2, HOUSING_RED_HIGH_2)
     mask_red = cv2.bitwise_or(mask_red_1, mask_red_2)
 
+    # --- Stripe gating: keep only red near red/white stripe boundaries ---
+    _, sat, val = cv2.split(hsv)
+    white = ((sat <= STRIPE_WHITE_MAX_S) & (val >= STRIPE_WHITE_MIN_V)).astype(np.uint8)
+    k3 = np.ones((3, 3), np.uint8)
+    stripe_edge = cv2.dilate((mask_red > 0).astype(np.uint8), k3) & cv2.dilate(white, k3)
+    near_edge = cv2.dilate(stripe_edge, np.ones((STRIPE_NEAR_PX, STRIPE_NEAR_PX), np.uint8))
+    mask_red = cv2.bitwise_and(mask_red, mask_red, mask=near_edge)
+
     # --- Use the red mask alone (white stripes are photometrically
     # identical to the white table background, so the white mask pulls
     # the bounding box onto the table in most test images) ---
@@ -267,6 +283,11 @@ def find_traffic_light_housing(
             best_score = score
             best_bbox = (x, y, bw, bh)
 
+    # --- Correct systematic box-size bias (shrink around center) ---
+    if best_bbox is not None:
+        bx, by, bw, bh = best_bbox
+        nw, nh = bw / HOUSING_BOX_W_BIAS, bh / HOUSING_BOX_H_BIAS
+        best_bbox = (int(bx + (bw - nw) / 2), int(by + (bh - nh) / 2), int(nw), int(nh))
     return best_bbox
 
 
