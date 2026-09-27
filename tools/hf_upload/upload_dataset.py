@@ -96,19 +96,19 @@ def cmd_upload(args):
         commit_msg = "Upload dataset from local curated data"
     else:
         # labeled data has structure: data/labeled/{project_name}/
-        # Upload the entire project root so all session folders are included
+        # Extract project name from --dataset-name (e.g., "nai1gun/LEGO-Train-Traffic-Lights" -> "LEGO-Train-Traffic-Lights")
         labeled_dir = PROJECT_ROOT / "data" / "labeled"
         if not labeled_dir.exists():
             print(f"❌ Labeled data directory not found: {labeled_dir}")
             return False
-        # Auto-detect the project folder (e.g., LEGO-Train-Traffic-Lights)
-        project_folders = [d for d in labeled_dir.iterdir() if d.is_dir()]
-        if not project_folders:
-            print(f"❌ No project folders found in: {labeled_dir}")
+        # Derive the project folder name from --dataset-name
+        project_name = dataset_name.split("/")[-1]
+        dataset_dir = labeled_dir / project_name
+        if not dataset_dir.exists():
+            print(f"❌ Project folder not found: {dataset_dir}")
+            print(f"   Hint: make sure '{project_name}' exists in {labeled_dir}")
             return False
-        # Use the first (or only) project folder as the source directory
-        dataset_dir = project_folders[0]
-        commit_msg = "Upload labeled dataset from local data"
+        commit_msg = f"Upload labeled dataset '{project_name}' from local data"
     
     if not dataset_dir.exists():
         print(f"❌ Dataset directory not found: {dataset_dir}")
@@ -151,7 +151,33 @@ def cmd_upload(args):
             )
             print("✅ Repo created.")
         
-        # Upload the dataset folder
+        # Compute which remote files don't exist locally — these need deletion
+        # Only compare files that belong to this project (scoped to the project folder name)
+        project_folder_name = dataset_dir.name
+        local_files_relative = set()
+        for filepath in dataset_dir.rglob("*"):
+            if filepath.is_file():
+                rel = filepath.relative_to(dataset_dir)
+                local_files_relative.add(str(rel))
+        
+        if existing_files:
+            # Only consider remote files that start with the project folder name
+            project_files = [f for f in existing_files if f.startswith(project_folder_name + "/") or f == project_folder_name]
+            missing_from_local = [f for f in project_files if f not in local_files_relative]
+            if missing_from_local:
+                print(f"🗑️  Found {len(missing_from_local)} file(s) in repo that no longer exist locally, will remove from HF:")
+                for f in missing_from_local[:20]:  # show first 20 only
+                    print(f"      - {f}")
+                if len(missing_from_local) > 20:
+                    print(f"      ... and {len(missing_from_local) - 20} more")
+                delete_patterns = missing_from_local
+            else:
+                print("✅ No deleted files to sync.")
+                delete_patterns = None
+        else:
+            delete_patterns = None
+        
+        # Upload the dataset folder with sync (deletion) support
         # Note: upload_folder handles paths correctly (uses forward slashes)
         print("Uploading files...")
         api.upload_folder(
@@ -159,6 +185,7 @@ def cmd_upload(args):
             repo_id=dataset_name,
             repo_type="dataset",
             commit_message=commit_msg,
+            delete_patterns=delete_patterns,  # remove remote files that no longer exist locally
         )
         
         print()
