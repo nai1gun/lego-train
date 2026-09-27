@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated_at": "2026-09-26T22:40:15.763695",
-    "git_commit": "68957f394e0a"
+    "generated_at": "2026-09-27T12:48:53.612500",
+    "git_commit": "13e21a0987d9"
   },
   "summary": {
     "total_frames": 18,
@@ -19,7 +19,7 @@
     "p50_iou": 0.6367,
     "p90_iou": 0.9098,
     "p95_iou": 0.919,
-    "avg_detection_time_ms": 14.26
+    "avg_detection_time_ms": 13.28
   },
   "per_phase": {
     "red": {
@@ -144,7 +144,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 17.69
+        "elapsed_ms": 15.44
       },
       "failure_mode": "correct"
     },
@@ -198,7 +198,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.01
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -252,7 +252,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.51
+        "elapsed_ms": 13.01
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -306,7 +306,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 17.52
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -360,7 +360,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 16.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -468,7 +468,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 15.58
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -522,7 +522,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.89
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -576,7 +576,7 @@
         "localization_correct": true,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 14.34
+        "elapsed_ms": 14.99
       },
       "failure_mode": "phase_mismatch (GT={'red', 'yellow'}, pred={'red', 'yellow', 'green'})"
     },
@@ -630,7 +630,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.0
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -684,7 +684,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.38
+        "elapsed_ms": 12.08
       },
       "failure_mode": "correct"
     },
@@ -738,7 +738,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.01
+        "elapsed_ms": 11.0
       },
       "failure_mode": "correct"
     },
@@ -792,7 +792,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.52
+        "elapsed_ms": 12.01
       },
       "failure_mode": "correct"
     },
@@ -846,7 +846,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 15.19
+        "elapsed_ms": 12.12
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -900,7 +900,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 13.51
+        "elapsed_ms": 12.77
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -954,7 +954,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 12.01
       },
       "failure_mode": "correct"
     },
@@ -1008,7 +1008,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.08
+        "elapsed_ms": 12.68
       },
       "failure_mode": "correct"
     },
@@ -1062,7 +1062,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 13.49
       },
       "failure_mode": "correct"
     }
