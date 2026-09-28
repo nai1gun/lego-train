@@ -97,10 +97,10 @@ pip install pillow              # Only needed to regenerate the annotated photo
 
 > **Note:** `opencv-python` and `opencv-python-headless` are **mutually exclusive** — do **not** install both. Choose one based on your platform:
 >
-> | Platform | Package | Why |
-> |----------|---------|-----|
-> | **Development host** (Windows / Linux / Mac) | `opencv-python` | Needs GUI backend for `cv2.imshow()` on the dev machine |
-> | **Raspberry Pi** | `opencv-python-headless` | No display needed; lighter weight |
+> | Platform                                           | Package                    | Why                                                      |
+> | -------------------------------------------------- | -------------------------- | -------------------------------------------------------- |
+> | **Development host** (Windows / Linux / Mac) | `opencv-python`          | Needs GUI backend for`cv2.imshow()` on the dev machine |
+> | **Raspberry Pi**                             | `opencv-python-headless` | No display needed; lighter weight                        |
 
 ### 3. Camera Setup
 
@@ -162,10 +162,9 @@ Capture camera data for training your autonomous navigation model:
 ```bash
 # Start a camera recording session
 python tools/data_collection/capture_run.py
-
-# Annotate the train components (if needed)
-python tools/data_collection/annotate_train.py
 ```
+
+more info in the tools/README
 
 ### 6. Labeling
 
