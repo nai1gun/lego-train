@@ -24,6 +24,24 @@ Uploads from `data/curated/` by default:
 python tools\hf_upload\upload_dataset.py upload --dataset-name lev/lego-train-datasets
 ```
 
+For labeled data (with annotations), the dataset name's last segment is used to find the project folder in `data/labeled/`:
+
+```powershell
+python tools\hf_upload\upload_dataset.py upload --dataset-name lev/LEGO-Train-Traffic-Lights
+```
+
+#### Incremental upload (new session only)
+
+When you only want to upload a newly labeled session without re-uploading everything:
+
+```powershell
+python tools\hf_upload\upload_dataset.py upload `
+  --dataset-name lev/LEGO-Train-Traffic-Lights `
+  --session 20260928_161408
+```
+
+This uploads only the files in `data/labeled/LEGO-Train-Traffic-Lights/20260928_161408/` and **does not delete** any existing data on Hugging Face.
+
 ### Download Dataset
 
 Downloads to `data/labeled/`:

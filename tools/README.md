@@ -44,7 +44,7 @@ python tools\labeling\start_label_studio.py
 
 Scripts for uploading and downloading datasets to/from Hugging Face Hub.
 
-- **`upload_dataset.py`** — Uploads annotated data from `data/curated/` to Hugging Face.
+- **`upload_dataset.py`** — Uploads data to Hugging Face. Supports full project uploads or incremental session uploads (`--session`).
 - **`download_dataset.py`** — Downloads a dataset from Hugging Face to `data/labeled/` for labeling.
 - **`example_load_dataset.py`** — Example of how to load and explore the dataset.
 
@@ -52,6 +52,12 @@ Scripts for uploading and downloading datasets to/from Hugging Face Hub.
 ```powershell
 # Upload curated data to Hugging Face
 python tools\hf_upload\upload_dataset.py upload --dataset-name lev/lego-train-datasets
+
+# Upload labeled data (with annotations)
+python tools\hf_upload\upload_dataset.py upload --dataset-name lev/LEGO-Train-Traffic-Lights
+
+# Incremental upload: only a new session (fast, no deletions)
+python tools\hf_upload\upload_dataset.py upload --dataset-name lev/LEGO-Train-Traffic-Lights --session 20260928_161408
 
 # Download dataset for labeling
 .\tools\hf_upload\download-dataset.ps1

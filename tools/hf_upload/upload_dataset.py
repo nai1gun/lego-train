@@ -9,6 +9,9 @@ Usage:
     # Upload a dataset from the data/ folder:
     #   python tools/hf_upload/upload_dataset.py upload --dataset-name traffic-light-classification
 
+    # Incremental upload (only a new session):
+    #   python tools/hf_upload/upload_dataset.py upload --dataset-name lev/LEGO-Train-Traffic-Lights --session 20260928_161408
+
     # List your datasets:
     #   python tools/hf_upload/upload_dataset.py list
 
@@ -91,11 +94,13 @@ def cmd_upload(args):
     # Use --source curated for inference-ready frames only (no annotations)
     dataset_name = args.dataset_name or "lego-train-datasets"
     source = args.source or "labeled"
+    session_name = args.session  # None means full project upload
+    
     if source == "curated":
         dataset_dir = PROJECT_ROOT / "data" / "curated"
         commit_msg = "Upload dataset from local curated data"
     else:
-        # labeled data has structure: data/labeled/{project_name}/
+        # labeled data has structure: data/labeled/{project_name}/{session}/
         # Extract project name from --dataset-name (e.g., "nai1gun/LEGO-Train-Traffic-Lights" -> "LEGO-Train-Traffic-Lights")
         labeled_dir = PROJECT_ROOT / "data" / "labeled"
         if not labeled_dir.exists():
@@ -103,12 +108,27 @@ def cmd_upload(args):
             return False
         # Derive the project folder name from --dataset-name
         project_name = dataset_name.split("/")[-1]
-        dataset_dir = labeled_dir / project_name
-        if not dataset_dir.exists():
-            print(f"❌ Project folder not found: {dataset_dir}")
+        project_dir = labeled_dir / project_name
+        if not project_dir.exists():
+            print(f"❌ Project folder not found: {project_dir}")
             print(f"   Hint: make sure '{project_name}' exists in {labeled_dir}")
             return False
-        commit_msg = f"Upload labeled dataset '{project_name}' from local data"
+        
+        if session_name:
+            # Incremental: upload only the specified session
+            dataset_dir = project_dir / session_name
+            if not dataset_dir.exists():
+                print(f"❌ Session folder not found: {dataset_dir}")
+                print(f"   Available sessions in {project_dir}:")
+                for item in sorted(project_dir.iterdir()):
+                    if item.is_dir():
+                        print(f"     - {item.name}")
+                return False
+            commit_msg = f"Upload session '{session_name}' to dataset '{project_name}'"
+        else:
+            # Full project upload
+            dataset_dir = project_dir
+            commit_msg = f"Upload labeled dataset '{project_name}' from local data"
     
     if not dataset_dir.exists():
         print(f"❌ Dataset directory not found: {dataset_dir}")
@@ -160,7 +180,9 @@ def cmd_upload(args):
                 rel = filepath.relative_to(dataset_dir)
                 local_files_relative.add(str(rel))
         
-        if existing_files:
+        # For incremental uploads (--session), don't delete any existing remote files
+        delete_patterns = None
+        if session_name is None and existing_files:
             # Only consider remote files that start with the project folder name
             project_files = [f for f in existing_files if f.startswith(project_folder_name + "/") or f == project_folder_name]
             missing_from_local = [f for f in project_files if f not in local_files_relative]
@@ -173,20 +195,35 @@ def cmd_upload(args):
                 delete_patterns = missing_from_local
             else:
                 print("✅ No deleted files to sync.")
-                delete_patterns = None
+        elif session_name:
+            print(f"ℹ️  Incremental upload: not checking for deletions (old data preserved)")
         else:
             delete_patterns = None
         
-        # Upload the dataset folder with sync (deletion) support
-        # Note: upload_folder handles paths correctly (uses forward slashes)
+        # Upload the dataset folder with sync (delete) support
+        # Note: upload_folder uses the local folder's name as the repo root prefix.
+        # For incremental uploads we must pass path_in_repo to place files in the
+        # correct session subdirectory (e.g., 20260928_161408/...).
         print("Uploading files...")
-        api.upload_folder(
+        if session_name:
+            # Incremental: tell upload_folder the correct repo subdirectory
+            # The existing dataset root is already LEGO-Train-Traffic-Lights/,
+            # so we only need the session folder name as path_in_repo.
+            repo_subdir = session_name
+        else:
+            repo_subdir = None  # let upload_folder use the folder name
+
+        upload_kwargs = dict(
             folder_path=str(dataset_dir),
             repo_id=dataset_name,
             repo_type="dataset",
             commit_message=commit_msg,
             delete_patterns=delete_patterns,  # remove remote files that no longer exist locally
         )
+        if repo_subdir:
+            upload_kwargs["path_in_repo"] = repo_subdir
+
+        api.upload_folder(**upload_kwargs)
         
         print()
         print("✅ Upload complete!")
@@ -249,6 +286,9 @@ Examples:
   # Or upload curated frames only (no annotations)
   python upload_dataset.py upload --dataset-name lev/lego-train-datasets --source curated
 
+  # Incremental upload: only a new session (fast, no deletions)
+  python upload_dataset.py upload --dataset-name lev/LEGO-Train-Traffic-Lights --session 20260928_161408
+
   # List your datasets
   python upload_dataset.py list
         """,
@@ -272,6 +312,12 @@ Examples:
         choices=["labeled", "curated"],
         default="labeled",
         help="Data source: 'labeled' (default, includes JSON annotations) or 'curated' (frames only)",
+    )
+    upload_parser.add_argument(
+        "--session",
+        type=str,
+        default=None,
+        help="Incremental upload: only upload this session folder (e.g., 20260928_161408). Skips deletion of existing remote data.",
     )
     
     # List command
