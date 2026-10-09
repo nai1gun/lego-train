@@ -1312,8 +1312,8 @@ Examples:
     parser.add_argument(
         "--show",
         action="store_true",
-        default=True,
-        help="Enable debug window with overlays (default: True).",
+        default=False,
+        help="Enable debug window with overlays (default: False).",
     )
 
     parser.add_argument(
