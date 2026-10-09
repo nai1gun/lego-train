@@ -390,7 +390,7 @@ def _detect_lamps_lit(
     frame: np.ndarray,
     bbox: Tuple[int, int, int, int],
     lamp_positions: List[Tuple[str, int, int, int]],
-) -> Tuple[Dict[str, bool], Dict[str, float], Dict[str, float], List[str]]:
+) -> Tuple[Dict[str, bool], Dict[str, float], Dict[str, float], List[str], Dict[str, float]]:
     """
     Determine which lamps are lit using pixel-fraction counting inside
     each lamp disc.
@@ -415,12 +415,14 @@ def _detect_lamps_lit(
             - lamp_brightnesses: dict mapping lamp label -> mean Value
             - lamp_hues: dict mapping lamp label -> median Hue (for sanity check)
             - hue_warnings: list of warning strings for hue cross-check failures
+            - lit_fractions: dict mapping lamp label -> fraction of S/V-gate pixels
     """
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     h, w = frame.shape[:2]
     lit_states = {}
     lamp_brightnesses = {}
     lamp_hues = {}
+    lit_fractions = {}  # NEW: per-lamp fraction of pixels passing S/V gate
     hue_warnings = []
 
     # High-S + high-V gate for lit-LED pixels (Requirement D)
@@ -443,6 +445,7 @@ def _detect_lamps_lit(
             lit_states[label] = False
             lamp_brightnesses[label] = 0.0
             lamp_hues[label] = 0.0
+            lit_fractions[label] = 0.0
             continue
 
         mean_v = float(np.mean(pixel_v))
@@ -456,6 +459,7 @@ def _detect_lamps_lit(
         lit_states[label] = lit_fraction > LIT_PIXEL_FRACTION
         lamp_brightnesses[label] = mean_v
         lamp_hues[label] = median_h_val
+        lit_fractions[label] = lit_fraction  # NEW: store for cross-illumination check
 
         # Hue cross-check: if lamp is lit, verify hue matches expected range
         if lit_states[label]:
@@ -504,7 +508,43 @@ def _detect_lamps_lit(
                 f"= {yellow_brightness / red_brightness:.2f} < 0.60"
             )
 
-    return lit_states, lamp_brightnesses, lamp_hues, hue_warnings
+    # --- Cross-illumination suppression for green lamp ---
+    # When the yellow lamp is lit, its light diffuses onto the green lamp
+    # disc below, causing false-positive green detection. ALL 8 yellow-phase
+    # frames in the Sept 28 benchmark showed "green,yellow" instead of just
+    # "yellow".
+    #
+    # We use lit_fraction (fraction of pixels passing S>140 AND V>205) rather
+    # than mean brightness, because mean brightness is dominated by dark bezel
+    # pixels and is always ~0.0.
+    #
+    # Suppression triggers when ALL hold:
+    #   (a) yellow is lit (regardless of red state)
+    #   (b) green's lit_fraction is below a threshold (likely cross-illumination)
+    #   (c) green's lit_fraction is significantly below yellow's
+    #       (ratio < 0.30)
+    #
+    # Guardrails: we require BOTH low absolute fraction AND low relative ratio
+    # to avoid suppressing a genuinely lit green lamp during a true
+    # "green,yellow" all-on scenario (rare but possible).
+    if lit_states.get("green", False) and lit_states.get("yellow", False):
+        green_lit_frac = lit_fractions.get("green", 0.0)
+        yellow_lit_frac = lit_fractions.get("yellow", 0.0)
+
+        # (a) Green's lit_fraction must be low (cross-illumination only creates
+        #     a few scattered bright pixels, not a dense core).
+        #     True green LEDs typically have lit_fraction > 0.08.
+        # (b) Green's lit_fraction must be much lower than yellow's
+        if green_lit_frac < 0.05 and yellow_lit_frac > 0 and green_lit_frac / yellow_lit_frac < 0.30:
+            lit_states["green"] = False
+            hue_warnings.append(
+                f"Green suppressed during yellow phase: "
+                f"Green lit_frac={green_lit_frac:.4f}, "
+                f"Yellow lit_frac={yellow_lit_frac:.4f}, "
+                f"ratio={green_lit_frac / yellow_lit_frac:.2f}"
+            )
+
+    return lit_states, lamp_brightnesses, lamp_hues, hue_warnings, lit_fractions
 
 
 # ============================================================================
@@ -600,29 +640,15 @@ def detect_phase_from_bbox(
     ]
 
     # Step 2: Determine which lamps are lit using pixel-fraction counting
-    lit_states, lamp_brightnesses, lamp_hues, hue_warnings = _detect_lamps_lit(
+    lit_states, lamp_brightnesses, lamp_hues, hue_warnings, lit_fractions = _detect_lamps_lit(
         frame, bbox, lamp_positions
     )
 
     # Step 3: Compute phase from lamp positions
     phase = _compute_phase_from_lamps(lit_states)
 
-    # Compute lit fractions for overlay / debug
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    h, w = frame.shape[:2]
-    lamp_lit_fractions = {}
-    for label, cx, cy, radius in lamp_positions:
-        cx_i, cy_i, r_i = int(cx), int(cy), int(radius)
-        inner_r = max(1, int(r_i * 0.8))
-        y_coords, x_coords = np.ogrid[:h, :w]
-        mask = (x_coords - cx_i) ** 2 + (y_coords - cy_i) ** 2 <= inner_r ** 2
-        pixel_s = hsv[mask][:, 1]
-        pixel_v = hsv[mask][:, 2]
-        if pixel_s.size == 0:
-            lamp_lit_fractions[label] = 0.0
-        else:
-            lit_pixels = int(np.sum((pixel_s > 140) & (pixel_v > 205)))
-            lamp_lit_fractions[label] = lit_pixels / pixel_s.size
+    # lit_fractions already returned from _detect_lamps_lit — use directly
+    lamp_lit_fractions = lit_fractions
 
     # Build result dict
     return {

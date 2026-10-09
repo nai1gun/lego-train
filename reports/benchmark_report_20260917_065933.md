@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-27T12:48:49.054062 |
-| Git commit   | `13e21a0987d9` |
+| Generated at | 2026-10-09T14:46:39.715064 |
+| Git commit   | `650727a18979` |
 
 ## Dataset Overview
 
@@ -27,7 +27,7 @@
 | IoU P50 | 0.9024 |
 | IoU P90 | 0.9453 |
 | IoU P95 | 0.9509 |
-| Avg Detection Time | 10.30 ms |
+| Avg Detection Time | 12.13 ms |
 
 ## Per-Phase Breakdown
 
@@ -46,7 +46,7 @@
 | poor_localization (IoU < 0.5) | 4 | 4.2% |
 | false_positive (phantom detection) | 3 | 3.1% |
 | false_negative (missed detection) | 3 | 3.1% |
-| phase_mismatch (GT={'green'}, pred={'green', 'yellow'}) | 1 | 1.0% |
+| phase_mismatch (GT={'green'}, pred={'yellow', 'green'}) | 1 | 1.0% |
 
 ## Per-Lamp Accuracy
 
@@ -86,7 +86,7 @@
 | 30 | green | green | 0.8936 | True | True | correct |
 | 31 | green | green | 0.8751 | True | True | correct |
 | 32 | green | off | 0.2676 | False | True | poor_localization (IoU < 0.5) |
-| 33 | green | green,yellow | 0.6115 | True | True | phase_mismatch (GT={'green'}, pred={'green', 'yellow'}) |
+| 33 | green | green,yellow | 0.6115 | True | True | phase_mismatch (GT={'green'}, pred={'yellow', 'green'}) |
 | 34 | green | off | 0.0304 | False | True | poor_localization (IoU < 0.5) |
 | 35 | green | off | 0.0313 | False | True | poor_localization (IoU < 0.5) |
 | 36 | green | off | 0.0000 | False | False | false_negative (missed detection) |

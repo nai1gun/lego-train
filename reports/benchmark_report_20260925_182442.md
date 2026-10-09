@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-09-27T12:48:53.612500 |
-| Git commit   | `13e21a0987d9` |
+| Generated at | 2026-10-09T14:47:00.495630 |
+| Git commit   | `650727a18979` |
 
 ## Dataset Overview
 
@@ -18,7 +18,7 @@
 
 | Metric | Value |
 |--------|-------|
-| Phase Accuracy | 77.8% (14/18) |
+| Phase Accuracy | 83.3% (15/18) |
 | Localization Accuracy | 72.2% (13/18) |
 | Mean IoU | 0.6433 |
 | Median IoU | 0.6367 |
@@ -27,7 +27,7 @@
 | IoU P50 | 0.6367 |
 | IoU P90 | 0.9098 |
 | IoU P95 | 0.9190 |
-| Avg Detection Time | 13.28 ms |
+| Avg Detection Time | 15.07 ms |
 
 ## Per-Phase Breakdown
 
@@ -37,22 +37,21 @@
 | green,red,yellow | 1 | 100.0% | 0.9080 | 0.9080 | 0.9080 | 0.9080 |
 | off | 4 | 100.0% | 0.5307 | 0.5201 | 0.1683 | 0.9141 |
 | red | 5 | 60.0% | 0.5800 | 0.5536 | 0.3020 | 0.9468 |
-| red,yellow | 3 | 66.7% | 0.7246 | 0.6387 | 0.6346 | 0.9006 |
+| red,yellow | 3 | 100.0% | 0.7246 | 0.6387 | 0.6346 | 0.9006 |
 | yellow | 1 | 100.0% | 0.8676 | 0.8676 | 0.8676 | 0.8676 |
 
 ## Failure Modes
 
 | Failure Mode | Count | Percentage |
 |--------------|-------|------------|
-| correct | 12 | 66.7% |
+| correct | 13 | 72.2% |
 | poor_localization (IoU < 0.5) | 5 | 27.8% |
-| phase_mismatch (GT={'red', 'yellow'}, pred={'red', 'yellow', 'green'}) | 1 | 5.6% |
 
 ## Per-Lamp Accuracy
 
 | Lamp | Correct | Total | Accuracy |
 |------|---------|-------|----------|
-| green | 14 | 18 | 77.8% |
+| green | 15 | 18 | 83.3% |
 | red | 16 | 18 | 88.9% |
 | yellow | 17 | 18 | 94.4% |
 
@@ -68,7 +67,7 @@
 | 108 | red | red | 0.6195 | True | True | correct |
 | 109 | red,yellow | red,yellow | 0.6346 | True | True | correct |
 | 110 | red,yellow | red,yellow | 0.6387 | True | True | correct |
-| 111 | red,yellow | green,red,yellow | 0.9006 | True | True | phase_mismatch (GT={'red', 'yellow'}, pred={'red', 'yellow', 'green'}) |
+| 111 | red,yellow | red,yellow | 0.9006 | True | True | correct |
 | 112 | green,red,yellow | green,red,yellow | 0.9080 | True | True | correct |
 | 113 | green | green | 0.8845 | True | True | correct |
 | 114 | green | green | 0.7659 | True | True | correct |

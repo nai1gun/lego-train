@@ -197,9 +197,10 @@ def run_detection_on_image(image_path):
         cy = y + h * y_frac
         radius = h * LAMP_RADIUS_FRACTION
         lamp_positions.append((label, cx, cy, radius))
-    lit_states, lamp_brightnesses, lamp_hues, hue_warnings = _detect_lamps_lit(frame, housing_bbox, lamp_positions)
+    lit_states, lamp_brightnesses, lamp_hues, hue_warnings, lit_fractions = _detect_lamps_lit(frame, housing_bbox, lamp_positions)
     result["detected_lamps"] = lit_states
     result["lamp_brightnesses"] = lamp_brightnesses
+    result["lamp_lit_fractions"] = lit_fractions  # NEW: lit fractions for debugging
     phase = _compute_phase_from_lamps(lit_states)
     result["phase"] = phase
     result["hue_warnings"] = hue_warnings

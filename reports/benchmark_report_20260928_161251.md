@@ -3,8 +3,8 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-10-05T17:27:44.647698 |
-| Git commit   | `b88b7ed5889f` |
+| Generated at | 2026-10-09T14:47:21.085152 |
+| Git commit   | `650727a18979` |
 
 ## Dataset Overview
 
@@ -18,7 +18,7 @@
 
 | Metric | Value |
 |--------|-------|
-| Phase Accuracy | 84.9% (73/86) |
+| Phase Accuracy | 87.2% (75/86) |
 | Localization Accuracy | 44.2% (38/86) |
 | Mean IoU | 0.4627 |
 | Median IoU | 0.6187 |
@@ -27,7 +27,7 @@
 | IoU P50 | 0.6187 |
 | IoU P90 | 0.7958 |
 | IoU P95 | 0.8421 |
-| Avg Detection Time | 20.94 ms |
+| Avg Detection Time | 10.08 ms |
 
 ## Per-Phase Breakdown
 
@@ -36,25 +36,24 @@
 | green | 14 | 78.6% | 0.7845 | 0.7822 | 0.6475 | 0.9594 |
 | off | 37 | 100.0% | 0.6495 | 0.6495 | 0.6495 | 0.6495 |
 | red | 26 | 80.8% | 0.5809 | 0.6141 | 0.0014 | 0.7226 |
-| red,yellow | 9 | 44.4% | 0.7389 | 0.7536 | 0.6409 | 0.8108 |
+| red,yellow | 9 | 66.7% | 0.7389 | 0.7536 | 0.6409 | 0.8108 |
 
 ## Failure Modes
 
 | Failure Mode | Count | Percentage |
 |--------------|-------|------------|
-| correct | 35 | 40.7% |
+| correct | 37 | 43.0% |
 | correct (no detection) | 27 | 31.4% |
 | false_negative (missed detection) | 12 | 14.0% |
 | poor_localization (IoU < 0.5) | 6 | 7.0% |
 | false_positive (phantom detection) | 3 | 3.5% |
-| phase_mismatch (GT={'yellow', 'red'}, pred={'yellow', 'red', 'green'}) | 2 | 2.3% |
 | phase_mismatch (GT={'green'}, pred=set()) | 1 | 1.2% |
 
 ## Per-Lamp Accuracy
 
 | Lamp | Correct | Total | Accuracy |
 |------|---------|-------|----------|
-| green | 80 | 86 | 93.0% |
+| green | 82 | 86 | 95.3% |
 | red | 78 | 86 | 90.7% |
 | yellow | 82 | 86 | 95.3% |
 
@@ -105,10 +104,10 @@
 | 161 | red | red | 0.7226 | True | True | correct |
 | 162 | red,yellow | red,yellow | 0.6409 | True | True | correct |
 | 163 | red,yellow | red,yellow | 0.7826 | True | True | correct |
-| 164 | red,yellow | green,red,yellow | 0.6922 | True | True | phase_mismatch (GT={'yellow', 'red'}, pred={'yellow', 'red', 'green'}) |
+| 164 | red,yellow | red,yellow | 0.6922 | True | True | correct |
 | 165 | red,yellow | red,yellow | 0.8108 | True | True | correct |
 | 166 | red,yellow | red,yellow | 0.7822 | True | True | correct |
-| 167 | red,yellow | green,red,yellow | 0.7250 | True | True | phase_mismatch (GT={'yellow', 'red'}, pred={'yellow', 'red', 'green'}) |
+| 167 | red,yellow | red,yellow | 0.7250 | True | True | correct |
 | 168 | red,yellow | off | 0.0000 | False | False | false_negative (missed detection) |
 | 169 | red,yellow | off | 0.0000 | False | False | false_negative (missed detection) |
 | 170 | red,yellow | off | 0.0000 | False | False | false_negative (missed detection) |
