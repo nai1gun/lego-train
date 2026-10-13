@@ -3,8 +3,9 @@
 
 | Field | Value |
 |-------|-------|
-| Generated at | 2026-10-09T15:28:59.712671 |
-| Git commit   | `650727a18979` |
+| Generated at | 2026-10-13T17:27:43.954323 |
+| Git commit   | `6f5227df5b8f` |
+| Detector type | heuristics |
 
 ## Dataset Overview
 
@@ -27,7 +28,7 @@
 | IoU P50 | 0.7014 |
 | IoU P90 | 0.9297 |
 | IoU P95 | 0.9413 |
-| Avg Detection Time | 10.37 ms |
+| Avg Detection Time | 10.88 ms |
 
 ## Per-Phase Breakdown
 

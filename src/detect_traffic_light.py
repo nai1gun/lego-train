@@ -56,6 +56,16 @@ from typing import Dict, List, Optional, Tuple
 import cv2
 import numpy as np
 
+# ---------------------------------------------------------------------------
+# Modular detector imports
+# ---------------------------------------------------------------------------
+_SRC_DIR = Path(__file__).resolve().parent
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
+
+from detectors import create_detector, get_available_detectors
+
+
 
 # ============================================================================
 # CONSTANTS — Tune these values based on real Pi camera data
@@ -1062,12 +1072,16 @@ def run_detection(
     dry_run: bool,
     calibrate: bool,
     resolution: Tuple[int, int],
+    detector_type: str = "heuristics",
     use_dshow: bool = False,
     no_auto_wb: bool = False,
 ):
     """
     Main detection loop: read frames, detect housing, detect phase, log changes.
     """
+    # Initialize detector via protocol
+    detector = create_detector(detector_type)
+    print(f"[INFO] Using detector: {detector.detector_type}")
     # Initialize camera
     if is_video:
         cap = cv2.VideoCapture(camera_source)
@@ -1149,28 +1163,10 @@ def run_detection(
 
             frame_count += 1
 
-            # --- Step 1: Detect housing ---
-            bbox = find_traffic_light_housing(frame)
-
-            if bbox is None:
-                # No housing detected — log as "no_detection" with no bbox
-                current_phase_result = {
-                    "phase": "no_detection",
-                    "red": False,
-                    "yellow": False,
-                    "green": False,
-                    "red_hsv": (0.0, 0.0, 0.0),
-                    "yellow_hsv": (0.0, 0.0, 0.0),
-                    "green_hsv": (0.0, 0.0, 0.0),
-                    "red_lit_pixels": 0,
-                    "yellow_lit_pixels": 0,
-                    "green_lit_pixels": 0,
-                }
-            else:
-                # --- Step 2: Detect phase within housing ---
-                current_phase_result = detect_phase_from_bbox(frame, bbox)
-
-            current_phase = current_phase_result["phase"]
+            # --- Run detector via protocol ---
+            det_result = detector.detect(frame)
+            current_phase = det_result.phase
+            current_phase_result = det_result.to_dict()
 
             # --- Step 3: Check for phase change (with debounce) ---
             now = time.time()
@@ -1347,6 +1343,15 @@ Examples:
         help=f"Camera resolution as WxH (default: {DEFAULT_WIDTH}x{DEFAULT_HEIGHT}).",
     )
 
+    # --- Detector selection ---
+    available = ", ".join(get_available_detectors())
+    parser.add_argument(
+        "--detector-type",
+        type=str,
+        default="heuristics",
+        help=f"Detector to use (default: 'heuristics'). Available: {available}.",
+    )
+
     # --- Image / regression mode ---
     parser.add_argument(
         "-I", "--image",
@@ -1424,6 +1429,7 @@ def main():
         dry_run=args.dry_run,
         calibrate=args.calibrate,
         resolution=resolution,
+        detector_type=args.detector_type,
         use_dshow=use_dshow,
         no_auto_wb=args.no_auto_wb if _is_raspberry_pi() else False,
     )
@@ -1432,16 +1438,20 @@ def main():
 # ============================================================================
 
 
-def detect_phase_from_image(image_path: str) -> Dict:
+def detect_phase_from_image(
+    image_path: str,
+    detector_type: str = "heuristics",
+) -> Dict:
     """
     Run the full traffic-light detection pipeline on a single image file.
 
-    This is a thin wrapper around the existing detection logic, but it
-    operates on a loaded image rather than a camera frame.  It returns
-    a dict suitable for assertion-based testing.
+    This is a thin wrapper around the detector protocol, operating on a
+    loaded image rather than a camera frame. It returns a dict suitable
+    for assertion-based testing.
 
     Args:
         image_path: Absolute or relative path to a BGR image file.
+        detector_type: Which detector to use (default: 'heuristics').
 
     Returns:
         dict with keys:
@@ -1457,36 +1467,15 @@ def detect_phase_from_image(image_path: str) -> Dict:
         raise FileNotFoundError(f"Cannot read image: {image_path}")
 
     image_shape = frame.shape
-    h, w = frame.shape[:2]
 
-    # --- Housing detection (call the single canonical function) ---
-    bbox = find_traffic_light_housing(frame)
+    # --- Run detector via protocol ---
+    detector = create_detector(detector_type)
+    det_result = detector.detect(frame)
 
-    # --- Phase detection ---
-    phase_result = detect_phase_from_bbox(frame, bbox)
-
-    return {
-        "phase": phase_result["phase"],
-        "bbox": bbox,
-        "red": phase_result["red"],
-        "yellow": phase_result["yellow"],
-        "green": phase_result["green"],
-        "red_lit": phase_result["red"],
-        "yellow_lit": phase_result["yellow"],
-        "green_lit": phase_result["green"],
-        "red_hsv": phase_result["red_hsv"],
-        "yellow_hsv": phase_result["yellow_hsv"],
-        "green_hsv": phase_result["green_hsv"],
-        "red_lit_pixels": phase_result["red_lit_pixels"],
-        "yellow_lit_pixels": phase_result["yellow_lit_pixels"],
-        "green_lit_pixels": phase_result["green_lit_pixels"],
-        "image_shape": image_shape,
-        # Forward internal keys for debug overlay
-        "_lamp_positions": phase_result.get("_lamp_positions"),
-        "_lamp_hues": phase_result.get("_lamp_hues"),
-        "_lamp_lit_fractions": phase_result.get("_lamp_lit_fractions"),
-        "_hue_warnings": phase_result.get("_hue_warnings", []),
-    }
+    # Convert DetectionResult to legacy-compatible dict format
+    result = det_result.to_dict()
+    result["image_shape"] = image_shape
+    return result
 
 
 def process_single_image(

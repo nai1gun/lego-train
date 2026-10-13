@@ -1,7 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-10-09T15:28:59.712671",
-    "git_commit": "650727a18979"
+    "generated_at": "2026-10-13T17:27:43.954323",
+    "git_commit": "6f5227df5b8f",
+    "detector_type": "heuristics"
   },
   "summary": {
     "total_frames": 284,
@@ -19,7 +20,7 @@
     "p50_iou": 0.7014,
     "p90_iou": 0.9297,
     "p95_iou": 0.9413,
-    "avg_detection_time_ms": 10.37
+    "avg_detection_time_ms": 10.88
   },
   "per_phase": {
     "green": {
@@ -115,10 +116,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          121,
-          255,
-          46,
-          95
+          121.0,
+          255.0,
+          46.0,
+          95.0
         ],
         "detected_lamps": {
           "red": false,
@@ -148,7 +149,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 17.01
+        "elapsed_ms": 19.07
       },
       "failure_mode": "correct"
     },
@@ -164,7 +165,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -188,7 +193,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 10.96
       },
       "failure_mode": "correct (no detection)"
     },
@@ -204,10 +209,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          382,
-          207,
-          18,
-          32
+          382.0,
+          207.0,
+          18.0,
+          32.0
         ],
         "detected_lamps": {
           "red": false,
@@ -237,7 +242,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 20.0
       },
       "failure_mode": "false_positive (phantom detection)"
     },
@@ -253,7 +258,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -277,7 +286,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.68
+        "elapsed_ms": 9.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -298,10 +307,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          163,
-          254,
-          46,
-          97
+          163.0,
+          254.0,
+          46.0,
+          97.0
         ],
         "detected_lamps": {
           "red": false,
@@ -331,7 +340,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 17.52
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -352,10 +361,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          205,
-          252,
-          46,
-          98
+          205.0,
+          252.0,
+          46.0,
+          98.0
         ],
         "detected_lamps": {
           "red": false,
@@ -385,7 +394,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 17.01
+        "elapsed_ms": 13.99
       },
       "failure_mode": "correct"
     },
@@ -406,10 +415,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          252,
-          253,
-          46,
-          99
+          252.0,
+          253.0,
+          46.0,
+          99.0
         ],
         "detected_lamps": {
           "red": false,
@@ -439,7 +448,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.51
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -460,10 +469,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          290,
-          251,
-          46,
-          101
+          290.0,
+          251.0,
+          46.0,
+          101.0
         ],
         "detected_lamps": {
           "red": false,
@@ -493,7 +502,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.01
       },
       "failure_mode": "correct"
     },
@@ -514,10 +523,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          331,
-          249,
-          48,
-          104
+          331.0,
+          249.0,
+          48.0,
+          104.0
         ],
         "detected_lamps": {
           "red": false,
@@ -547,7 +556,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 12.52
       },
       "failure_mode": "correct"
     },
@@ -568,10 +577,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          367,
-          243,
-          50,
-          107
+          367.0,
+          243.0,
+          50.0,
+          107.0
         ],
         "detected_lamps": {
           "red": false,
@@ -601,7 +610,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.01
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -622,10 +631,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          387,
-          239,
-          52,
-          109
+          387.0,
+          239.0,
+          52.0,
+          109.0
         ],
         "detected_lamps": {
           "red": false,
@@ -655,7 +664,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.52
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -676,10 +685,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          397,
-          232,
-          53,
-          112
+          397.0,
+          232.0,
+          53.0,
+          112.0
         ],
         "detected_lamps": {
           "red": false,
@@ -709,7 +718,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.99
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -730,10 +739,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          402,
-          226,
-          54,
-          115
+          402.0,
+          226.0,
+          54.0,
+          115.0
         ],
         "detected_lamps": {
           "red": false,
@@ -763,7 +772,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -784,10 +793,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          406,
-          224,
-          56,
-          118
+          406.0,
+          224.0,
+          56.0,
+          118.0
         ],
         "detected_lamps": {
           "red": false,
@@ -817,7 +826,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.3
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -838,10 +847,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          413,
-          221,
-          57,
-          121
+          413.0,
+          221.0,
+          57.0,
+          121.0
         ],
         "detected_lamps": {
           "red": false,
@@ -871,7 +880,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.96
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -892,10 +901,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          416,
-          218,
-          59,
-          125
+          416.0,
+          218.0,
+          59.0,
+          125.0
         ],
         "detected_lamps": {
           "red": false,
@@ -925,7 +934,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 14.01
       },
       "failure_mode": "correct"
     },
@@ -946,10 +955,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          421,
-          216,
-          61,
-          128
+          421.0,
+          216.0,
+          61.0,
+          128.0
         ],
         "detected_lamps": {
           "red": false,
@@ -979,7 +988,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 13.52
       },
       "failure_mode": "correct"
     },
@@ -1000,10 +1009,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          424,
-          212,
-          63,
-          132
+          424.0,
+          212.0,
+          63.0,
+          132.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1054,10 +1063,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          428,
-          206,
-          64,
-          136
+          428.0,
+          206.0,
+          64.0,
+          136.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1087,7 +1096,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.43
+        "elapsed_ms": 13.51
       },
       "failure_mode": "correct"
     },
@@ -1108,10 +1117,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          433,
-          197,
-          67,
-          141
+          433.0,
+          197.0,
+          67.0,
+          141.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1141,7 +1150,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.51
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -1162,10 +1171,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          438,
-          188,
-          68,
-          147
+          438.0,
+          188.0,
+          68.0,
+          147.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1216,10 +1225,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          447,
-          178,
-          71,
-          154
+          447.0,
+          178.0,
+          71.0,
+          154.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1249,7 +1258,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -1270,10 +1279,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          454,
-          171,
-          75,
-          162
+          454.0,
+          171.0,
+          75.0,
+          162.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1303,7 +1312,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.13
+        "elapsed_ms": 13.01
       },
       "failure_mode": "correct"
     },
@@ -1324,10 +1333,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          465,
-          162,
-          79,
-          171
+          465.0,
+          162.0,
+          79.0,
+          171.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1357,7 +1366,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.71
+        "elapsed_ms": 13.51
       },
       "failure_mode": "correct"
     },
@@ -1378,10 +1387,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          473,
-          148,
-          84,
-          181
+          473.0,
+          148.0,
+          84.0,
+          181.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1411,7 +1420,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.19
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -1432,10 +1441,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          479,
-          176,
-          41,
-          151
+          479.0,
+          176.0,
+          41.0,
+          151.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1465,7 +1474,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 11.61
+        "elapsed_ms": 13.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -1486,10 +1495,10 @@
         "phases": "{'green', 'yellow'}",
         "phase_str": "green,yellow",
         "bbox_px": [
-          499,
-          160,
-          93,
-          160
+          499.0,
+          160.0,
+          93.0,
+          160.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1519,7 +1528,7 @@
         "localization_correct": true,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 13.07
+        "elapsed_ms": 13.0
       },
       "failure_mode": "phase_mismatch (GT={'green'}, pred={'green', 'yellow'})"
     },
@@ -1540,10 +1549,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          511,
-          227,
-          21,
-          50
+          511.0,
+          227.0,
+          21.0,
+          50.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1573,7 +1582,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 12.17
+        "elapsed_ms": 12.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -1594,10 +1603,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          530,
-          220,
-          21,
-          45
+          530.0,
+          220.0,
+          21.0,
+          45.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1627,7 +1636,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 12.31
+        "elapsed_ms": 13.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -1648,7 +1657,60 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": true,
+          "pred_lit": false,
+          "correct": false
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": false,
+        "elapsed_ms": 6.0
+      },
+      "failure_mode": "false_negative (missed detection)"
+    },
+    {
+      "frame_idx": 37,
+      "image_filename": "frame_000032.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000032.jpg",
+      "ground_truth": {
+        "phases": "{'green'}",
+        "bbox_px": [
+          577.9746835443029,
+          0.0,
+          62.02531645569612,
+          285.5696202531646
+        ]
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -1677,51 +1739,6 @@
       "failure_mode": "false_negative (missed detection)"
     },
     {
-      "frame_idx": 37,
-      "image_filename": "frame_000032.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000032.jpg",
-      "ground_truth": {
-        "phases": "{'green'}",
-        "bbox_px": [
-          577.9746835443029,
-          0.0,
-          62.02531645569612,
-          285.5696202531646
-        ]
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": true,
-          "pred_lit": false,
-          "correct": false
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.51
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
       "frame_idx": 38,
       "image_filename": "frame_000033.jpg",
       "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000033.jpg",
@@ -1738,7 +1755,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -1762,7 +1783,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 4.79
+        "elapsed_ms": 6.0
       },
       "failure_mode": "false_negative (missed detection)"
     },
@@ -1783,10 +1804,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          1,
-          264,
-          13,
-          72
+          1.0,
+          264.0,
+          13.0,
+          72.0
         ],
         "detected_lamps": {
           "red": false,
@@ -1816,7 +1837,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.51
+        "elapsed_ms": 13.01
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -1837,10 +1858,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          6,
-          261,
-          45,
-          93
+          6.0,
+          261.0,
+          45.0,
+          93.0
         ],
         "detected_lamps": {
           "red": true,
@@ -1870,7 +1891,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.05
+        "elapsed_ms": 14.57
       },
       "failure_mode": "correct"
     },
@@ -1891,10 +1912,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          43,
-          259,
-          47,
-          93
+          43.0,
+          259.0,
+          47.0,
+          93.0
         ],
         "detected_lamps": {
           "red": true,
@@ -1924,7 +1945,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.95
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -1945,10 +1966,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          86,
-          256,
-          46,
-          94
+          86.0,
+          256.0,
+          46.0,
+          94.0
         ],
         "detected_lamps": {
           "red": true,
@@ -1978,7 +1999,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -1999,10 +2020,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          126,
-          254,
-          47,
-          94
+          126.0,
+          254.0,
+          47.0,
+          94.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2032,7 +2053,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2053,10 +2074,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          165,
-          253,
-          47,
-          98
+          165.0,
+          253.0,
+          47.0,
+          98.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2086,7 +2107,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2107,10 +2128,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          205,
-          252,
-          46,
-          98
+          205.0,
+          252.0,
+          46.0,
+          98.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2140,7 +2161,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.01
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -2161,10 +2182,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          250,
-          253,
-          47,
-          99
+          250.0,
+          253.0,
+          47.0,
+          99.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2194,7 +2215,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2215,10 +2236,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          288,
-          251,
-          48,
-          101
+          288.0,
+          251.0,
+          48.0,
+          101.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2248,7 +2269,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.52
+        "elapsed_ms": 12.74
       },
       "failure_mode": "correct"
     },
@@ -2269,10 +2290,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          326,
-          248,
-          49,
-          104
+          326.0,
+          248.0,
+          49.0,
+          104.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2302,7 +2323,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.5
+        "elapsed_ms": 14.01
       },
       "failure_mode": "correct"
     },
@@ -2323,10 +2344,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          363,
-          243,
-          50,
-          107
+          363.0,
+          243.0,
+          50.0,
+          107.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2356,7 +2377,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.18
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2377,10 +2398,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          387,
-          239,
-          52,
-          109
+          387.0,
+          239.0,
+          52.0,
+          109.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2410,7 +2431,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2431,10 +2452,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          398,
-          232,
-          53,
-          113
+          398.0,
+          232.0,
+          53.0,
+          113.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2464,7 +2485,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2485,10 +2506,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          401,
-          227,
-          55,
-          115
+          401.0,
+          227.0,
+          55.0,
+          115.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2518,7 +2539,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2539,10 +2560,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          405,
-          224,
-          55,
-          118
+          405.0,
+          224.0,
+          55.0,
+          118.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2572,7 +2593,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2593,10 +2614,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          411,
-          222,
-          57,
-          121
+          411.0,
+          222.0,
+          57.0,
+          121.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2626,7 +2647,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.01
+        "elapsed_ms": 12.85
       },
       "failure_mode": "correct"
     },
@@ -2647,10 +2668,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          415,
-          219,
-          59,
-          125
+          415.0,
+          219.0,
+          59.0,
+          125.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2680,7 +2701,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.46
+        "elapsed_ms": 12.52
       },
       "failure_mode": "correct"
     },
@@ -2701,10 +2722,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          420,
-          217,
-          60,
-          127
+          420.0,
+          217.0,
+          60.0,
+          127.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2755,10 +2776,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          423,
-          213,
-          62,
-          131
+          423.0,
+          213.0,
+          62.0,
+          131.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2788,7 +2809,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.46
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -2809,10 +2830,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          428,
-          207,
-          64,
-          136
+          428.0,
+          207.0,
+          64.0,
+          136.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2842,7 +2863,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 15.07
+        "elapsed_ms": 13.53
       },
       "failure_mode": "correct"
     },
@@ -2863,10 +2884,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          433,
-          199,
-          66,
-          141
+          433.0,
+          199.0,
+          66.0,
+          141.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2896,7 +2917,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.94
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -2917,10 +2938,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          437,
-          190,
-          68,
-          146
+          437.0,
+          190.0,
+          68.0,
+          146.0
         ],
         "detected_lamps": {
           "red": true,
@@ -2950,7 +2971,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.95
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -2971,10 +2992,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          446,
-          181,
-          71,
-          154
+          446.0,
+          181.0,
+          71.0,
+          154.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3004,7 +3025,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.94
+        "elapsed_ms": 13.26
       },
       "failure_mode": "correct"
     },
@@ -3025,10 +3046,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          451,
-          173,
-          75,
-          161
+          451.0,
+          173.0,
+          75.0,
+          161.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3058,7 +3079,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.49
+        "elapsed_ms": 12.01
       },
       "failure_mode": "correct"
     },
@@ -3079,10 +3100,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          462,
-          164,
-          79,
-          169
+          462.0,
+          164.0,
+          79.0,
+          169.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3112,7 +3133,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.5
+        "elapsed_ms": 12.51
       },
       "failure_mode": "correct"
     },
@@ -3133,10 +3154,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          470,
-          151,
-          84,
-          180
+          470.0,
+          151.0,
+          84.0,
+          180.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3166,7 +3187,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.95
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -3187,10 +3208,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          483,
-          135,
-          89,
-          191
+          483.0,
+          135.0,
+          89.0,
+          191.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3241,10 +3262,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          498,
-          115,
-          96,
-          204
+          498.0,
+          115.0,
+          96.0,
+          204.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3274,7 +3295,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -3295,10 +3316,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          517,
-          93,
-          107,
-          221
+          517.0,
+          93.0,
+          107.0,
+          221.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3328,7 +3349,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -3349,10 +3370,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          534,
-          65,
-          92,
-          199
+          534.0,
+          65.0,
+          92.0,
+          199.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3382,7 +3403,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.46
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -3403,10 +3424,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          552,
-          28,
-          76,
-          218
+          552.0,
+          28.0,
+          76.0,
+          218.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3436,7 +3457,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.54
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -3457,10 +3478,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          5,
-          262,
-          38,
-          92
+          5.0,
+          262.0,
+          38.0,
+          92.0
         ],
         "detected_lamps": {
           "red": false,
@@ -3490,7 +3511,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.02
+        "elapsed_ms": 15.51
       },
       "failure_mode": "correct"
     },
@@ -3511,10 +3532,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          574,
-          11,
-          57,
-          213
+          574.0,
+          11.0,
+          57.0,
+          213.0
         ],
         "detected_lamps": {
           "red": true,
@@ -3544,7 +3565,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 13.25
       },
       "failure_mode": "correct"
     },
@@ -3565,10 +3586,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          607,
-          9,
-          28,
-          163
+          607.0,
+          9.0,
+          28.0,
+          163.0
         ],
         "detected_lamps": {
           "red": false,
@@ -3598,7 +3619,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.23
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -3614,7 +3635,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -3638,7 +3663,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -3654,7 +3679,187 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 5.01
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 74,
+      "image_filename": "frame_000233.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000233.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 4.99
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 75,
+      "image_filename": "frame_000234.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000234.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 6.0
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 76,
+      "image_filename": "frame_000235.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000235.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 6.0
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 77,
+      "image_filename": "frame_000236.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000236.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -3683,166 +3888,6 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 74,
-      "image_filename": "frame_000233.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000233.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 6.46
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 75,
-      "image_filename": "frame_000234.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000234.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 4.68
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 76,
-      "image_filename": "frame_000235.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000235.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.5
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 77,
-      "image_filename": "frame_000236.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000236.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.98
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
       "frame_idx": 78,
       "image_filename": "frame_000237.jpg",
       "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000237.jpg",
@@ -3854,7 +3899,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -3878,7 +3927,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 4.5
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -3894,7 +3943,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -3918,7 +3971,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.87
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -3939,10 +3992,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          38,
-          259,
-          46,
-          93
+          38.0,
+          259.0,
+          46.0,
+          93.0
         ],
         "detected_lamps": {
           "red": false,
@@ -3972,7 +4025,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -3988,7 +4041,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4012,7 +4069,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 6.23
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4028,7 +4085,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4052,7 +4113,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.01
+        "elapsed_ms": 6.51
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4068,7 +4129,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4092,7 +4157,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.85
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4108,7 +4173,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4132,7 +4201,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 7.0
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4148,7 +4217,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4172,7 +4245,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.51
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4188,7 +4261,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4212,7 +4289,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.39
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4228,127 +4305,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
         }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.59
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 87,
-      "image_filename": "frame_000184.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000184.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 88,
-      "image_filename": "frame_000185.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000185.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.93
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 89,
-      "image_filename": "frame_000186.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000186.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
       },
       "per_lamp": {
         "green": {
@@ -4373,6 +4334,138 @@
         "phase_correct": true,
         "housing_found": false,
         "elapsed_ms": 7.0
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 87,
+      "image_filename": "frame_000184.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000184.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 7.21
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 88,
+      "image_filename": "frame_000185.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000185.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 6.06
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 89,
+      "image_filename": "frame_000186.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000186.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 6.02
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4393,10 +4486,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          81,
-          256,
-          46,
-          94
+          81.0,
+          256.0,
+          46.0,
+          94.0
         ],
         "detected_lamps": {
           "red": false,
@@ -4426,7 +4519,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 13.92
       },
       "failure_mode": "correct"
     },
@@ -4442,7 +4535,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4482,7 +4579,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4506,7 +4607,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 7.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4522,47 +4623,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
         }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 6.0
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 93,
-      "image_filename": "frame_000190.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000190.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
       },
       "per_lamp": {
         "green": {
@@ -4591,9 +4656,9 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 94,
-      "image_filename": "frame_000191.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000191.jpg",
+      "frame_idx": 93,
+      "image_filename": "frame_000190.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000190.jpg",
       "ground_truth": {
         "phases": "set()",
         "bbox_px": null
@@ -4602,7 +4667,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4626,7 +4695,51 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 7.0
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 94,
+      "image_filename": "frame_000191.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000191.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 7.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -4642,91 +4755,6 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 6.51
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 96,
-      "image_filename": "frame_000193.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000193.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.22
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 97,
-      "image_filename": "frame_000194.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000194.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": [
-          337,
-          26,
-          23,
-          35
-        ],
         "detected_lamps": {
           "red": false,
           "yellow": false,
@@ -4754,15 +4782,15 @@
         "iou": 0.0,
         "localization_correct": false,
         "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 14.08
+        "housing_found": false,
+        "elapsed_ms": 5.51
       },
-      "failure_mode": "false_positive (phantom detection)"
+      "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 98,
-      "image_filename": "frame_000195.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000195.jpg",
+      "frame_idx": 96,
+      "image_filename": "frame_000193.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000193.jpg",
       "ground_truth": {
         "phases": "set()",
         "bbox_px": null
@@ -4771,7 +4799,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -4800,9 +4832,9 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 99,
-      "image_filename": "frame_000196.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000196.jpg",
+      "frame_idx": 97,
+      "image_filename": "frame_000194.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000194.jpg",
       "ground_truth": {
         "phases": "set()",
         "bbox_px": null
@@ -4811,10 +4843,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          376,
-          197,
-          28,
-          58
+          337.0,
+          26.0,
+          23.0,
+          35.0
         ],
         "detected_lamps": {
           "red": false,
@@ -4844,7 +4876,100 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.67
+        "elapsed_ms": 13.01
+      },
+      "failure_mode": "false_positive (phantom detection)"
+    },
+    {
+      "frame_idx": 98,
+      "image_filename": "frame_000195.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000195.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 6.01
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 99,
+      "image_filename": "frame_000196.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260917_065933\\frames\\frame_000196.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": [
+          376.0,
+          197.0,
+          28.0,
+          58.0
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.06
       },
       "failure_mode": "false_positive (phantom detection)"
     },
@@ -4865,10 +4990,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          274,
-          152,
-          106,
-          164
+          274.0,
+          152.0,
+          106.0,
+          164.0
         ],
         "detected_lamps": {
           "red": true,
@@ -4898,7 +5023,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -4919,10 +5044,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          313,
-          156,
-          74,
-          166
+          313.0,
+          156.0,
+          74.0,
+          166.0
         ],
         "detected_lamps": {
           "red": false,
@@ -4973,10 +5098,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          327,
-          16,
-          184,
-          299
+          327.0,
+          16.0,
+          184.0,
+          299.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5006,7 +5131,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.93
+        "elapsed_ms": 15.01
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -5027,10 +5152,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          314,
-          16,
-          130,
-          299
+          314.0,
+          16.0,
+          130.0,
+          299.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5060,7 +5185,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 12.91
+        "elapsed_ms": 15.54
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -5081,10 +5206,10 @@
         "phases": "{'green', 'yellow'}",
         "phase_str": "green,yellow",
         "bbox_px": [
-          308,
-          16,
-          82,
-          299
+          308.0,
+          16.0,
+          82.0,
+          299.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5114,7 +5239,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 19.38
+        "elapsed_ms": 14.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -5135,10 +5260,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          276,
-          151,
-          110,
-          171
+          276.0,
+          151.0,
+          110.0,
+          171.0
         ],
         "detected_lamps": {
           "red": true,
@@ -5168,7 +5293,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.51
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -5189,10 +5314,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          276,
-          153,
-          110,
-          169
+          276.0,
+          153.0,
+          110.0,
+          169.0
         ],
         "detected_lamps": {
           "red": true,
@@ -5222,7 +5347,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.51
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -5243,10 +5368,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          276,
-          154,
-          110,
-          168
+          276.0,
+          154.0,
+          110.0,
+          168.0
         ],
         "detected_lamps": {
           "red": true,
@@ -5276,7 +5401,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.5
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -5297,10 +5422,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          308,
-          155,
-          80,
-          167
+          308.0,
+          155.0,
+          80.0,
+          167.0
         ],
         "detected_lamps": {
           "red": true,
@@ -5330,7 +5455,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -5339,7 +5464,7 @@
       "image_filename": "frame_000096.jpg",
       "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260925_182442\\frames\\frame_000096.jpg",
       "ground_truth": {
-        "phases": "{'red', 'green', 'yellow'}",
+        "phases": "{'green', 'red', 'yellow'}",
         "bbox_px": [
           312.1518987341773,
           152.65822784810126,
@@ -5351,10 +5476,10 @@
         "phases": "{'green', 'red', 'yellow'}",
         "phase_str": "green,red,yellow",
         "bbox_px": [
-          311,
-          155,
-          78,
-          167
+          311.0,
+          155.0,
+          78.0,
+          167.0
         ],
         "detected_lamps": {
           "red": true,
@@ -5384,7 +5509,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -5405,10 +5530,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          310,
-          157,
-          76,
-          165
+          310.0,
+          157.0,
+          76.0,
+          165.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5438,7 +5563,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.02
+        "elapsed_ms": 14.51
       },
       "failure_mode": "correct"
     },
@@ -5459,10 +5584,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          310,
-          154,
-          67,
-          162
+          310.0,
+          154.0,
+          67.0,
+          162.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5492,7 +5617,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.01
+        "elapsed_ms": 17.01
       },
       "failure_mode": "correct"
     },
@@ -5513,10 +5638,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          308,
-          154,
-          68,
-          161
+          308.0,
+          154.0,
+          68.0,
+          161.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5546,7 +5671,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.27
+        "elapsed_ms": 14.52
       },
       "failure_mode": "correct"
     },
@@ -5567,10 +5692,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          279,
-          16,
-          136,
-          298
+          279.0,
+          16.0,
+          136.0,
+          298.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5600,7 +5725,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.54
+        "elapsed_ms": 14.39
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -5621,10 +5746,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          276,
-          16,
-          116,
-          293
+          276.0,
+          16.0,
+          116.0,
+          293.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5654,7 +5779,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 12.06
+        "elapsed_ms": 15.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -5675,10 +5800,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          275,
-          156,
-          107,
-          166
+          275.0,
+          156.0,
+          107.0,
+          166.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5708,7 +5833,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.33
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -5729,10 +5854,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          307,
-          156,
-          79,
-          166
+          307.0,
+          156.0,
+          79.0,
+          166.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5762,7 +5887,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.1
+        "elapsed_ms": 13.01
       },
       "failure_mode": "correct"
     },
@@ -5783,10 +5908,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          308,
-          153,
-          83,
-          169
+          308.0,
+          153.0,
+          83.0,
+          169.0
         ],
         "detected_lamps": {
           "red": true,
@@ -5816,7 +5941,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.75
+        "elapsed_ms": 14.51
       },
       "failure_mode": "correct"
     },
@@ -5832,7 +5957,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -5856,7 +5985,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 7.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -5872,7 +6001,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -5896,7 +6029,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 5.04
       },
       "failure_mode": "correct (no detection)"
     },
@@ -5912,7 +6045,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -5936,7 +6073,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 6.01
       },
       "failure_mode": "correct (no detection)"
     },
@@ -5952,10 +6089,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          605,
-          167,
-          17,
-          27
+          605.0,
+          167.0,
+          17.0,
+          27.0
         ],
         "detected_lamps": {
           "red": false,
@@ -5985,7 +6122,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.22
+        "elapsed_ms": 14.99
       },
       "failure_mode": "false_positive (phantom detection)"
     },
@@ -6001,87 +6138,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
         }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 6.01
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 126,
-      "image_filename": "frame_000005.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000005.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 6.45
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 127,
-      "image_filename": "frame_000006.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000006.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
       },
       "per_lamp": {
         "green": {
@@ -6110,9 +6171,9 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 128,
-      "image_filename": "frame_000007.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000007.jpg",
+      "frame_idx": 126,
+      "image_filename": "frame_000005.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000005.jpg",
       "ground_truth": {
         "phases": "set()",
         "bbox_px": null
@@ -6121,7 +6182,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -6145,7 +6210,95 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 6.0
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 127,
+      "image_filename": "frame_000006.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000006.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 7.0
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 128,
+      "image_filename": "frame_000007.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000007.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 6.01
       },
       "failure_mode": "correct (no detection)"
     },
@@ -6166,10 +6319,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          2,
-          342,
-          21,
-          40
+          2.0,
+          342.0,
+          21.0,
+          40.0
         ],
         "detected_lamps": {
           "red": false,
@@ -6199,7 +6352,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.41
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -6220,10 +6373,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          1,
-          292,
-          14,
-          39
+          1.0,
+          292.0,
+          14.0,
+          39.0
         ],
         "detected_lamps": {
           "red": false,
@@ -6253,7 +6406,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 14.6
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -6274,7 +6427,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -6319,7 +6476,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -6343,7 +6504,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 6.0
       },
       "failure_mode": "false_negative (missed detection)"
     },
@@ -6364,7 +6525,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -6409,7 +6574,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -6433,7 +6602,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 7.0
       },
       "failure_mode": "false_negative (missed detection)"
     },
@@ -6454,7 +6623,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -6478,7 +6651,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": false,
-        "elapsed_ms": 6.01
+        "elapsed_ms": 7.0
       },
       "failure_mode": "false_negative (missed detection)"
     },
@@ -6499,7 +6672,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -6523,7 +6700,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 7.0
       },
       "failure_mode": "false_negative (missed detection)"
     },
@@ -6544,7 +6721,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -6589,10 +6770,10 @@
         "phases": "{'green', 'yellow'}",
         "phase_str": "green,yellow",
         "bbox_px": [
-          239,
-          436,
-          25,
-          41
+          239.0,
+          436.0,
+          25.0,
+          41.0
         ],
         "detected_lamps": {
           "red": false,
@@ -6622,7 +6803,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 12.03
+        "elapsed_ms": 14.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -6643,10 +6824,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          150,
-          346,
-          21,
-          31
+          150.0,
+          346.0,
+          21.0,
+          31.0
         ],
         "detected_lamps": {
           "red": false,
@@ -6676,7 +6857,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 14.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -6697,10 +6878,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          238,
-          336,
-          29,
-          52
+          238.0,
+          336.0,
+          29.0,
+          52.0
         ],
         "detected_lamps": {
           "red": true,
@@ -6730,7 +6911,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 13.62
       },
       "failure_mode": "correct"
     },
@@ -6751,10 +6932,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          234,
-          333,
-          30,
-          53
+          234.0,
+          333.0,
+          30.0,
+          53.0
         ],
         "detected_lamps": {
           "red": true,
@@ -6784,7 +6965,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 14.01
       },
       "failure_mode": "correct"
     },
@@ -6805,10 +6986,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          2,
-          1,
-          20,
-          36
+          2.0,
+          1.0,
+          20.0,
+          36.0
         ],
         "detected_lamps": {
           "red": false,
@@ -6838,7 +7019,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 14.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -6859,10 +7040,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          236,
-          328,
-          30,
-          54
+          236.0,
+          328.0,
+          30.0,
+          54.0
         ],
         "detected_lamps": {
           "red": true,
@@ -6892,7 +7073,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.48
+        "elapsed_ms": 12.82
       },
       "failure_mode": "correct"
     },
@@ -6913,10 +7094,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          238,
-          331,
-          31,
-          55
+          238.0,
+          331.0,
+          31.0,
+          55.0
         ],
         "detected_lamps": {
           "red": true,
@@ -6946,7 +7127,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.54
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -6967,10 +7148,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          236,
-          332,
-          31,
-          55
+          236.0,
+          332.0,
+          31.0,
+          55.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7000,7 +7181,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.52
       },
       "failure_mode": "correct"
     },
@@ -7021,10 +7202,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          235,
-          330,
-          32,
-          57
+          235.0,
+          330.0,
+          32.0,
+          57.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7054,7 +7235,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.7
+        "elapsed_ms": 14.09
       },
       "failure_mode": "correct"
     },
@@ -7075,10 +7256,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          233,
-          325,
-          32,
-          57
+          233.0,
+          325.0,
+          32.0,
+          57.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7108,7 +7289,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 13.87
       },
       "failure_mode": "correct"
     },
@@ -7129,10 +7310,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          234,
-          326,
-          32,
-          59
+          234.0,
+          326.0,
+          32.0,
+          59.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7162,7 +7343,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 12.7
       },
       "failure_mode": "correct"
     },
@@ -7183,10 +7364,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          233,
-          329,
-          32,
-          59
+          233.0,
+          329.0,
+          32.0,
+          59.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7216,7 +7397,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.2
+        "elapsed_ms": 14.31
       },
       "failure_mode": "correct"
     },
@@ -7237,10 +7418,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          234,
-          331,
-          33,
-          61
+          234.0,
+          331.0,
+          33.0,
+          61.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7270,7 +7451,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.19
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -7291,10 +7472,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          229,
-          325,
-          33,
-          63
+          229.0,
+          325.0,
+          33.0,
+          63.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7324,7 +7505,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.53
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -7345,10 +7526,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          230,
-          319,
-          34,
-          63
+          230.0,
+          319.0,
+          34.0,
+          63.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7378,7 +7559,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.28
+        "elapsed_ms": 14.99
       },
       "failure_mode": "correct"
     },
@@ -7399,10 +7580,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          230,
-          321,
-          34,
-          63
+          230.0,
+          321.0,
+          34.0,
+          63.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7432,7 +7613,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.37
+        "elapsed_ms": 13.67
       },
       "failure_mode": "correct"
     },
@@ -7453,10 +7634,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          228,
-          323,
-          35,
-          66
+          228.0,
+          323.0,
+          35.0,
+          66.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7486,7 +7667,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.45
+        "elapsed_ms": 12.85
       },
       "failure_mode": "correct"
     },
@@ -7507,10 +7688,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          226,
-          323,
-          35,
-          66
+          226.0,
+          323.0,
+          35.0,
+          66.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7540,7 +7721,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.39
+        "elapsed_ms": 13.22
       },
       "failure_mode": "correct"
     },
@@ -7561,10 +7742,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          224,
-          314,
-          35,
-          69
+          224.0,
+          314.0,
+          35.0,
+          69.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7594,7 +7775,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.01
+        "elapsed_ms": 13.53
       },
       "failure_mode": "correct"
     },
@@ -7615,10 +7796,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          222,
-          304,
-          36,
-          69
+          222.0,
+          304.0,
+          36.0,
+          69.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7648,7 +7829,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 15.07
+        "elapsed_ms": 14.65
       },
       "failure_mode": "correct"
     },
@@ -7669,10 +7850,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          223,
-          305,
-          36,
-          71
+          223.0,
+          305.0,
+          36.0,
+          71.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7702,7 +7883,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.23
+        "elapsed_ms": 13.18
       },
       "failure_mode": "correct"
     },
@@ -7723,10 +7904,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          221,
-          308,
-          37,
-          72
+          221.0,
+          308.0,
+          37.0,
+          72.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7756,7 +7937,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.21
+        "elapsed_ms": 13.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -7777,10 +7958,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          221,
-          308,
-          37,
-          72
+          221.0,
+          308.0,
+          37.0,
+          72.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7810,7 +7991,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.33
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -7831,10 +8012,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          219,
-          306,
-          38,
-          75
+          219.0,
+          306.0,
+          38.0,
+          75.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7864,7 +8045,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.02
+        "elapsed_ms": 15.43
       },
       "failure_mode": "correct"
     },
@@ -7885,10 +8066,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          214,
-          300,
-          39,
-          76
+          214.0,
+          300.0,
+          39.0,
+          76.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7918,7 +8099,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 14.09
       },
       "failure_mode": "correct"
     },
@@ -7939,10 +8120,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          213,
-          292,
-          39,
-          79
+          213.0,
+          292.0,
+          39.0,
+          79.0
         ],
         "detected_lamps": {
           "red": true,
@@ -7972,7 +8153,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.1
+        "elapsed_ms": 12.96
       },
       "failure_mode": "correct"
     },
@@ -7993,10 +8174,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          211,
-          293,
-          41,
-          80
+          211.0,
+          293.0,
+          41.0,
+          80.0
         ],
         "detected_lamps": {
           "red": true,
@@ -8026,7 +8207,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -8047,10 +8228,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          208,
-          294,
-          42,
-          82
+          208.0,
+          294.0,
+          42.0,
+          82.0
         ],
         "detected_lamps": {
           "red": true,
@@ -8080,7 +8261,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.45
+        "elapsed_ms": 14.01
       },
       "failure_mode": "correct"
     },
@@ -8101,10 +8282,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          205,
-          293,
-          42,
-          84
+          205.0,
+          293.0,
+          42.0,
+          84.0
         ],
         "detected_lamps": {
           "red": true,
@@ -8134,7 +8315,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.86
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -8155,10 +8336,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          201,
-          286,
-          46,
-          88
+          201.0,
+          286.0,
+          46.0,
+          88.0
         ],
         "detected_lamps": {
           "red": true,
@@ -8188,7 +8369,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 14.99
       },
       "failure_mode": "correct"
     },
@@ -8209,7 +8390,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -8233,7 +8418,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": false,
-        "elapsed_ms": 5.43
+        "elapsed_ms": 7.0
       },
       "failure_mode": "false_negative (missed detection)"
     },
@@ -8254,7 +8439,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -8278,7 +8467,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 7.0
       },
       "failure_mode": "false_negative (missed detection)"
     },
@@ -8299,7 +8488,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -8323,7 +8516,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": false,
-        "elapsed_ms": 6.41
+        "elapsed_ms": 6.5
       },
       "failure_mode": "false_negative (missed detection)"
     },
@@ -8344,7 +8537,60 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": true,
+          "pred_lit": false,
+          "correct": false
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": false,
+        "housing_found": false,
+        "elapsed_ms": 4.73
+      },
+      "failure_mode": "false_negative (missed detection)"
+    },
+    {
+      "frame_idx": 172,
+      "image_filename": "frame_000049.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000049.jpg",
+      "ground_truth": {
+        "phases": "{'green'}",
+        "bbox_px": [
+          185.31645569620247,
+          262.78481012658233,
+          44.05063291139242,
+          98.73417721518985
+        ]
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -8373,51 +8619,6 @@
       "failure_mode": "false_negative (missed detection)"
     },
     {
-      "frame_idx": 172,
-      "image_filename": "frame_000049.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000049.jpg",
-      "ground_truth": {
-        "phases": "{'green'}",
-        "bbox_px": [
-          185.31645569620247,
-          262.78481012658233,
-          44.05063291139242,
-          98.73417721518985
-        ]
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": true,
-          "pred_lit": false,
-          "correct": false
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": false,
-        "housing_found": false,
-        "elapsed_ms": 5.15
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
       "frame_idx": 173,
       "image_filename": "frame_000050.jpg",
       "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000050.jpg",
@@ -8434,10 +8635,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          155,
-          256,
-          70,
-          109
+          155.0,
+          256.0,
+          70.0,
+          109.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8467,7 +8668,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.1
+        "elapsed_ms": 15.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -8488,10 +8689,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          152,
-          257,
-          68,
-          113
+          152.0,
+          257.0,
+          68.0,
+          113.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8521,7 +8722,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.92
+        "elapsed_ms": 14.01
       },
       "failure_mode": "correct"
     },
@@ -8542,10 +8743,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          146,
-          248,
-          66,
-          119
+          146.0,
+          248.0,
+          66.0,
+          119.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8575,7 +8776,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.83
+        "elapsed_ms": 13.23
       },
       "failure_mode": "correct"
     },
@@ -8596,10 +8797,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          143,
-          234,
-          64,
-          125
+          143.0,
+          234.0,
+          64.0,
+          125.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8629,7 +8830,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.31
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -8650,10 +8851,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          136,
-          225,
-          63,
-          134
+          136.0,
+          225.0,
+          63.0,
+          134.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8683,7 +8884,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.43
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -8704,10 +8905,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          124,
-          216,
-          67,
-          142
+          124.0,
+          216.0,
+          67.0,
+          142.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8737,7 +8938,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.3
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -8758,10 +8959,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          86,
-          206,
-          89,
-          172
+          86.0,
+          206.0,
+          89.0,
+          172.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8791,7 +8992,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.5
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -8812,10 +9013,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          74,
-          181,
-          84,
-          187
+          74.0,
+          181.0,
+          84.0,
+          187.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8845,7 +9046,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.01
+        "elapsed_ms": 13.17
       },
       "failure_mode": "correct"
     },
@@ -8866,10 +9067,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          57,
-          158,
-          85,
-          208
+          57.0,
+          158.0,
+          85.0,
+          208.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8920,10 +9121,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          30,
-          138,
-          96,
-          229
+          30.0,
+          138.0,
+          96.0,
+          229.0
         ],
         "detected_lamps": {
           "red": false,
@@ -8953,7 +9154,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 20.31
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -8974,10 +9175,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          14,
-          104,
-          105,
-          227
+          14.0,
+          104.0,
+          105.0,
+          227.0
         ],
         "detected_lamps": {
           "red": false,
@@ -9007,7 +9208,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 24.01
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -9028,10 +9229,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          7,
-          57,
-          52,
-          234
+          7.0,
+          57.0,
+          52.0,
+          234.0
         ],
         "detected_lamps": {
           "red": false,
@@ -9061,7 +9262,7 @@
         "localization_correct": true,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 16.52
+        "elapsed_ms": 13.0
       },
       "failure_mode": "phase_mismatch (GT={'green'}, pred=set())"
     },
@@ -9077,10 +9278,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          2,
-          53,
-          14,
-          60
+          2.0,
+          53.0,
+          14.0,
+          60.0
         ],
         "detected_lamps": {
           "red": false,
@@ -9110,7 +9311,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.51
+        "elapsed_ms": 12.08
       },
       "failure_mode": "false_positive (phantom detection)"
     },
@@ -9126,10 +9327,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          18,
-          329,
-          32,
-          47
+          18.0,
+          329.0,
+          32.0,
+          47.0
         ],
         "detected_lamps": {
           "red": false,
@@ -9159,7 +9360,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 12.01
       },
       "failure_mode": "false_positive (phantom detection)"
     },
@@ -9175,7 +9376,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9215,7 +9420,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9239,7 +9448,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 5.08
       },
       "failure_mode": "correct (no detection)"
     },
@@ -9255,7 +9464,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9279,7 +9492,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 5.27
       },
       "failure_mode": "correct (no detection)"
     },
@@ -9295,7 +9508,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9335,7 +9552,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9359,7 +9580,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 8.0
+        "elapsed_ms": 5.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -9375,7 +9596,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9415,7 +9640,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9439,7 +9668,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.0
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -9455,7 +9684,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9495,7 +9728,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9519,7 +9756,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 7.0
+        "elapsed_ms": 5.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -9535,7 +9772,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9559,7 +9800,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 8.0
+        "elapsed_ms": 5.78
       },
       "failure_mode": "correct (no detection)"
     },
@@ -9575,7 +9816,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9615,47 +9860,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
         }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 6.0
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 199,
-      "image_filename": "frame_000076.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000076.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
       },
       "per_lamp": {
         "green": {
@@ -9684,6 +9893,50 @@
       "failure_mode": "correct (no detection)"
     },
     {
+      "frame_idx": 199,
+      "image_filename": "frame_000076.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000076.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 5.01
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
       "frame_idx": 200,
       "image_filename": "frame_000077.jpg",
       "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000077.jpg",
@@ -9695,87 +9948,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
         }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.51
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 201,
-      "image_filename": "frame_000078.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000078.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 6.0
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 202,
-      "image_filename": "frame_000079.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000079.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
       },
       "per_lamp": {
         "green": {
@@ -9804,9 +9981,9 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 203,
-      "image_filename": "frame_000080.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000080.jpg",
+      "frame_idx": 201,
+      "image_filename": "frame_000078.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000078.jpg",
       "ground_truth": {
         "phases": "set()",
         "bbox_px": null
@@ -9815,7 +9992,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9844,9 +10025,9 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 204,
-      "image_filename": "frame_000081.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000081.jpg",
+      "frame_idx": 202,
+      "image_filename": "frame_000079.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000079.jpg",
       "ground_truth": {
         "phases": "set()",
         "bbox_px": null
@@ -9855,7 +10036,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9879,7 +10064,95 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 7.0
+        "elapsed_ms": 6.0
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 203,
+      "image_filename": "frame_000080.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000080.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 5.01
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 204,
+      "image_filename": "frame_000081.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161251\\frames\\frame_000081.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 4.99
       },
       "failure_mode": "correct (no detection)"
     },
@@ -9895,7 +10168,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9935,7 +10212,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -9959,7 +10240,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.6
+        "elapsed_ms": 5.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -9980,10 +10261,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          326,
-          31,
-          55
+          96.0,
+          326.0,
+          31.0,
+          55.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10013,7 +10294,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.0
+        "elapsed_ms": 12.66
       },
       "failure_mode": "correct"
     },
@@ -10034,10 +10315,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          327,
-          31,
-          54
+          96.0,
+          327.0,
+          31.0,
+          54.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10067,7 +10348,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 15.14
+        "elapsed_ms": 12.74
       },
       "failure_mode": "correct"
     },
@@ -10088,10 +10369,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          326,
-          32,
-          55
+          96.0,
+          326.0,
+          32.0,
+          55.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10121,7 +10402,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 15.06
+        "elapsed_ms": 13.04
       },
       "failure_mode": "correct"
     },
@@ -10142,10 +10423,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          326,
-          32,
-          55
+          96.0,
+          326.0,
+          32.0,
+          55.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10175,7 +10456,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.98
+        "elapsed_ms": 13.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -10196,10 +10477,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          327,
-          31,
-          54
+          96.0,
+          327.0,
+          31.0,
+          54.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10229,7 +10510,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.49
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -10250,10 +10531,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          327,
-          31,
-          54
+          96.0,
+          327.0,
+          31.0,
+          54.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10283,7 +10564,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.7
+        "elapsed_ms": 15.34
       },
       "failure_mode": "correct"
     },
@@ -10304,10 +10585,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          326,
-          31,
-          55
+          96.0,
+          326.0,
+          31.0,
+          55.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10337,7 +10618,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.51
+        "elapsed_ms": 12.63
       },
       "failure_mode": "correct"
     },
@@ -10358,10 +10639,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          326,
-          32,
-          55
+          96.0,
+          326.0,
+          32.0,
+          55.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10391,7 +10672,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.51
+        "elapsed_ms": 12.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -10412,10 +10693,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          326,
-          32,
-          55
+          96.0,
+          326.0,
+          32.0,
+          55.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10445,7 +10726,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.0
+        "elapsed_ms": 14.17
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -10466,10 +10747,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          326,
-          32,
-          55
+          96.0,
+          326.0,
+          32.0,
+          55.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10499,7 +10780,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.0
+        "elapsed_ms": 13.01
       },
       "failure_mode": "correct"
     },
@@ -10520,10 +10801,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          96,
-          327,
-          31,
-          54
+          96.0,
+          327.0,
+          31.0,
+          54.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10553,7 +10834,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 15.6
+        "elapsed_ms": 11.99
       },
       "failure_mode": "correct"
     },
@@ -10574,10 +10855,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          104,
-          327,
-          31,
-          55
+          104.0,
+          327.0,
+          31.0,
+          55.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10607,7 +10888,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.2
+        "elapsed_ms": 13.01
       },
       "failure_mode": "correct"
     },
@@ -10628,10 +10909,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          125,
-          328,
-          30,
-          54
+          125.0,
+          328.0,
+          30.0,
+          54.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10661,7 +10942,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.93
+        "elapsed_ms": 13.51
       },
       "failure_mode": "correct"
     },
@@ -10682,10 +10963,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          194,
-          331,
-          29,
-          54
+          194.0,
+          331.0,
+          29.0,
+          54.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10715,7 +10996,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 12.53
       },
       "failure_mode": "correct"
     },
@@ -10736,10 +11017,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          158,
-          329,
-          29,
-          54
+          158.0,
+          329.0,
+          29.0,
+          54.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10769,7 +11050,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 14.81
+        "elapsed_ms": 12.78
       },
       "failure_mode": "correct"
     },
@@ -10790,10 +11071,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          234,
-          332,
-          28,
-          54
+          234.0,
+          332.0,
+          28.0,
+          54.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10823,7 +11104,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.02
+        "elapsed_ms": 13.55
       },
       "failure_mode": "correct"
     },
@@ -10844,10 +11125,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          2,
-          25,
-          21,
-          30
+          2.0,
+          25.0,
+          21.0,
+          30.0
         ],
         "detected_lamps": {
           "red": false,
@@ -10877,7 +11158,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 12.51
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -10898,7 +11179,222 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 4.51
+      },
+      "failure_mode": "false_negative (missed detection)"
+    },
+    {
+      "frame_idx": 225,
+      "image_filename": "frame_000018.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000018.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": [
+          332.6582278481014,
+          331.13924050632903,
+          20.506329113924068,
+          47.848101265822855
+        ]
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": [
+          145.0,
+          340.0,
+          21.0,
+          34.0
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 12.51
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 226,
+      "image_filename": "frame_000019.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000019.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": [
+          340.2531645569621,
+          333.4177215189873,
+          20.50632911392404,
+          46.329113924050674
+        ]
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": [
+          2.0,
+          296.0,
+          17.0,
+          26.0
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 227,
+      "image_filename": "frame_000020.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000020.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": [
+          343.2911392405063,
+          332.6582278481014,
+          20.506329113924167,
+          48.6075949367085
+        ]
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": [
+          2.0,
+          296.0,
+          14.0,
+          25.0
+        ],
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": true,
+        "elapsed_ms": 13.0
+      },
+      "failure_mode": "poor_localization (IoU < 0.5)"
+    },
+    {
+      "frame_idx": 228,
+      "image_filename": "frame_000021.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000021.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": [
+          344.8101265822785,
+          334.93670886075955,
+          20.50632911392404,
+          47.84810126582279
+        ]
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -10927,213 +11423,6 @@
       "failure_mode": "false_negative (missed detection)"
     },
     {
-      "frame_idx": 225,
-      "image_filename": "frame_000018.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000018.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": [
-          332.6582278481014,
-          331.13924050632903,
-          20.506329113924068,
-          47.848101265822855
-        ]
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": [
-          145,
-          340,
-          21,
-          34
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.01
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 226,
-      "image_filename": "frame_000019.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000019.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": [
-          340.2531645569621,
-          333.4177215189873,
-          20.50632911392404,
-          46.329113924050674
-        ]
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": [
-          2,
-          296,
-          17,
-          26
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 12.94
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 227,
-      "image_filename": "frame_000020.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000020.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": [
-          343.2911392405063,
-          332.6582278481014,
-          20.506329113924167,
-          48.6075949367085
-        ]
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": [
-          2,
-          296,
-          14,
-          25
-        ],
-        "detected_lamps": {
-          "red": false,
-          "yellow": false,
-          "green": false
-        }
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": true,
-        "elapsed_ms": 11.97
-      },
-      "failure_mode": "poor_localization (IoU < 0.5)"
-    },
-    {
-      "frame_idx": 228,
-      "image_filename": "frame_000021.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000021.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": [
-          344.8101265822785,
-          334.93670886075955,
-          20.50632911392404,
-          47.84810126582279
-        ]
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 7.0
-      },
-      "failure_mode": "false_negative (missed detection)"
-    },
-    {
       "frame_idx": 229,
       "image_filename": "frame_000022.jpg",
       "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000022.jpg",
@@ -11150,10 +11439,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          150,
-          345,
-          20,
-          32
+          150.0,
+          345.0,
+          20.0,
+          32.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11183,7 +11472,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 11.5
+        "elapsed_ms": 14.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -11204,10 +11493,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          145,
-          345,
-          28,
-          45
+          145.0,
+          345.0,
+          28.0,
+          45.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11237,7 +11526,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 11.23
+        "elapsed_ms": 12.77
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -11258,10 +11547,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          339,
-          318,
-          33,
-          63
+          339.0,
+          318.0,
+          33.0,
+          63.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11291,7 +11580,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.8
+        "elapsed_ms": 13.41
       },
       "failure_mode": "correct"
     },
@@ -11312,10 +11601,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          339,
-          317,
-          34,
-          63
+          339.0,
+          317.0,
+          34.0,
+          63.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11345,7 +11634,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.09
+        "elapsed_ms": 12.08
       },
       "failure_mode": "correct"
     },
@@ -11366,10 +11655,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          345,
-          319,
-          34,
-          64
+          345.0,
+          319.0,
+          34.0,
+          64.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11399,7 +11688,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.22
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -11420,10 +11709,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          346,
-          320,
-          35,
-          65
+          346.0,
+          320.0,
+          35.0,
+          65.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11453,7 +11742,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 10.85
+        "elapsed_ms": 12.61
       },
       "failure_mode": "correct"
     },
@@ -11474,10 +11763,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          350,
-          314,
-          35,
-          67
+          350.0,
+          314.0,
+          35.0,
+          67.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11507,7 +11796,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.75
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -11528,10 +11817,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          67,
-          158,
-          17,
-          39
+          67.0,
+          158.0,
+          17.0,
+          39.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11561,7 +11850,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 11.47
+        "elapsed_ms": 12.27
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -11582,10 +11871,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          351,
-          311,
-          36,
-          69
+          351.0,
+          311.0,
+          36.0,
+          69.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11615,7 +11904,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.23
+        "elapsed_ms": 14.16
       },
       "failure_mode": "correct"
     },
@@ -11636,10 +11925,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          2,
-          306,
-          14,
-          40
+          2.0,
+          306.0,
+          14.0,
+          40.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11669,7 +11958,7 @@
         "localization_correct": false,
         "phase_correct": false,
         "housing_found": true,
-        "elapsed_ms": 11.0
+        "elapsed_ms": 14.0
       },
       "failure_mode": "poor_localization (IoU < 0.5)"
     },
@@ -11690,10 +11979,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          357,
-          316,
-          37,
-          72
+          357.0,
+          316.0,
+          37.0,
+          72.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11723,7 +12012,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.3
+        "elapsed_ms": 13.91
       },
       "failure_mode": "correct"
     },
@@ -11744,10 +12033,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          357,
-          315,
-          38,
-          73
+          357.0,
+          315.0,
+          38.0,
+          73.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11798,10 +12087,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          361,
-          307,
-          38,
-          75
+          361.0,
+          307.0,
+          38.0,
+          75.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11831,7 +12120,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.51
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -11852,10 +12141,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          363,
-          304,
-          39,
-          78
+          363.0,
+          304.0,
+          39.0,
+          78.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11885,7 +12174,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.01
+        "elapsed_ms": 11.7
       },
       "failure_mode": "correct"
     },
@@ -11906,10 +12195,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          368,
-          307,
-          39,
-          79
+          368.0,
+          307.0,
+          39.0,
+          79.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11939,7 +12228,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 10.59
+        "elapsed_ms": 12.63
       },
       "failure_mode": "correct"
     },
@@ -11960,10 +12249,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          370,
-          306,
-          40,
-          81
+          370.0,
+          306.0,
+          40.0,
+          81.0
         ],
         "detected_lamps": {
           "red": false,
@@ -11993,7 +12282,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.51
+        "elapsed_ms": 12.77
       },
       "failure_mode": "correct"
     },
@@ -12014,10 +12303,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          372,
-          302,
-          42,
-          82
+          372.0,
+          302.0,
+          42.0,
+          82.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12047,7 +12336,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.86
+        "elapsed_ms": 11.51
       },
       "failure_mode": "correct"
     },
@@ -12068,10 +12357,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          372,
-          290,
-          42,
-          84
+          372.0,
+          290.0,
+          42.0,
+          84.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12101,7 +12390,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.02
+        "elapsed_ms": 12.47
       },
       "failure_mode": "correct"
     },
@@ -12122,10 +12411,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          377,
-          284,
-          43,
-          88
+          377.0,
+          284.0,
+          43.0,
+          88.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12155,7 +12444,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.09
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -12176,10 +12465,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          381,
-          283,
-          44,
-          90
+          381.0,
+          283.0,
+          44.0,
+          90.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12209,7 +12498,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.0
+        "elapsed_ms": 11.98
       },
       "failure_mode": "correct"
     },
@@ -12230,10 +12519,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          385,
-          283,
-          46,
-          93
+          385.0,
+          283.0,
+          46.0,
+          93.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12263,7 +12552,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.44
+        "elapsed_ms": 12.86
       },
       "failure_mode": "correct"
     },
@@ -12284,10 +12573,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          385,
-          277,
-          47,
-          97
+          385.0,
+          277.0,
+          47.0,
+          97.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12317,7 +12606,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.86
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -12338,10 +12627,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          390,
-          268,
-          49,
-          99
+          390.0,
+          268.0,
+          49.0,
+          99.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12371,7 +12660,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.0
+        "elapsed_ms": 12.55
       },
       "failure_mode": "correct"
     },
@@ -12392,10 +12681,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          395,
-          261,
-          50,
-          104
+          395.0,
+          261.0,
+          50.0,
+          104.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12425,7 +12714,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.3
+        "elapsed_ms": 12.76
       },
       "failure_mode": "correct"
     },
@@ -12446,10 +12735,10 @@
         "phases": "{'green'}",
         "phase_str": "green",
         "bbox_px": [
-          401,
-          260,
-          51,
-          109
+          401.0,
+          260.0,
+          51.0,
+          109.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12479,7 +12768,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.89
+        "elapsed_ms": 15.32
       },
       "failure_mode": "correct"
     },
@@ -12500,10 +12789,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          407,
-          258,
-          53,
-          112
+          407.0,
+          258.0,
+          53.0,
+          112.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12533,7 +12822,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.44
+        "elapsed_ms": 15.0
       },
       "failure_mode": "correct"
     },
@@ -12554,10 +12843,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          411,
-          252,
-          56,
-          117
+          411.0,
+          252.0,
+          56.0,
+          117.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12587,7 +12876,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.11
+        "elapsed_ms": 14.0
       },
       "failure_mode": "correct"
     },
@@ -12608,10 +12897,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          419,
-          240,
-          58,
-          124
+          419.0,
+          240.0,
+          58.0,
+          124.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12641,7 +12930,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.71
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -12662,10 +12951,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          427,
-          232,
-          61,
-          130
+          427.0,
+          232.0,
+          61.0,
+          130.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12695,7 +12984,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.02
+        "elapsed_ms": 13.0
       },
       "failure_mode": "correct"
     },
@@ -12716,10 +13005,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          433,
-          226,
-          64,
-          137
+          433.0,
+          226.0,
+          64.0,
+          137.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12749,7 +13038,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.0
+        "elapsed_ms": 13.01
       },
       "failure_mode": "correct"
     },
@@ -12770,10 +13059,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          445,
-          216,
-          67,
-          145
+          445.0,
+          216.0,
+          67.0,
+          145.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12803,7 +13092,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.72
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -12824,10 +13113,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          455,
-          199,
-          71,
-          154
+          455.0,
+          199.0,
+          71.0,
+          154.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12857,7 +13146,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.23
+        "elapsed_ms": 10.82
       },
       "failure_mode": "correct"
     },
@@ -12878,10 +13167,10 @@
         "phases": "{'yellow'}",
         "phase_str": "yellow",
         "bbox_px": [
-          469,
-          180,
-          76,
-          167
+          469.0,
+          180.0,
+          76.0,
+          167.0
         ],
         "detected_lamps": {
           "red": false,
@@ -12911,7 +13200,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.32
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -12932,10 +13221,10 @@
         "phases": "{'red', 'yellow'}",
         "phase_str": "red,yellow",
         "bbox_px": [
-          484,
-          167,
-          83,
-          182
+          484.0,
+          167.0,
+          83.0,
+          182.0
         ],
         "detected_lamps": {
           "red": true,
@@ -12965,7 +13254,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.0
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -12986,10 +13275,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          503,
-          147,
-          91,
-          198
+          503.0,
+          147.0,
+          91.0,
+          198.0
         ],
         "detected_lamps": {
           "red": true,
@@ -13019,7 +13308,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 13.36
+        "elapsed_ms": 11.85
       },
       "failure_mode": "correct"
     },
@@ -13040,10 +13329,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          518,
-          116,
-          106,
-          218
+          518.0,
+          116.0,
+          106.0,
+          218.0
         ],
         "detected_lamps": {
           "red": true,
@@ -13073,7 +13362,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.92
+        "elapsed_ms": 13.05
       },
       "failure_mode": "correct"
     },
@@ -13094,10 +13383,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          546,
-          73,
-          82,
-          247
+          546.0,
+          73.0,
+          82.0,
+          247.0
         ],
         "detected_lamps": {
           "red": true,
@@ -13127,7 +13416,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.74
+        "elapsed_ms": 14.09
       },
       "failure_mode": "correct"
     },
@@ -13148,10 +13437,10 @@
         "phases": "{'red'}",
         "phase_str": "red",
         "bbox_px": [
-          583,
-          53,
-          50,
-          200
+          583.0,
+          53.0,
+          50.0,
+          200.0
         ],
         "detected_lamps": {
           "red": true,
@@ -13181,7 +13470,7 @@
         "localization_correct": true,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.0
+        "elapsed_ms": 12.0
       },
       "failure_mode": "correct"
     },
@@ -13197,7 +13486,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13237,7 +13530,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13277,7 +13574,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13301,7 +13602,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 4.0
+        "elapsed_ms": 6.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13317,7 +13618,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13357,7 +13662,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13381,7 +13690,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.52
+        "elapsed_ms": 4.25
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13397,10 +13706,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          40,
-          331,
-          32,
-          48
+          40.0,
+          331.0,
+          32.0,
+          48.0
         ],
         "detected_lamps": {
           "red": false,
@@ -13430,7 +13739,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 11.0
+        "elapsed_ms": 10.51
       },
       "failure_mode": "false_positive (phantom detection)"
     },
@@ -13446,7 +13755,99 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 5.01
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 274,
+      "image_filename": "frame_000067.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000067.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
+      },
+      "per_lamp": {
+        "green": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "red": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        },
+        "yellow": {
+          "gt_lit": false,
+          "pred_lit": false,
+          "correct": true
+        }
+      },
+      "metrics": {
+        "iou": 0.0,
+        "localization_correct": false,
+        "phase_correct": true,
+        "housing_found": false,
+        "elapsed_ms": 5.99
+      },
+      "failure_mode": "correct (no detection)"
+    },
+    {
+      "frame_idx": 275,
+      "image_filename": "frame_000068.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000068.jpg",
+      "ground_truth": {
+        "phases": "set()",
+        "bbox_px": null
+      },
+      "prediction": {
+        "phases": "set()",
+        "phase_str": "off",
+        "bbox_px": null,
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13475,9 +13876,9 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 274,
-      "image_filename": "frame_000067.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000067.jpg",
+      "frame_idx": 276,
+      "image_filename": "frame_000069.jpg",
+      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000069.jpg",
       "ground_truth": {
         "phases": "set()",
         "bbox_px": null
@@ -13486,47 +13887,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
         }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 6.0
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
-      "frame_idx": 275,
-      "image_filename": "frame_000068.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000068.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
       },
       "per_lamp": {
         "green": {
@@ -13555,46 +13920,6 @@
       "failure_mode": "correct (no detection)"
     },
     {
-      "frame_idx": 276,
-      "image_filename": "frame_000069.jpg",
-      "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000069.jpg",
-      "ground_truth": {
-        "phases": "set()",
-        "bbox_px": null
-      },
-      "prediction": {
-        "phases": "set()",
-        "phase_str": "off",
-        "bbox_px": null,
-        "detected_lamps": {}
-      },
-      "per_lamp": {
-        "green": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "red": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        },
-        "yellow": {
-          "gt_lit": false,
-          "pred_lit": false,
-          "correct": true
-        }
-      },
-      "metrics": {
-        "iou": 0.0,
-        "localization_correct": false,
-        "phase_correct": true,
-        "housing_found": false,
-        "elapsed_ms": 5.0
-      },
-      "failure_mode": "correct (no detection)"
-    },
-    {
       "frame_idx": 277,
       "image_filename": "frame_000070.jpg",
       "image_path": "C:\\Users\\AlexanderKorvyakov\\Documents\\Code\\lego-train\\data\\labeled\\LEGO-Train-Traffic-Lights\\20260928_161408\\frames\\frame_000070.jpg",
@@ -13606,10 +13931,10 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": [
-          2,
-          349,
-          14,
-          21
+          2.0,
+          349.0,
+          14.0,
+          21.0
         ],
         "detected_lamps": {
           "red": false,
@@ -13639,7 +13964,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": true,
-        "elapsed_ms": 12.88
+        "elapsed_ms": 12.0
       },
       "failure_mode": "false_positive (phantom detection)"
     },
@@ -13655,7 +13980,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13679,7 +14008,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 7.0
+        "elapsed_ms": 5.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13695,7 +14024,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13719,7 +14052,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.51
+        "elapsed_ms": 6.21
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13735,7 +14068,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13759,7 +14096,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 3.99
+        "elapsed_ms": 5.79
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13775,7 +14112,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13799,7 +14140,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.41
+        "elapsed_ms": 4.99
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13815,7 +14156,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13839,7 +14184,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 4.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13855,7 +14200,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13879,7 +14228,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 4.5
+        "elapsed_ms": 5.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13895,7 +14244,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13935,7 +14288,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13959,7 +14316,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.37
+        "elapsed_ms": 6.02
       },
       "failure_mode": "correct (no detection)"
     },
@@ -13975,7 +14332,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -13999,7 +14360,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 5.05
+        "elapsed_ms": 5.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -14015,7 +14376,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -14039,7 +14404,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 4.81
+        "elapsed_ms": 4.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -14055,7 +14420,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -14079,7 +14448,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 4.58
+        "elapsed_ms": 5.51
       },
       "failure_mode": "correct (no detection)"
     },
@@ -14095,7 +14464,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {
@@ -14119,7 +14492,7 @@
         "localization_correct": false,
         "phase_correct": true,
         "housing_found": false,
-        "elapsed_ms": 6.0
+        "elapsed_ms": 5.0
       },
       "failure_mode": "correct (no detection)"
     },
@@ -14135,7 +14508,11 @@
         "phases": "set()",
         "phase_str": "off",
         "bbox_px": null,
-        "detected_lamps": {}
+        "detected_lamps": {
+          "red": false,
+          "yellow": false,
+          "green": false
+        }
       },
       "per_lamp": {
         "green": {

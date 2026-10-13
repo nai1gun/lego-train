@@ -18,13 +18,16 @@ PROJECT_ROOT = SRC_DIR.parent
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
+from detectors import create_detector, get_available_detectors
+
+# Legacy imports (kept for annotation loading only)
 from detect_traffic_light import (
-    find_traffic_light_housing,
-    _detect_lamps_lit,
-    _compute_phase_from_lamps,
     LAMP_Y_FRACTIONS,
     LAMP_RADIUS_FRACTION,
 )
+
+# Module-level detector instance (set in main() before benchmarking)
+_detector = None  # type: ignore
 
 
 # ============================================================================
@@ -181,29 +184,27 @@ def compute_iou(box_a, box_b):
 
 
 def run_detection_on_image(image_path):
-    """Run the traffic light detection algorithm on a single image."""
+    """Run the traffic light detection algorithm on a single image via the detector protocol."""
     frame = cv2.imread(str(image_path))
     if frame is None:
         return {"housing_bbox": None, "phase": "unknown", "housing_found": False, "detected_lamps": {}}
-    housing_bbox = find_traffic_light_housing(frame)
-    housing_found = housing_bbox is not None
-    result = {"housing_bbox": housing_bbox, "housing_found": housing_found, "detected_lamps": {}, "phase": "off"}
-    if not housing_found:
-        return result
-    x, y, w, h = housing_bbox
-    lamp_positions = []
-    for label, y_frac in LAMP_Y_FRACTIONS.items():
-        cx = x + w / 2
-        cy = y + h * y_frac
-        radius = h * LAMP_RADIUS_FRACTION
-        lamp_positions.append((label, cx, cy, radius))
-    lit_states, lamp_brightnesses, lamp_hues, hue_warnings, lit_fractions = _detect_lamps_lit(frame, housing_bbox, lamp_positions)
-    result["detected_lamps"] = lit_states
-    result["lamp_brightnesses"] = lamp_brightnesses
-    result["lamp_lit_fractions"] = lit_fractions  # NEW: lit fractions for debugging
-    phase = _compute_phase_from_lamps(lit_states)
-    result["phase"] = phase
-    result["hue_warnings"] = hue_warnings
+    
+    # Run detection via detector protocol
+    det_result = _detector.detect(frame)
+    phase = det_result.phase
+    bbox = det_result.bbox
+    housing_found = bbox is not None
+    lamp_states = det_result.lamp_states
+    
+    result = {
+        "housing_bbox": bbox,
+        "housing_found": housing_found,
+        "detected_lamps": lamp_states,
+        "phase": phase,
+        "lamp_brightnesses": {},
+        "lamp_lit_fractions": {},
+        "hue_warnings": [],
+    }
     return result
 
 
@@ -285,7 +286,7 @@ def benchmark_one_frame(annotation, image_path):
 # ============================================================================
 
 
-def generate_report(results, generated_at=None, git_commit=None, session_meta=None):
+def generate_report(results, generated_at=None, git_commit=None, session_meta=None, detector_type=None):
     """Generate a comprehensive benchmark report from the results."""
     total = len(results)
     if total == 0:
@@ -305,6 +306,7 @@ def generate_report(results, generated_at=None, git_commit=None, session_meta=No
     metadata = {
         "generated_at": generated_at,
         "git_commit": git_commit,
+        "detector_type": detector_type or "unknown",
     }
 
     # Extract key session/run info
@@ -548,6 +550,7 @@ def generate_markdown_report(report):
     add("|-------|-------|")
     add(f'| Generated at | {metadata.get("generated_at", "unknown")} |')
     add(f'| Git commit   | `{metadata.get("git_commit", "unknown")}` |')
+    add(f'| Detector type | {metadata.get("detector_type", "unknown")} |')
 
     # Session/run info (camera settings, resolution, etc.)
     session_fields = [
@@ -650,12 +653,21 @@ def generate_markdown_report(report):
 
 def main():
     """Run the benchmark and save results."""
+    available = ", ".join(get_available_detectors())
     parser = argparse.ArgumentParser(description="Benchmark traffic light detection")
+    parser.add_argument("--detector-type", type=str, default="heuristics",
+                        help=f"Detector to use (default: 'heuristics'). Available: {available}.")
     parser.add_argument("--dataset-dir", type=str, default=None, help="Path to dataset or run directory")
     parser.add_argument("--run", type=str, default=None, help="Specific run name to benchmark (e.g. 20260917_065933)")
     parser.add_argument("--output", type=str, default="benchmark_report.json", help="Custom output report base name (without extension). Default: benchmark_report_<run_name>")
     parser.add_argument("--dry-run", action="store_true", help="Run only first 5 frames for testing")
     args = parser.parse_args()
+
+    # Create detector via protocol
+    detector = create_detector(args.detector_type)
+    print(f"[INFO] Using detector: {detector.detector_type}")
+    global _detector  # type: ignore
+    _detector = detector
 
     # Determine the base directory the user passed
     if args.dataset_dir:
@@ -714,7 +726,7 @@ def main():
     # Generate a single combined report across all runs
     generated_at = datetime.now().isoformat()
     git_commit = _get_git_commit()
-    report = generate_report(all_results, generated_at=generated_at, git_commit=git_commit)
+    report = generate_report(all_results, generated_at=generated_at, git_commit=git_commit, detector_type=args.detector_type)
 
     # Determine report output directory
     reports_dir = PROJECT_ROOT / "reports"

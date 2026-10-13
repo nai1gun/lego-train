@@ -4,16 +4,35 @@ This folder contains unit tests for the LEGO Train project.
 
 ## Running tests
 
-```bash
+```powershell
 # Activate the virtual environment first
 .venv\Scripts\activate
 
 # Run all tests
 pytest
+
+# Run only traffic light detector tests
+pytest tests/test_traffic_light.py -v
 ```
 
 ## Current status
 
-No unit tests yet. This folder is reserved for future tests (e.g., mocking BLE responses, validating motor power commands).
+### Traffic Light Detector Tests (`test_traffic_light.py`)
 
-The camera smoke tests live in the `scripts/` folder — those are manual hardware tests, not automated unit tests.
+Tests the modular detector architecture under `src/detectors/`:
+
+| Test | Description | Status |
+|------|-------------|--------|
+| `test_detect_phase[heuristics-...]` | Heuristic detector detects all phases correctly | ✅ Passing |
+| `test_hue_warnings_empty` | Hue warning thresholds don't fire on normal images | ✅ Passing |
+| `test_detect_phase[ml_yolo-...]` | ML detector tests (placeholder) | ⏭️ Skipped |
+
+**Available detectors for testing:**
+- `heuristics` — HSV color thresholding + blob detection (production-ready)
+- `ml_yolo` — YOLO-based detector (placeholder — not yet implemented)
+
+### Future Tests
+
+- Bluetooth controller tests (mocking BLE responses)
+- Motor power command validation
+- Camera capture tests

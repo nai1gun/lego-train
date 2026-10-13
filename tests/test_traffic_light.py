@@ -2,7 +2,7 @@
 Regression tests for the traffic-light detector.
 
 Each test loads one of the sample images from ``media/`` and asserts
-that ``detect_phase_from_image()`` returns the correct phase string.
+that the detector returns the correct phase string.
 
 Run with::
 
@@ -22,11 +22,13 @@ import sys
 
 # Make the project root importable so we can import from scripts/
 _PROJECT_ROOT = pathlib.Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(_PROJECT_ROOT))
+sys.path.insert(0, str(_PROJECT_ROOT / "src"))
 
 import pytest
 
-from scripts.detect_traffic_light import detect_phase_from_image
+import cv2
+
+from detectors import create_detector, get_available_detectors
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -44,6 +46,7 @@ _EXPECTED_PHASES = {
     "traffic_light_yellow": "yellow",
 }
 
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -55,12 +58,13 @@ def _image_path(name: str) -> pathlib.Path:
 
 
 # ---------------------------------------------------------------------------
-# Per-image phase tests
+# Per-image phase tests (parameterized by detector type)
 # ---------------------------------------------------------------------------
 
 
 @pytest.mark.parametrize("stem,expected_phase", sorted(_EXPECTED_PHASES.items()))
-def test_detect_phase(stem: str, expected_phase: str) -> None:
+@pytest.mark.parametrize("detector_type", get_available_detectors())
+def test_detect_phase(stem: str, expected_phase: str, detector_type: str) -> None:
     """Run the detector on one sample image and assert the correct phase."""
     image_path = _image_path(stem)
 
@@ -68,13 +72,16 @@ def test_detect_phase(stem: str, expected_phase: str) -> None:
     if not image_path.exists():
         pytest.skip(f"Media file not found: {image_path}")
 
-    result = detect_phase_from_image(str(image_path))
-    assert result["phase"] == expected_phase, (
-        f"Expected phase '{expected_phase}' for {stem}, got '{result['phase']}'\n"
-        f"  bbox={result['bbox']}\n"
-        f"  red={result['red_lit']}({result['red_lit_pixels']}px)  "
-        f"yellow={result['yellow_lit']}({result['yellow_lit_pixels']}px)  "
-        f"green={result['green_lit']}({result['green_lit_pixels']}px)"
+    # Skip unimplemented detectors (they return placeholder results)
+    if detector_type == "ml_yolo":
+        pytest.skip("ML detector not yet implemented (placeholder)")
+
+    detector = create_detector(detector_type)
+    result = detector.detect(cv2.imread(str(image_path)))
+
+    assert result.phase == expected_phase, (
+        f"[{detector_type}] Expected phase '{expected_phase}' for {stem}, "
+        f"got '{result.phase}'"
     )
 
 
@@ -85,13 +92,15 @@ def test_detect_phase(stem: str, expected_phase: str) -> None:
 
 def test_hue_warnings_empty() -> None:
     """All sample images should have empty hue_warnings (hues match expected ranges)."""
+    detector = create_detector("heuristics")
     for stem, _ in _EXPECTED_PHASES.items():
         image_path = _image_path(stem)
         if not image_path.exists():
             pytest.skip(f"Media file not found: {image_path}")
 
-        result = detect_phase_from_image(str(image_path))
-        hue_warnings = result.get("_hue_warnings", [])
+        result = detector.detect(cv2.imread(str(image_path)))
+        hue_warnings = result._raw.get("_hue_warnings", [])
         assert hue_warnings == [], (
             f"Expected empty hue_warnings for {stem}, got: {hue_warnings}"
         )
+

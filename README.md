@@ -29,10 +29,18 @@ python tools/data_collection/annotate_train.py
 
 ```
 src/
-  bluetooth_controller.py     # Bluetooth controller for LEGO motors
+  detectors/                    # Modular traffic light detector package
+    __init__.py                 # Factory: create_detector("heuristics")
+    base.py                     # TrafficLightDetector protocol, DetectionResult
+    heuristics.py               # Heuristic-based detector (original logic)
+    ml.py                       # ML-based detector (YOLO placeholder)
+  detect_traffic_light.py       # CLI: live detection, regression testing
+  view_traffic_light.py         # CLI: terminal phase viewer
+  bluetooth_controller.py       # Bluetooth controller for LEGO motors
 
 scripts/                      # Development & utility scripts
-  benchmark_traffic_light.py  # Benchmark detection model against curated runs
+  benchmark_traffic_light.py  # Benchmark detection against labeled dataset
+  camera_smoke_test.py        # Pi camera hardware test
 
 tools/                        # All project scripts
   data_collection/            # Camera data capture scripts
@@ -49,8 +57,9 @@ data/                         # Data pipeline directories
   labeled/                    # Labeled datasets (ready for HF upload)
 
 datasets/                     # Local dataset storage (synced to HF)
-tests/                        # Unit tests (reserved for future)
+tests/                        # Unit tests
 README.md                     # This file
+SETUP_PI.md                  # Raspberry Pi setup guide
 .clinerules                   # Project documentation and guidelines
 ```
 
@@ -232,9 +241,53 @@ The main script will:
 3. Begin processing camera frames for track detection
 4. Send motor commands based on visual feedback
 
+## Traffic Light Detection
+
+All traffic light detection scripts support pluggable detector backends via `--detector-type`:
+
+| Script | Purpose |
+|--------|---------|
+| `src/detect_traffic_light.py` | Live detection from camera + regression test against labeled data |
+| `src/view_traffic_light.py` | Terminal-based real-time phase viewer |
+| `scripts/benchmark_traffic_light.py` | Benchmark detector against labeled dataset |
+
+Available detectors:
+
+| Detector | Type | Description |
+|----------|------|-------------|
+| `heuristics` | Heuristic | HSV color thresholding + blob detection (original logic, production-ready) |
+| `ml_yolo` | ML | YOLO-based detector (placeholder — not yet implemented) |
+
+```bash
+# Live detection with heuristic detector
+python src/detect_traffic_light.py --detector-type heuristics
+
+# Run regression test against labeled data
+python src/detect_traffic_light.py --detector-type heuristics --regression-test
+
+# View traffic light phases in terminal
+python src/view_traffic_light.py --detector-type heuristics
+```
+
+### Adding a New Detector
+
+1. Create `src/detectors/my_detector.py` implementing the `TrafficLightDetector` protocol:
+   ```python
+   class MyDetector(TrafficLightDetector):
+       detector_type: str = "my_detector"
+
+       def detect(self, frame: np.ndarray) -> DetectionResult:
+           # Return DetectionResult with detections
+           ...
+   ```
+
+2. The factory in `src/detectors/__init__.py` auto-registers new detectors by convention.
+
+3. Use it: `python src/detect_traffic_light.py --detector-type my_detector`
+
 ## Benchmarking
 
-Evaluate your traffic-light detection model against a curated video run:
+Evaluate your traffic-light detection model against a curated video run. **Always specify `--detector-type`** to track which detector produced the results:
 
 ```bash
 # Activate the virtual environment first
@@ -242,13 +295,16 @@ source .venv/bin/activate   # Linux/Mac
 # .venv\Scripts\activate   # Windows
 
 # Run benchmark (defaults to first run in data/labeled/)
-python scripts/benchmark_traffic_light.py
+python scripts/benchmark_traffic_light.py --detector-type heuristics
 
 # Benchmark a specific run
 python scripts/benchmark_traffic_light.py --dataset-dir data\labeled\LEGO-Train-Traffic-Lights
 
 # Quick dry run (first 5 frames only)
-python scripts/benchmark_traffic_light.py --dry-run
+python scripts/benchmark_traffic_light.py --detector-type heuristics --dry-run
+
+# Benchmark all labeled runs
+python scripts/benchmark_traffic_light.py --detector-type heuristics --all-runs
 ```
 
 The script produces two reports in the `reports/` directory:
@@ -256,7 +312,7 @@ The script produces two reports in the `reports/` directory:
 | File                              | Description                                                                  |
 | --------------------------------- | ---------------------------------------------------------------------------- |
 | `reports/benchmark_report.json` | Full machine-readable results (per-frame IoU, failure modes, metrics)        |
-| `reports/benchmark_report.md`   | Human-readable summary with metadata (resolution, camera settings, exposure) |
+| `reports/benchmark_report.md`   | Human-readable summary with metadata (resolution, camera settings, exposure, **detector type**) |
 
 The Markdown report includes session metadata (resolution, FPS, exposure time, analogue gain, HDR/NR mode) so you can correlate detection quality with camera conditions.
 

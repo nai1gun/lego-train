@@ -47,11 +47,8 @@ _SCRIPT_DIR = Path(__file__).resolve().parent
 if str(_SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(_SCRIPT_DIR))
 
-from detect_traffic_light import (
-    find_traffic_light_housing,
-    detect_phase_from_bbox,
-    KeyboardListener,
-)
+from detectors import create_detector
+from detect_traffic_light import KeyboardListener
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -244,6 +241,7 @@ def run_viewer(
     camera_index: int = -1,
     resolution: tuple = (DEFAULT_WIDTH, DEFAULT_HEIGHT),
     video_path: str | None = None,
+    detector_type: str = "heuristics",
 ):
     """Run the terminal phase viewer.
 
@@ -299,6 +297,10 @@ def run_viewer(
     print("[INFO] Press 'q' to quit at any time...")
     viewer = PhaseViewer()
 
+    # Initialize detector via protocol
+    detector = create_detector(detector_type)
+    print(f"[INFO] Using detector: {detector.detector_type}")
+
     try:
         while True:
             # Capture one frame
@@ -309,14 +311,9 @@ def run_viewer(
                     break  # end of video file
                 continue
 
-            # Detect traffic light housing (bounding box)
-            bbox = find_traffic_light_housing(frame)
-
-            # Detect phase inside the bounding box
-            result = detect_phase_from_bbox(frame, bbox)
-            current_phase = result["phase"]  # 'off', 'green', 'yellow',
-                                              # 'red', 'red_yellow',
-                                              # 'no_detection'
+            # Run detection via detector protocol
+            det_result = detector.detect(frame)
+            current_phase = det_result.phase
 
             # Update terminal display (debounced, colored)
             viewer.update(current_phase)
@@ -401,6 +398,15 @@ def main():
         help="Process a video file instead of live camera.",
     )
 
+    # Detector selection
+    available = ", ".join(get_available_detectors())
+    parser.add_argument(
+        "--detector-type",
+        type=str,
+        default="heuristics",
+        help=f"Detector to use (default: 'heuristics'). Available: {available}.",
+    )
+
     args = parser.parse_args()
 
     # Parse resolution string "WxH" -> (W, H)
@@ -418,6 +424,7 @@ def main():
         camera_index=args.camera,
         resolution=resolution,
         video_path=args.video,
+        detector_type=args.detector_type,
     )
 
 
